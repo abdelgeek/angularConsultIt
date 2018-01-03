@@ -1,0 +1,193 @@
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Quotation <small>Get Quote - Project features</small>
+
+		</h1>
+		<ol class="breadcrumb">
+			<li><a href="index.html"><i class="fa fa-dashboard"></i>
+					Home</a></li>
+			<li><a href="#">Quotation</a></li>
+			<li class="active"><a href="#">Get Quote - Project features</a></li>
+		</ol>
+	</section>
+
+	<!-- Main content -->
+	<section class="content">
+
+		<!-- /.row -->
+		<!-- Main row -->
+		<div class="row justify-content-center">
+			<!-- Left col -->
+			<section class="col">
+
+				<!-- quick email widget -->
+				<div class="box box-info">
+					<div class="progress quote-progress">
+						<div class="progress-bar bg-primary" role="progressbar"
+							style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+							aria-valuemax="100"></div>
+					</div>
+					<div class="box-header">
+						<i class="fa fa-calculator"></i>
+
+						<h3 class="box-title">Get quote - Project features</h3>
+
+					</div>
+					<div class="box-body">
+
+						<form action="#" method="post">
+
+							<div class="md-form">
+								<input type="text" class="form-control" value=""
+									name="equipementName" id="equipementName"> <label
+									for="equipementName">Product name</label>
+							</div>
+							<div class="md-form">
+								<input type="text" class="form-control" value=""
+									name="equipementModel" id="equipementModel"> <label
+									for="equipementModel">Product model</label>
+							</div>
+							<div class="md-form">
+								<input type="text" class="form-control" value=""
+									name="equipementMark" id="equipementMark"> <label
+									for="equipementMark">Product Brand </label>
+							</div>
+							<div class="md-form">
+								<textarea type="text" id="form107" class="md-textarea"
+									style="height: 70px"></textarea>
+								<label for="form107">Product Description</label>
+							</div>
+
+							<div class="">
+								<label class="title">Approval Type</label>
+								<div class="form-inline" id="approvalTypeDiv">
+									<div *ngFor="let a of listApprovalType" class="form-group">
+										<input name="approvalType{{a.id}}" [(ngModel)]="approvalId"
+											(ngModelChange)="findEquipment()" class="mr-1 checked-title"
+											type="radio" value="{{a.id}}" id="{{a.name}}"> <label
+											for="{{a.name}}">{{a.name}}</label>
+									</div>
+								</div>
+
+								<!-- equipement category -->
+
+								<div id="eqmtType"
+									class=" active-radio-item jumbotron  z-depth-0"
+									*ngIf="showEquipement">
+									<label class="title">Equipement type </label>
+									<div class="row" id="eqmtType-item">
+										<div *ngFor="let e of listEquipment"
+											class="  col-md-3  col-sm-4">
+											<input type="checkbox" id="{{e.name}}"> <label
+												for="{{e.name}}">{{e.name}}</label>
+										</div>
+									</div>
+
+
+									<div class="row" *ngIf="showFrequency">
+										<label class=" col-md-12 title">Frequency Band </label>
+
+										<div *ngFor="let f of listFrequency"
+											class=" col-md-3  col-sm-4">
+											<input name="freq{{f.id}}"
+												(change)="findCountriesByFrequency(f.id)" type="checkbox"
+												id="freq{{f.id}}" value="{{f.id}}"> <label
+												for="freq{{f.id}}">{{f.minFrequency}} -
+												{{f.maxFrequency}} {{f.unit}}</label>
+										</div>
+
+									</div>
+
+
+								</div>
+
+								<div class="row mt-2">
+									<label class=" col-md-12 title">Countries </label>
+
+									<div *ngFor="let c of listCountries"
+										class=" col-md-3  col-sm-4">
+										<input [disabled]="false" name="country{{c.id}}"
+											(change)="findCategories(c.id,categorieContent)"
+											type="checkbox" id="country{{c.id}}"> <label
+											for="country{{c.id}}">{{c.name}}</label>
+
+									</div>
+
+								</div>
+							</div>
+
+
+
+							<hr>
+
+							<ng-template #categorieContent="bs-modal" let-c="close" let-d="dismiss"  >
+							
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Choose the
+											categorie of the equipement</h5>
+
+									</div>
+									<div class="modal-body">
+
+										<div class="card-body">
+											<div class="container-fluid">
+												<div class="row">
+
+													<div class="col" *ngFor="let cat of listCategories ">
+														<div class="form-group">
+															<input  name="groupCat"
+																value="Categorie 1" type="radio" id="radio102">
+															<label for="radio102">{{cat.categoryName}}</label>
+														</div>
+														<ul class="categorie-items">
+															<li>Equipement a</li>
+															
+														</ul>
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+									<div class="modal-footer">
+
+										<button type="button" data-dismiss="modal"
+											class="btn btn-primary">Save</button>
+									</div>
+							</ng-template>
+
+							<button class="btn btn-lg btn-outline-primary"
+								(click)="open(categorieContent)">Launch demo modal</button>
+
+							<hr>
+
+
+
+
+
+						</form>
+					</div>
+					<div class="box-footer clearfix">
+						<a href="getQuote-Step2.html" type="button"
+							class="pull-right btn btn-default">Next step <i
+							class="fa fa-arrow-circle-right"></i></a>
+					</div>
+				</div>
+
+			</section>
+			<!-- /.Left col -->
+			<!-- right col (We are only adding the ID to make the widgets sortable)-->
+
+			<!-- right col -->
+		</div>
+		<!-- /.row (main row) -->
+
+	</section>
+	<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
