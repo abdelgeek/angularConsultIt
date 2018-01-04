@@ -16,6 +16,7 @@ import {QuoteStep3Component} from './Customcomponents/quote-step3/quote-step3.co
 import { LoginComponent } from './Customcomponents/login/login.component';
 import {QuoteStep1Service} from './service/quote-step1-service';
 import {Glservice} from './service/glservice';
+import {ProjectService} from './service/project.service';
 
 import {FormsModule} from '@angular/forms';
 
@@ -49,7 +50,7 @@ const appRoutes: Routes = [
     FormsModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [QuoteStep1Service, Glservice],
+  providers: [QuoteStep1Service, Glservice, ProjectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

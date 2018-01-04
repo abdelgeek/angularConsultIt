@@ -42,22 +42,22 @@
 						<form action="#" method="post">
 
 							<div class="md-form">
-								<input type="text" class="form-control" value=""
+								<input type="text" [(ngModel)]="project.name" class="form-control"  
 									name="equipementName" id="equipementName"> <label
 									for="equipementName">Product name</label>
 							</div>
 							<div class="md-form">
-								<input type="text" class="form-control" value=""
+								<input type="text" class="form-control"  [(ngModel)]="project.model"
 									name="equipementModel" id="equipementModel"> <label
 									for="equipementModel">Product model</label>
 							</div>
 							<div class="md-form">
-								<input type="text" class="form-control" value=""
+								<input type="text" class="form-control"  [(ngModel)]="project.brand"
 									name="equipementMark" id="equipementMark"> <label
 									for="equipementMark">Product Brand </label>
 							</div>
 							<div class="md-form">
-								<textarea type="text" id="form107" class="md-textarea"
+								<textarea type="text" id="form107"  name="description" [(ngModel)]="project.description" class="md-textarea"
 									style="height: 70px"></textarea>
 								<label for="form107">Product Description</label>
 							</div>
@@ -66,8 +66,8 @@
 								<label class="title">Approval Type</label>
 								<div class="form-inline" id="approvalTypeDiv">
 									<div *ngFor="let a of listApprovalType" class="form-group">
-										<input name="approvalType{{a.id}}" [(ngModel)]="approvalId"
-											(ngModelChange)="findEquipment()" class="mr-1 checked-title"
+										<input name="approvalType{{a.id}}" [(ngModel)]="project.approvalType"
+											(ngModelChange)="getApprovalType(a.id,$event)" class="mr-1 checked-title"
 											type="radio" value="{{a.id}}" id="{{a.name}}"> <label
 											for="{{a.name}}">{{a.name}}</label>
 									</div>
@@ -82,7 +82,7 @@
 									<div class="row" id="eqmtType-item">
 										<div *ngFor="let e of listEquipment"
 											class="  col-md-3  col-sm-4">
-											<input type="checkbox" id="{{e.name}}"> <label
+											<input  (change)='getEquipementType(e.id,$event)' type="checkbox" id="{{e.name}}"> <label
 												for="{{e.name}}">{{e.name}}</label>
 										</div>
 									</div>
@@ -111,7 +111,7 @@
 									<div *ngFor="let c of listCountries"
 										class=" col-md-3  col-sm-4">
 										<input [disabled]="false" name="country{{c.id}}"
-											(change)="findCategories(c.id,categorieContent)"
+											(change)="getCountry(c.id,$event,categorieContent)"
 											type="checkbox" id="country{{c.id}}"> <label
 											for="country{{c.id}}">{{c.name}}</label>
 
@@ -124,7 +124,7 @@
 
 							<hr>
 
-							<ng-template #categorieContent="bs-modal" let-c="close" let-d="dismiss"  >
+							<ng-template #categorieContent let-c="close" let-d="dismiss"  >
 							
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabel">Choose the
@@ -139,12 +139,12 @@
 
 													<div class="col" *ngFor="let cat of listCategories ">
 														<div class="form-group">
-															<input  name="groupCat"
-																value="Categorie 1" type="radio" id="radio102">
-															<label for="radio102">{{cat.categoryName}}</label>
+															<input  name="categoryId" [(ngModel)]="categoryId"
+																value="{{cat.id}}" type="radio" id="cat{{cat.id}}">
+															<label for="cat{{cat.id}}">{{cat.categoryName}}</label>
 														</div>
 														<ul class="categorie-items">
-															<li>Equipement a</li>
+															<li></li>
 															
 														</ul>
 													</div>
@@ -156,24 +156,17 @@
 
 									<div class="modal-footer">
 
-										<button type="button" data-dismiss="modal"
+										<button type="button" (click)="getCategory(categoryId)" data-dismiss="modal"
 											class="btn btn-primary">Save</button>
 									</div>
 							</ng-template>
 
-							<button class="btn btn-lg btn-outline-primary"
-								(click)="open(categorieContent)">Launch demo modal</button>
-
-							<hr>
-
-
-
-
+						
 
 						</form>
 					</div>
 					<div class="box-footer clearfix">
-						<a href="getQuote-Step2.html" type="button"
+						<a (click)=" redirectNextStep()" type="button"
 							class="pull-right btn btn-default">Next step <i
 							class="fa fa-arrow-circle-right"></i></a>
 					</div>
