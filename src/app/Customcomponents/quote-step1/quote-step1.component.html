@@ -116,7 +116,7 @@
 											for="country{{c.id}}">{{c.name}}</label>
 												<div class="row">
 												<div class="col-md-12">
-													<small *ngIf="hasCat[c.id]"><a (click)=" open(categorieContent);" class="text-primary">La categorie</a><span></span>:</small>
+													<small *ngIf="hasCat[c.id]"><a (click)=" open(c.id,categorieContent);" class="text-primary">La categorie</a><span></span>:</small>
 													</div>
 												</div>
 												

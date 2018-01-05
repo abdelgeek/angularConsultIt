@@ -154,7 +154,7 @@ export class QuoteStep1Component implements OnInit {
 
   }
 
-  findCategories(countryId: number, content) {
+  findCategories(countryId: number) {
     this.quoteStep1Service.findCategories(countryId)
       .subscribe(data => {
         this.listCategories = data;
@@ -195,13 +195,12 @@ export class QuoteStep1Component implements OnInit {
 
     if ((this.isCheckCountry) && (this.project.country.indexOf(countryId) === -1)) {
       this.project.country.push(countryId);
-      this.findCategories(countryId, categorieContent);
+      this.findCategories(countryId);
     } else {
       this.index = this.project.country.indexOf(countryId);
       this.project.country.splice(this.index, 1);
       this.hasCat[countryId] = false;
     }
-
 
   }
 
@@ -245,7 +244,8 @@ alert(' oow ') ;
 
   }
 
-  open(categorieContent) {
+  open(countryId, categorieContent) {
+    this.findCategories(countryId);
     this.modalService.open(categorieContent);
   }
 
