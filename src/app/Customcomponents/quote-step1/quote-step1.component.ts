@@ -6,6 +6,7 @@ import {QuoteStep1Service} from '../../service/quote-step1-service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import {ProjectService} from '../../service/project.service';
+import {CountryService } from '../../service/country.service';
 
 @Component({
   selector: 'app-quote-step1',
@@ -28,19 +29,23 @@ export class QuoteStep1Component implements OnInit {
   isCheckCountry: boolean;
   index: number;
   categoryId: number;
+  hasCat: boolean[] = [];
+  oldcat: number[] = [];
+  catCountry: number[] = [];
+  countryId: number;
 
-  constructor(public project: ProjectService, private router: Router, public http: Http, public quoteStep1Service: QuoteStep1Service,
-    public glService: Glservice, private modalService: NgbModal) {
+
+  constructor(public project: ProjectService, private router: Router,
+    public http: Http, public quoteStep1Service: QuoteStep1Service,
+    public glService: Glservice, private modalService: NgbModal,
+  public country: CountryService ) {
   }
 
   ngOnInit() {
 
     this.findCountries();
     this.findFrequencyBand();
-
-
-
-    this.quoteStep1Service.findApprovalType()
+      this.quoteStep1Service.findApprovalType()
       .subscribe(data => {
         console.log(' *******success******* ');
         this.listApprovalType = data;
@@ -52,9 +57,7 @@ export class QuoteStep1Component implements OnInit {
 
   findEquipment() {
 
-
-
-    this.approvalId = this.project.approvalType;
+  // = this.project.approvalType;
     this.quoteStep1Service.findEquipementType(this.approvalId)
       .subscribe(data => {
 
@@ -64,11 +67,12 @@ export class QuoteStep1Component implements OnInit {
           this.listEquipment = data;
           this.showEquipement = true;
 
-          if (this.approvalId === '4') {
+          if (this.approvalId === 4) {
             this.showFrequency = true;
           } else {
             this.showFrequency = false;
           }
+
         }
         this.findCountriesByApproval(this.approvalId);
 
@@ -78,6 +82,7 @@ export class QuoteStep1Component implements OnInit {
   }
 
   findFrequencyBand() {
+    alert(' aah ');
     this.quoteStep1Service.findFrequencyBand()
       .subscribe(data => {
         this.listFrequency = data;
@@ -118,9 +123,6 @@ export class QuoteStep1Component implements OnInit {
 
   }
 
-  open(content) {
-    this.modalService.open(content);
-  }
 
 
   findCountriesByFrequency(frequencyId: number) {
@@ -157,8 +159,10 @@ export class QuoteStep1Component implements OnInit {
       .subscribe(data => {
         this.listCategories = data;
 
+
+
         if (this.listCategories.length > 1) {
-          this.modalService.open(content);
+          this.hasCat[countryId]  = true;
         }
       }, err => {
         console.log('erreur');
@@ -195,6 +199,7 @@ export class QuoteStep1Component implements OnInit {
     } else {
       this.index = this.project.country.indexOf(countryId);
       this.project.country.splice(this.index, 1);
+      this.hasCat[countryId] = false;
     }
 
 
@@ -215,25 +220,34 @@ export class QuoteStep1Component implements OnInit {
   getCategory(categoryId: number) {
 
 
-    if ((this.project.category.indexOf(categoryId) === -1)) {
-      this.project.category.push(categoryId);
-    } else {
-      this.index = this.project.category.indexOf(categoryId);
-      this.project.category.splice(this.index, 1);
+  this.project.category[categoryId] = categoryId;
+
+  this.glService.findCategory(categoryId)
+    .subscribe (data => {
+
+   this.countryId = data.country.id ;
+    });
+
+
+    if ((this.project.category.indexOf(this.countryId) !== categoryId)) {
+      this.project.category[this.countryId] = categoryId;
     }
-
-
-    alert(JSON.stringify(this.project.category)) ;
+alert(' oow ') ;
+     alert(JSON.stringify(this.project)) ;
    }
 
-  getApprovalType(countryId: number, event) {
+  getApprovalType(aprvlId: number, event) {
 
+    this.approvalId = aprvlId;
     this.project.equipementType = [];
     this.project.country = [];
     this.findEquipment();
 
   }
 
+  open(categorieContent) {
+    this.modalService.open(categorieContent);
+  }
 
 
 }

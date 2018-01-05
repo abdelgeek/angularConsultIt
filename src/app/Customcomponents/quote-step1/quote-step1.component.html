@@ -91,7 +91,7 @@
 									<div class="row" *ngIf="showFrequency">
 										<label class=" col-md-12 title">Frequency Band </label>
 
-										<div *ngFor="let f of listFrequency"
+										<div *ngFor="let f of listFrequency" 
 											class=" col-md-3  col-sm-4">
 											<input name="freq{{f.id}}"
 												(change)="findCountriesByFrequency(f.id)" type="checkbox"
@@ -104,16 +104,22 @@
 
 
 								</div>
-
+<hr>
 								<div class="row mt-2">
 									<label class=" col-md-12 title">Countries </label>
 
-									<div *ngFor="let c of listCountries"
-										class=" col-md-3  col-sm-4">
+									<div *ngFor="let c of listCountries;let i=index"
+										class=" col-md-3  col-sm-4 mb-3">
 										<input [disabled]="false" name="country{{c.id}}"
-											(change)="getCountry(c.id,$event,categorieContent)"
+											(change)="getCountry(c.id,$event)"
 											type="checkbox" id="country{{c.id}}"> <label
 											for="country{{c.id}}">{{c.name}}</label>
+												<div class="row">
+												<div class="col-md-12">
+													<small *ngIf="hasCat[c.id]"><a (click)=" open(categorieContent);" class="text-primary">La categorie</a><span></span>:</small>
+													</div>
+												</div>
+												
 
 									</div>
 
@@ -139,9 +145,10 @@
 
 													<div class="col" *ngFor="let cat of listCategories ">
 														<div class="form-group">
-															<input  name="categoryId" [(ngModel)]="categoryId"
+															<input  name="catcountry{{cat.country.id}}" [(ngModel)]="categoryId"
 																value="{{cat.id}}" type="radio" id="cat{{cat.id}}">
 															<label for="cat{{cat.id}}">{{cat.categoryName}}</label>
+														
 														</div>
 														<ul class="categorie-items">
 															<li></li>

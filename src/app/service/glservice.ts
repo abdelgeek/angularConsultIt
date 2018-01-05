@@ -12,4 +12,9 @@ export class Glservice {
 
   }
 
+  findCategory(categoryId) {
+    return this.http.get('http://localhost:8084//findOneCategory?categoryId=' + categoryId )
+      .map(resp => resp.json());
+  }
+
 }
