@@ -4,14 +4,15 @@
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<h1>
-			Quotation <small>Get Quote - Project features</small>
+			Quotation <small>Get Quote - Equipement features</small>
 
 		</h1>
 		<ol class="breadcrumb">
 			<li><a href="index.html"><i class="fa fa-dashboard"></i>
 					Home</a></li>
 			<li><a href="#">Quotation</a></li>
-			<li class="active"><a href="#">Get Quote - Project features</a></li>
+			<li class="active"><a href="#">Get Quote - Equipement
+					features</a></li>
 		</ol>
 	</section>
 
@@ -34,141 +35,202 @@
 					<div class="box-header">
 						<i class="fa fa-calculator"></i>
 
-						<h3 class="box-title">Get quote - Project features</h3>
+						<h3 class="box-title">Get quote - Equipement features</h3>
 
 					</div>
 					<div class="box-body">
 
 						<form action="#" method="post">
 
-							<div class="md-form">
-								<input type="text" [(ngModel)]="project.name" class="form-control"  
-									name="equipementName" id="equipementName"> <label
-									for="equipementName">Product name</label>
+							<div class="form-group">
+								<label for="equipementName">Product name</label> <input
+									type="text" (blur)="onNameBlurMethod(project.name)"
+									[(ngModel)]="project.name" placeholder="Enter product name"
+									class="form-control" name="equipementName" id="equipementName">
+
+								<div *ngIf="alertname " class="form-text mb-1 text-danger">
+									<small>The project name is required</small>
+								</div>
 							</div>
-							<div class="md-form">
-								<input type="text" class="form-control"  [(ngModel)]="project.model"
-									name="equipementModel" id="equipementModel"> <label
-									for="equipementModel">Product model</label>
+
+
+							<div class="form-group">
+								<label for="equipementModel">Product model</label> <input
+									type="text" placeholder="Enter product model"
+									(blur)="onModelBlurMethod(project.model)" class="form-control"
+									[(ngModel)]="project.model" name="equipementModel"
+									id="equipementModel">
+								<div *ngIf="alertmodel " class="mb-1 form-text text-danger">
+									<small>The project model is required</small>
+								</div>
 							</div>
-							<div class="md-form">
-								<input type="text" class="form-control"  [(ngModel)]="project.brand"
-									name="equipementMark" id="equipementMark"> <label
-									for="equipementMark">Product Brand </label>
+
+							<div class="form-group">
+								<label for="equipementMark">Product Brand </label> <input
+									type="text" placeholder="Enter product brand"
+									(blur)="onBrandlBlurMethod(project.brand)" class="form-control"
+									[(ngModel)]="project.brand" name="equipementMark"
+									id="equipementMark">
+								<div *ngIf="alertbrand " class="mb-1 form-text text-danger">
+									<small>The project brand is required</small>
+								</div>
 							</div>
-							<div class="md-form">
-								<textarea type="text" id="form107"  name="description" [(ngModel)]="project.description" class="md-textarea"
-									style="height: 70px"></textarea>
+							<div class="form-group">
 								<label for="form107">Product Description</label>
+								<textarea type="text"
+									(blur)="onDescriptionBlurMethod(project.description)"
+									id="form107" name="description"
+									[(ngModel)]="project.description" class="md-textarea"
+									style="height: 120px"></textarea>
+
+								<div *ngIf="alertdescription " class=" text-danger">
+									<small>Please enter a brief description of the product</small>
+								</div>
 							</div>
 
 							<div class="">
+							<hr>
 								<label class="title">Approval Type</label>
-								<div class="form-inline" id="approvalTypeDiv">
-									<div *ngFor="let a of listApprovalType" class="form-group">
-										<input name="approvalType{{a.id}}" [(ngModel)]="project.approvalType"
-											(ngModelChange)="getApprovalType(a.id,$event)" class="mr-1 checked-title"
-											type="radio" value="{{a.id}}" id="{{a.name}}"> <label
-											for="{{a.name}}">{{a.name}}</label>
+								<div class="form-inline " id="approvalTypeDiv">
+									<div *ngFor="let a of listApprovalType" class="mr-4 form-group">
+										<input name="approvalType{{a.id}}"
+											[(ngModel)]="project.approvalType"
+											(ngModelChange)="getApprovalType(a.id,$event)"
+											class="mr-1 checked-title" type="radio" value="{{a.id}}"
+											id="{{a.name}}"> <label for="{{a.name}}">{{a.name}}</label>
 									</div>
 								</div>
 
 								<!-- equipement category -->
 
+							</div>
+
+
+							<div *ngIf="showEquipementNature" class="">
+								<hr>
+								<label class="title">Equipement Nature</label>
 								<div id="eqmtType"
-									class=" active-radio-item jumbotron  z-depth-0"
-									*ngIf="showEquipement">
-									<label class="title">Equipement type </label>
+									class="    z-depth-0">
 									<div class="row" id="eqmtType-item">
-										<div *ngFor="let e of listEquipment"
+										<div *ngFor="let e of listEquipmentNature"
 											class="  col-md-3  col-sm-4">
-											<input  (change)='getEquipementType(e.id,$event)' type="checkbox" id="{{e.name}}"> <label
+											<input [(ngModel)]="natureId" name="natureId" (change)='getEquipementNature()'
+												value="{{e.id}}" type="radio" id="{{e.name}}"> <label
 												for="{{e.name}}">{{e.name}}</label>
 										</div>
 									</div>
-
-
-									<div class="row" *ngIf="showFrequency">
-										<label class=" col-md-12 title">Frequency Band </label>
-
-										<div *ngFor="let f of listFrequency" 
-											class=" col-md-3  col-sm-4">
-											<input name="freq{{f.id}}"
-												(change)="findCountriesByFrequency(f.id)" type="checkbox"
-												id="freq{{f.id}}" value="{{f.id}}"> <label
-												for="freq{{f.id}}">{{f.minFrequency}} -
-												{{f.maxFrequency}} {{f.unit}}</label>
-										</div>
-
-									</div>
-
-
-								</div>
-<hr>
-								<div class="row mt-2">
-									<label class=" col-md-12 title">Countries </label>
-
-									<div *ngFor="let c of listCountries;let i=index"
-										class=" col-md-3  col-sm-4 mb-3">
-										<input [disabled]="false" name="country{{c.id}}"
-											(change)="getCountry(c.id,$event)"
-											type="checkbox" id="country{{c.id}}"> <label
-											for="country{{c.id}}">{{c.name}}</label>
-												<div class="row">
-												<div class="col-md-12">
-													<small *ngIf="hasCat[c.id]"><a (click)=" open(c.id,categorieContent);" class="text-primary">La categorie</a><span></span>:</small>
-													</div>
-												</div>
-												
-
-									</div>
+									<!-- equipement category -->
 
 								</div>
 							</div>
+						
+							<div *ngIf="showFrequency" class="">
+								<hr>
+								<label class="title">Frequency range</label>
+								<div id="eqmtType"
+									class="    z-depth-0">
+									<div class="row" id="eqmtType-item">
+										<div *ngFor="let f of listFrequency"
+											class="  col-md-3  col-sm-4">
+											<input  
+												type="checkbox" id="freq{{f.id}}"> <label
+												for="freq{{f.id}}">{{f.minFrequency}}-{{f.maxFrequency}} {{f.unit}}</label>
+										</div>
+									</div>
+									<!-- equipement category -->
+
+								</div>
+							</div>
+
+							<div *ngIf="showEquipementTech" class="">
+								<hr>
+								<label class="title">Equipement Technologie</label>
+								<div id="eqmtType"
+									class="    z-depth-0">
+									<div class="row" id="eqmtType-item">
+										<div *ngFor="let t of listTechnologie"
+											class="  col-md-3  col-sm-4">
+											<input  
+												type="checkbox" id="tech{{t.id}}"> <label
+												for="tech{{t.id}}">{{t.name}}</label>
+										</div>
+									</div>
+									<!-- equipement category -->
+
+								</div>
+							</div>
+							<hr>
+							
+							<div class="row mt-2">
+	
+								<label class=" col-md-12 title">Countries </label>
+
+								<div *ngFor="let c of listCountries;let i=index"
+									class=" col-md-3  col-sm-4 mb-3">
+									<input  name="country{{c.id}}" 
+										(change)="getCountry(c.id,$event,categorieContent)" type="checkbox"
+										id="country{{c.id}}"> <label for="country{{c.id}}">{{c.name}}</label>
+									<div class="row">
+										<div class="col-md-12">
+											 <small *ngIf="project.category[c.id]"><a
+												(click)=" open(c.id,categorieContent);" class="text-primary">Click here to
+												 change  category</a><span></span>: {{this.categoryName[c.id]}}</small>
+
+										</div>
+									</div>
+
+
+								</div>
+
+							</div>
+
 
 
 
 							<hr>
 
-							<ng-template #categorieContent let-c="close" let-d="dismiss"  >
-							
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Choose the
-											categorie of the equipement</h5>
+							<ng-template #categorieContent let-c="close" let-d="dismiss">
 
-									</div>
-									<div class="modal-body">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Choose the
+									categorie of the equipement</h5>
 
-										<div class="card-body">
-											<div class="container-fluid">
-												<div class="row">
+							</div>
+							<div class="modal-body">
 
-													<div class="col" *ngFor="let cat of listCategories ">
-														<div class="form-group">
-															<input  name="catcountry{{cat.country.id}}" [(ngModel)]="categoryId"
-																value="{{cat.id}}" type="radio" id="cat{{cat.id}}">
-															<label for="cat{{cat.id}}">{{cat.categoryName}}</label>
-														
-														</div>
-														<ul class="categorie-items">
-															<li></li>
-															
-														</ul>
-													</div>
+								<div class="card-body">
+									<div class="container-fluid">
+										<div class="row">
+
+											<div class="col" *ngFor="let cat of listCategories ">
+												<div class="form-group">
+													<input name="catcountry{{cat.country.id}}"
+													(click)="setCategory(cat.country.id)"
+														[(ngModel)]="project.category[cat.country.id]"
+														value="{{cat.id}}" type="radio" id="cat{{cat.id}}">
+													<label for="cat{{cat.id}}">{{cat.categoryName}}</label>
+
 												</div>
+												<ul class="categorie-items">
+													<li></li>
 
+												</ul>
 											</div>
 										</div>
-									</div>
 
-									<div class="modal-footer">
-
-										<button type="button" (click)="getCategory(categoryId)" data-dismiss="modal"
-											class="btn btn-primary">Save</button>
 									</div>
+								</div>
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" 
+									data-dismiss="modal" (click)="close()" class="btn btn-danger pull-left">Fermer</button>
+								<button type="button" 
+					data-dismiss="modal" (click)="getCategory()"  class="btn btn-primary">Save</button>
+							</div>
 							</ng-template>
 
-						
+
 
 						</form>
 					</div>

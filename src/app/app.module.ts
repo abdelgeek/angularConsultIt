@@ -52,7 +52,8 @@ const appRoutes: Routes = [
     FormsModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [QuoteStep1Service, Glservice, ProjectService, CountryService],
+  providers: [QuoteStep1Service, Glservice,
+     ProjectService, CountryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

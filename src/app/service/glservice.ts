@@ -17,4 +17,9 @@ export class Glservice {
       .map(resp => resp.json());
   }
 
+  findCategories(idCountry: number) {
+    return this.http.get('http://localhost:8084/findCategorieByCountry?idCountry=' + idCountry )
+  .map(resp => resp.json());
+    }
+
 }

@@ -16,6 +16,12 @@ export  class QuoteStep1Service {
       .map(resp => resp.json());
   }
 
+    findEquipementNature(approvalId: number) {
+
+    return this.http.get('http://localhost:8084/findEqmNatureByApprovalType?approvalId=' + approvalId)
+      .map(resp => resp.json());
+  }
+
   findFrequencyBand() {
     return this.http.get('http://localhost:8084/findFrequencyBand')
       .map(resp => resp.json());
@@ -27,13 +33,13 @@ export  class QuoteStep1Service {
   }
 
 
-  findCategories(idCountry: number) {
-    return this.http.get('http://localhost:8084/findCategorieByCountry?idCountry=' + idCountry )
-  .map(resp => resp.json());
-    }
-
    findCountriesByFrequency(frequencyArray: number[]) {
     return this.http.get('http://localhost:8084/findCountryfrequency?frequencyId=' + frequencyArray)
+      .map(resp => resp.json());
+  }
+
+  findEquipementTech(eqpmtNatureId: number) {
+    return this.http.get('http://localhost:8084/findByEquipementNature?eqpmtNatureId=' + eqpmtNatureId)
       .map(resp => resp.json());
   }
 }

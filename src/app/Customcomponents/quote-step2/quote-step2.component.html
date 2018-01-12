@@ -1,173 +1,190 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <h1>
-      Quotation <small>Get Quote - Quote Details</small>
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Quotation <small>Get Quote - Quote Details</small>
 
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="index.html"><i class="fa fa-dashboard"></i>
-        Home</a></li>
-      <li><a href="#">Quotation</a></li>
-      <li class="active"><a href="#">Get Quote - Quote Details</a></li>
-    </ol>
-  </section>
-
-
-  <!-- Main content -->
-  <section class="content">
-
-    <!-- /.row -->
-    <!-- Main row -->
-    <div class="row justify-content-center">
-      <!-- Left col -->
-
-      <section class="col-12">
+		</h1>
+		<ol class="breadcrumb">
+			<li><a href="index.html"><i class="fa fa-dashboard"></i>
+					Home</a></li>
+			<li><a href="#">Quotation</a></li>
+			<li class="active"><a href="#">Get Quote - Quote Details</a></li>
+		</ol>
+	</section>
 
 
-        <!-- quick email widget -->
-        <div class="box box-info">
+	<!-- Main content -->
+	<section class="content">
 
-          <div class="progress quote-progress">
-            <div class="progress-bar bg-primary" id="progression"
-                 role="progressbar" style="width: 25%" aria-valuenow="25"
-                 aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
+		<!-- /.row -->
+		<!-- Main row -->
+		<div class="row justify-content-center">
+			<!-- Left col -->
 
-          <div class="box-header">
-            <i class="fa fa-calculator"></i>
-
-            <h3 class="box-title">Quote Details</h3>
-
-          </div>
-          <div class="box-body">
-
-            <form action="#" method="post" class="form-inline">
-              <div class="md-form col-md-4">
-                <input type="text" class="form-control" value="Sunmi "
-                       name="equipementName" id="equipementName"> <label
-                for="equipementName">Product name</label>
-              </div>
-              <div class="md-form col-md-4">
-                <input type="text" class="form-control" value="W5920"
-                       name="equipementModel" id="equipementModel"> <label
-                for="equipementModel">Product model</label>
-              </div>
-              <div class="md-form col-md-4">
-                <input type="text" class="form-control" value="samsung"
-                       name="equipementMark" id="equipementMark"> <label
-                for="equipementMark">Product Brand</label>
-              </div>
-              <div class="md-form col">
-										<textarea type="text" id="form107" class="md-textarea"
-                              style="height: 70px"></textarea>
-                <label for="form107">Product Description</label>
-              </div>
-
-            </form>
-
-            <div class="table-wrapper-2">
-              <table
-                class="table text-center  table-striped w-auto">
-                <!--Table head-->
-                <thead class="blue-grey lighten-4">
-                <tr>
-
-                  <th>Country</th>
-                  <th>Agency</th>
-                  <th>Price (USD)</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-                <!--Table head-->
-
-                <!--Table body-->
-                <tbody>
-                <tr>
-
-                  <td>Nigeria</td>
-                  <td>ICASA</td>
-                  <td>3000</td>
-                  <th><a href="#"><i class="fa fa-trash red-text"></i> </a></th>
-
-                </tr>
-                <tr>
-
-                  <td>Nigeria</td>
-                  <td>ICASA</td>
-                  <td>3000</td>
-                  <th><a href="#"><i class="fa fa-trash red-text"></i> </a></th>
-
-                </tr>
-                <tr>
-
-                  <td>Nigeria</td>
-                  <td>ICASA</td>
-                  <td>3000</td>
-                  <th><a href="#"><i class="fa fa-trash red-text"></i></a></th>
-
-                </tr>
-                <tr>
-
-                  <td>Nigeria</td>
-                  <td>ICASA</td>
-                  <td>3000</td>
-                  <th><a href="#"><i class="fa fa-trash red-text"></i></a></th>
-
-                </tr>
-                <tr>
-
-                  <td>Nigeria</td>
-                  <td>ICASA</td>
+			<section class="col-12">
 
 
-                  <td>3000</td>
-                  <th><a href="#"><i class="fa fa-trash red-text"></i></a></th>
+				<!-- quick email widget -->
+				<div class="box box-info">
 
-                </tr>
-                <tr>
+					<div class="progress quote-progress">
+						<div class="progress-bar bg-primary" id="progression"
+							role="progressbar" style="width: 25%" aria-valuenow="25"
+							aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
 
-                  <td>Nigeria</td>
-                  <td>ICASA</td>
+					<div class="box-header">
+						<i class="fa fa-calculator"></i>
 
-                  <td>3000</td>
-                  <th><a href="#"><i class="fa fa-trash red-text"></i></a></th>
+						<h3 class="box-title">Quote Details</h3>
 
-                </tr>
-                </tbody>
-                <!--Table body-->
-              </table>
-              <!--Table-->
-              <div class="box box-footer">
-                <span class="label-price pull-right">Total : 35.000 USD</span>
-              </div>
-              <div class="box-footer clearfix">
+					</div>
+					<div class="box-body">
 
-                <a href="getQuote-Step1.html"
-                   class="pull-left btn btn-default" id="validateQuote">EDIT
-                  <i class="fa fa-edit"></i>
-                </a> <a href="" class="pull-left btn btn-default" id="">SAVE <i
-                class="fa fa-floppy-o"></i></a>
+						<form   class="form-inline">
+							<div class="form-group col-4">
+								<label for="equipementName">Product name</label> <input
+									type="text" [(ngModel)]="project.name" class="form-control"
+									name="equipementName" id="equipementName">
 
-                <!-- <a href="" class="pull-left btn btn-default" id="">PRINT <i
+							</div>
+
+
+							<div class="form-group col-4">
+								<label for="equipementModel">Product model</label> <input
+									type="text" placeholder="Enter product model"
+									class="form-control" [(ngModel)]="project.model"
+									name="equipementModel" id="equipementModel">
+
+							</div>
+							
+							<div class="form-group col-4">
+							<label for="equipementMark">Product Brand </label>
+								<input type="text" placeholder="Enter product brand" 
+									class="form-control" [(ngModel)]="project.brand"
+									name="equipementMark" id="equipementMark"> 
+								
+							</div>
+
+							
+							
+							
+							
+							<div class="form-group col mb-3">
+							<label for="form107">Product Description</label>
+								<textarea type="text"
+								
+									id="form107" name="description"
+									[(ngModel)]="project.description" class="md-textarea"
+									style="height: 120px"></textarea>
+								
+								
+							</div>
+
+						</form>
+
+						<div class="table-wrapper-2">
+							<table class="table text-center  table-striped w-auto">
+								<!--Table head-->
+								<thead class="blue-grey lighten-4">
+									<tr>
+
+										<th>Country</th>
+										<th>Agency</th>
+										<th>Price (USD)</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<!--Table head-->
+
+								<!--Table body-->
+								<tbody>
+									<tr>
+
+										<td>Nigeria</td>
+										<td>ICASA</td>
+										<td>3000</td>
+										<th><a href="#"><i class="fa fa-trash red-text"></i>
+										</a></th>
+
+									</tr>
+									<tr>
+
+										<td>Nigeria</td>
+										<td>ICASA</td>
+										<td>3000</td>
+										<th><a href="#"><i class="fa fa-trash red-text"></i>
+										</a></th>
+
+									</tr>
+									<tr>
+
+										<td>Nigeria</td>
+										<td>ICASA</td>
+										<td>3000</td>
+										<th><a href="#"><i class="fa fa-trash red-text"></i></a></th>
+
+									</tr>
+									<tr>
+
+										<td>Nigeria</td>
+										<td>ICASA</td>
+										<td>3000</td>
+										<th><a href="#"><i class="fa fa-trash red-text"></i></a></th>
+
+									</tr>
+									<tr>
+
+										<td>Nigeria</td>
+										<td>ICASA</td>
+
+
+										<td>3000</td>
+										<th><a href="#"><i class="fa fa-trash red-text"></i></a></th>
+
+									</tr>
+									<tr>
+
+										<td>Nigeria</td>
+										<td>ICASA</td>
+
+										<td>3000</td>
+										<th><a href="#"><i class="fa fa-trash red-text"></i></a></th>
+
+									</tr>
+								</tbody>
+								<!--Table body-->
+							</table>
+							<!--Table-->
+							<div class="box box-footer">
+								<span class="label-price pull-right">Total : 35.000 USD</span>
+							</div>
+							<div class="box-footer clearfix">
+
+								<a href="getQuote-Step1.html" class="pull-left btn btn-default"
+									id="validateQuote">EDIT <i class="fa fa-edit"></i>
+								</a> <a href="" class="pull-left btn btn-default" id="">SAVE <i
+									class="fa fa-floppy-o"></i></a>
+
+								<!-- <a href="" class="pull-left btn btn-default" id="">PRINT <i
                                       class="fa fa-print"></i></a> -->
-                <a href="" data-toggle="modal"
-                   data-target="#modalRegisterForm"
-                   class="pull-right btn btn-default" >PLACE
-                  ORDER <i class="fa fa-arrow-circle-right"></i>
-                </a>
-              </div>
+								<a href="" data-toggle="modal" data-target="#modalRegisterForm"
+									class="pull-right btn btn-default">PLACE ORDER <i
+									class="fa fa-arrow-circle-right"></i>
+								</a>
+							</div>
 
-            </div>
-          </div>
-        </div>
-      </section>
+						</div>
+					</div>
+				</div>
+			</section>
 
-    </div>
-    <!-- /.row (main row) -->
+		</div>
+		<!-- /.row (main row) -->
 
-  </section>
-  <!-- /.content -->
+	</section>
+	<!-- /.content -->
 </div>
 <!-- /.content-wrapper -->

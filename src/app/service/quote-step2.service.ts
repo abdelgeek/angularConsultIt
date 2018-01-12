@@ -10,4 +10,5 @@ export class QuoteStep2Service {
     return this.htpp.get('http://localhost:8080/findCountryByEquipementTypes?equipementId=' + approvalId)
       .map(resp => resp.json()) ;
   }
+
 }

@@ -1,3 +1,8 @@
+/**
+
+MY CUSTOM CSS
+**/
+
 
 .main-header .logo{box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);height:90px}
 .logo-img{max-width:100%}
@@ -5,7 +10,8 @@
 .skin .main-header .navbar {background-color: #bfb218;}
 .skin .main-header .navbar .sidebar-toggle { color: #fff;}
 .main-sidebar {padding-top: 95px;}
-
+.form-inline .form-group { margin-right: 0rem; }
+.form-inline .form-control {width: 100%;}
 .login-box-msg {padding: 20px 20px 20px 20px;background-color: #827717;color: white;padding: 1rem; border-radius: 2px;box-shadow: 0 5px 11px 0 rgba(0,0,0,.18)}
 .login-box-body form{padding-top: 20px}
 .btn-primary { background-color: #827717;border-color: #717326;}
@@ -35,7 +41,8 @@ input[type=text]:focus:not([readonly]),input[type=password]:focus:not([readonly]
 .breadcrumb li{display: inline}
 .btn-default {background-color: #827717;}
 .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active {background-color: #bfb218 !important;}
-.title,.md-form label{font-size: 1rem;color: #83791a;font-weight: 400;}
+.title{font-size: 1rem;color: #83791a;font-weight: 400;}
+
 .text-primary {color: #83791a !important;}
 a.text-primary:focus, a.text-primary:hover {color: #ddd786 !important;}
 hr {border: 1px solid #bdbdbd}
@@ -80,13 +87,14 @@ input[type=text].form-edit:disabled{background-color: #eee !important;cursor: no
  .box{margin-bottom:5px;}
  .content-header>.breadcrumb {top: 10px;}
  .active-radio-item{   display:block; border: 1px solid #bbb581;}
-.checked-title:checked +label {
-    border: solid 1px #bbb581;border-bottom: transparent;background: #bbb581; border-radius: 5px 5px 0 0;padding-right: 10px;}
- .captcha{font-weight: 700;background: black;color: white; margin: 5px; padding: 5px;}
+.captcha{font-weight: 700;background: black;color: white; margin: 5px; padding: 5px;}
  ol{padding-right:40px}
  .primary-text{color:#827717}
  
- 
+ input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="tel"], input[type="number"], input[type="search-md"], input[type="search"], textarea.md-textarea {
+    background-color: transparent;border: 1px solid #bdbdbd;border-radius: 0;outline: none;height: 2.1rem;width: 95%; font-size: 1rem; box-shadow: none;box-sizing: content-box;transition: all 0.3s; padding: 5px;
+
+}
  
  
  /* space*/
@@ -97,7 +105,7 @@ input[type=text].form-edit:disabled{background-color: #eee !important;cursor: no
 .md-form {margin-bottom: 0.5em;}
 .jumbotron {padding: 1rem;}
 .progress {margin-bottom: 0em}
-textarea.md-textarea { padding: 0.6rem 0;}
+textarea.md-textarea { padding: 5px;}
 .table.table th, table.table td {   padding: 0.3rem;}
 .btn { font-size: 0.8rem; padding: 0.35rem 1.13rem;}
 .content-header {padding: 5px;}
