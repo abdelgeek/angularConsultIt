@@ -90,7 +90,7 @@
 								<!--Table head-->
 								<thead class="blue-grey lighten-4">
 									<tr>
-
+										<th>id</th>
 										<th>Country</th>
 										<th>Agency</th>
 										<th>Price (USD)</th>
@@ -101,69 +101,26 @@
 
 								<!--Table body-->
 								<tbody>
-									<tr>
-
-										<td>Nigeria</td>
-										<td>ICASA</td>
-										<td>3000</td>
+									<tr *ngFor="let c of listCategories">
+										<th>{{c.id}}</th>
+										<td>{{c.country.name}}</td>
+										<td></td>
+										<td>{{c.categoryPrice}}</td>
 										<th><a href="#"><i class="fa fa-trash red-text"></i>
 										</a></th>
 
 									</tr>
-									<tr>
-
-										<td>Nigeria</td>
-										<td>ICASA</td>
-										<td>3000</td>
-										<th><a href="#"><i class="fa fa-trash red-text"></i>
-										</a></th>
-
-									</tr>
-									<tr>
-
-										<td>Nigeria</td>
-										<td>ICASA</td>
-										<td>3000</td>
-										<th><a href="#"><i class="fa fa-trash red-text"></i></a></th>
-
-									</tr>
-									<tr>
-
-										<td>Nigeria</td>
-										<td>ICASA</td>
-										<td>3000</td>
-										<th><a href="#"><i class="fa fa-trash red-text"></i></a></th>
-
-									</tr>
-									<tr>
-
-										<td>Nigeria</td>
-										<td>ICASA</td>
-
-
-										<td>3000</td>
-										<th><a href="#"><i class="fa fa-trash red-text"></i></a></th>
-
-									</tr>
-									<tr>
-
-										<td>Nigeria</td>
-										<td>ICASA</td>
-
-										<td>3000</td>
-										<th><a href="#"><i class="fa fa-trash red-text"></i></a></th>
-
-									</tr>
+								
 								</tbody>
 								<!--Table body-->
 							</table>
 							<!--Table-->
 							<div class="box box-footer">
-								<span class="label-price pull-right">Total : 35.000 USD</span>
+								<span class="label-price pull-right">Total : {{totalPrice}} USD</span>
 							</div>
 							<div class="box-footer clearfix">
 
-								<a href="getQuote-Step1.html" class="pull-left btn btn-default"
+								<a routerLink ="/quoteStep1" class="pull-left btn btn-default"
 									id="validateQuote">BACK <i class="fa fa-edit"></i>
 								</a> <a href="" class="pull-left btn btn-default" id="">SAVE <i
 									class="fa fa-floppy-o"></i></a>

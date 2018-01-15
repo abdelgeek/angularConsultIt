@@ -8,14 +8,14 @@ export class ProjectService {
  brand: string;
   description: string;
   approvalType: number;
-  equipementType: number[];
+  equipementNature: number[];
   country: number[];
   frequcenyBand: number[];
   category: number[];
 
 
   constructor() {
-   this.equipementType = [];
+   this.equipementNature = [];
     this.country = [];
     this.category = [];
     this.frequcenyBand = [];

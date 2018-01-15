@@ -75,21 +75,10 @@
 									<small>The project brand is required</small>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="form107">Product Description</label>
-								<textarea type="text"
-									(blur)="onDescriptionBlurMethod(project.description)"
-									id="form107" name="description"
-									[(ngModel)]="project.description" class="md-textarea"
-									style="height: 120px"></textarea>
 
-								<div *ngIf="alertdescription " class=" text-danger">
-									<small>Please enter a brief description of the product</small>
-								</div>
-							</div>
 
 							<div class="">
-							<hr>
+								<hr>
 								<label class="title">Approval Type</label>
 								<div class="form-inline " id="approvalTypeDiv">
 									<div *ngFor="let a of listApprovalType" class="mr-4 form-group">
@@ -105,17 +94,31 @@
 
 							</div>
 
+							<div class="form-group">
+<hr>
+								<label class="title">Equipement Type</label>
+								<div id="eqmtType" class="  form-group  z-depth-0">
+									<select class="form-control">
+										<option>Mobile phone</option>
+										<option>Modems</option>
+										<option>Router</option>
+										<option>Switch</option>
+										<option>Printer</option>
+									</select>
+								</div>
+
+							</div>
 
 							<div *ngIf="showEquipementNature" class="">
 								<hr>
 								<label class="title">Equipement Nature</label>
-								<div id="eqmtType"
-									class="    z-depth-0">
+								<div id="eqmtType" class="    z-depth-0">
 									<div class="row" id="eqmtType-item">
 										<div *ngFor="let e of listEquipmentNature"
 											class="  col-md-3  col-sm-4">
-											<input [(ngModel)]="natureId" name="natureId" (change)='getEquipementNature()'
-												value="{{e.id}}" type="radio" id="{{e.name}}"> <label
+											<input [(ngModel)]="project.equipementNature" name="natureId"
+												(change)='getEquipementNature()' value="{{e.id}}"
+												type="radio" id="{{e.name}}"> <label
 												for="{{e.name}}">{{e.name}}</label>
 										</div>
 									</div>
@@ -123,18 +126,18 @@
 
 								</div>
 							</div>
-						
+
 							<div *ngIf="showFrequency" class="">
 								<hr>
-								<label class="title">Frequency range</label>
-								<div id="eqmtType"
-									class="    z-depth-0">
+								<label class="title">Frequency Band</label>
+								<div id="eqmtType" class="    z-depth-0">
 									<div class="row" id="eqmtType-item">
 										<div *ngFor="let f of listFrequency"
 											class="  col-md-3  col-sm-4">
-											<input  
-												type="checkbox" id="freq{{f.id}}"> <label
-												for="freq{{f.id}}">{{f.minFrequency}}-{{f.maxFrequency}} {{f.unit}}</label>
+											<input (click)="getfrequencyBand(f.id,$event)"
+												name="fid{{f.id}}" value="{{f.id}}" type="checkbox"
+												id="freq{{f.id}}"> <label for="freq{{f.id}}">{{f.minFrequency}}-{{f.maxFrequency}}
+												{{f.unit}}</label>
 										</div>
 									</div>
 									<!-- equipement category -->
@@ -145,13 +148,11 @@
 							<div *ngIf="showEquipementTech" class="">
 								<hr>
 								<label class="title">Equipement Technologie</label>
-								<div id="eqmtType"
-									class="    z-depth-0">
+								<div id="eqmtTech" class="    z-depth-0">
 									<div class="row" id="eqmtType-item">
 										<div *ngFor="let t of listTechnologie"
 											class="  col-md-3  col-sm-4">
-											<input  
-												type="checkbox" id="tech{{t.id}}"> <label
+											<input type="checkbox" id="tech{{t.id}}"> <label
 												for="tech{{t.id}}">{{t.name}}</label>
 										</div>
 									</div>
@@ -160,21 +161,24 @@
 								</div>
 							</div>
 							<hr>
+
 							
 							<div class="row mt-2">
-	
+
 								<label class=" col-md-12 title">Countries </label>
 
 								<div *ngFor="let c of listCountries;let i=index"
 									class=" col-md-3  col-sm-4 mb-3">
-									<input  name="country{{c.id}}" 
-										(change)="getCountry(c.id,$event,categorieContent)" type="checkbox"
-										id="country{{c.id}}"> <label for="country{{c.id}}">{{c.name}}</label>
+									<input name="country{{c.id}}" [(ngModel)]="checkCountry[c.id]"
+										(change)="getCountry(c.id,$event,categorieContent)"
+										type="checkbox" id="country{{c.id}}"> <label
+										for="country{{c.id}}">{{c.name}}</label>
 									<div class="row">
 										<div class="col-md-12">
-											 <small *ngIf="project.category[c.id]"><a
-												(click)=" open(c.id,categorieContent);" class="text-primary">Click here to
-												 change  category</a><span></span>: {{this.categoryName[c.id]}}</small>
+											<small *ngIf="project.category[c.id] && hasCat[c.id]>1"><a
+												(click)=" open(c.id,categorieContent);" class="text-primary">Click
+													here to change category</a><span></span>:
+												{{this.categoryName[c.id]}}</small>
 
 										</div>
 									</div>
@@ -205,7 +209,7 @@
 											<div class="col" *ngFor="let cat of listCategories ">
 												<div class="form-group">
 													<input name="catcountry{{cat.country.id}}"
-													(click)="setCategory(cat.country.id)"
+														(click)="setCategory(cat.country.id)"
 														[(ngModel)]="project.category[cat.country.id]"
 														value="{{cat.id}}" type="radio" id="cat{{cat.id}}">
 													<label for="cat{{cat.id}}">{{cat.categoryName}}</label>
@@ -223,10 +227,10 @@
 							</div>
 
 							<div class="modal-footer">
-								<button type="button" 
-									data-dismiss="modal" (click)="close()" class="btn btn-danger pull-left">Fermer</button>
-								<button type="button" 
-					data-dismiss="modal" (click)="getCategory()"  class="btn btn-primary">Save</button>
+								<button type="button" data-dismiss="modal" (click)="close()"
+									class="btn btn-danger pull-left">Close</button>
+								<button type="button" data-dismiss="modal"
+									(click)="getCategory()" class="btn btn-primary">Save</button>
 							</div>
 							</ng-template>
 

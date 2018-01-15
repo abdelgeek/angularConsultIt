@@ -9,23 +9,27 @@ import {Glservice} from '../../service/glservice';
 })
 export class QuoteStep2Component implements OnInit {
 
-  listCategories: any[] = [];
-  category: any;
+ listCategories: any[] = [];
+  totalPrice: number;
   constructor(public project: ProjectService, public glservice: Glservice) {}
 
   ngOnInit() {
+    this.totalPrice = 0;
     console.log('Approval ' + this.project.approvalType);
     this.findCategories();
+
   }
 
   findCategories() {
 
     this.project.category.forEach(item => {
-this.glservice.findCategory(item)
-      .subscribe(data => {
-        this.category = data;
-        JSON.stringify(this.category);
-      });
+
+      this.glservice.findCategory(item)
+        .subscribe(data => {
+          this.listCategories.push(data);
+         this.totalPrice = this.totalPrice + data.categoryPrice;
+
+        });
     });
 
   }

@@ -30,7 +30,6 @@ input[type=text]:focus:not([readonly]),input[type=password]:focus:not([readonly]
 .skin .sidebar-menu>li>.treeview-item {background: #f4f4f5;}
 .skin .sidebar-menu>li.active>.treeview-item {background: #ddd786;}
 .skin .sidebar-menu>li.active:hover>a {color: #000;background: #bfb218;}
-
 .treeview-item { list-style: none; padding: 0;margin: 0; padding-left: 5px}
 .treeview-item>li>a {display: block;padding: 5px 5px 5px 15px;display: block;font-size: 14px;}
 .treeview-item>li>a>.fa {width: 20px;}
@@ -92,11 +91,8 @@ input[type=text].form-edit:disabled{background-color: #eee !important;cursor: no
  .primary-text{color:#827717}
  
  input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="tel"], input[type="number"], input[type="search-md"], input[type="search"], textarea.md-textarea {
-    background-color: transparent;border: 1px solid #bdbdbd;border-radius: 0;outline: none;height: 2.1rem;width: 95%; font-size: 1rem; box-shadow: none;box-sizing: content-box;transition: all 0.3s; padding: 5px;
+    background-color: transparent;border: 1px solid #bdbdbd;border-radius: 0;outline: none;height: 1.5rem;width: 95%; font-size: 1rem; box-shadow: none;box-sizing: content-box;transition: all 0.3s; padding: 5px;}
 
-}
- 
- 
  /* space*/
  .form-group { margin-bottom: 0.5rem;}
 .login-box-body, .register-box-body {padding: 10px;}

@@ -24,24 +24,19 @@ export class QuoteStep1Component implements OnInit {
   showFrequency: boolean;
   listFrequency: any;
   listCountries: any;
-  isValid = true;
-  indx: number;
+
   listCategories: any;
-  isCheck: boolean;
-  isCheckCountry: boolean;
-  index: number;
-  categoryId: number;
-  hasCat: number[] = [];
-  oldcat: number[] = [];
-  catCountry: number[] = [];
+
+
   countryId: number;
   categoryName: string[] = [];
-  lib: any;
-  checkCountry: boolean[]= [];
+
+  checkCountry: boolean[] = [];
 
   modalRef: any;
   messageError: string;
 
+  hasCat: number[] = [];
 
   natureId: any;
 
@@ -109,7 +104,8 @@ export class QuoteStep1Component implements OnInit {
   // get technologie from database
 
   findTechnologie() {
-
+ this.natureId = this.project.equipementNature;
+   
     this.quoteStep1Service.findEquipementTech(this.natureId)
       .subscribe(data => {
         if (data.length < 1) {
@@ -194,8 +190,8 @@ export class QuoteStep1Component implements OnInit {
     if (!(this.frequencyArray.indexOf(frequencyId) > -1)) {
       this.frequencyArray.push(frequencyId);
     } else {
-      this.indx = this.frequencyArray.indexOf(frequencyId);
-      this.frequencyArray.splice(this.indx, 1);
+      const indx = this.frequencyArray.indexOf(frequencyId);
+      this.frequencyArray.splice(indx, 1);
     }
 
   }
@@ -205,8 +201,13 @@ export class QuoteStep1Component implements OnInit {
     this.glService.findCategories(countryId)
       .subscribe(data => {
         this.listCategories = data;
+        this.hasCat[countryId] = this.listCategories.length ;
         if (this.listCategories.length > 1) {
-         this.modalRef =  this.modalService.open(categorieContent, {size: 'lg', backdrop : false, keyboard : false});
+          this.modalRef = this.modalService.open(categorieContent, {size: 'lg', backdrop: false, keyboard: false});
+        } else if (this.listCategories.length = 1) {
+
+
+          this.project.category[countryId] = this.listCategories[0].id;
         }
       }, err => {
         console.log('erreur');
@@ -224,26 +225,34 @@ export class QuoteStep1Component implements OnInit {
   // afficher la liste des pays et retourner les categories par pays
   getCountry(countryId: number, event, categorieContent) {
 
+
     const isCheckCountry = event.target.checked;
-    this.countryId = countryId;
+    this.checkCountry[countryId] = isCheckCountry;
     if (isCheckCountry) {
       this.findCategories(countryId, categorieContent);
+      this.project.country.push(countryId);
     } else {
 
+      const index = this.project.country.indexOf(countryId);
+      this.project.country[index] = null;
       this.project.category[countryId] = null;
+
     }
 
   }
 
   // affect frequency band to object project
   getfrequencyBand(frequencyId: number, event) {
-    this.isCheck = event.target.checked;
 
-    if ((this.isCheck) && (this.project.frequcenyBand.indexOf(frequencyId) === -1)) {
+    const isCheck = event.target.checked;
+
+    if ((isCheck) && (this.project.frequcenyBand.indexOf(frequencyId) === -1)) {
       this.project.frequcenyBand.push(frequencyId);
     } else {
-      this.index = this.project.frequcenyBand.indexOf(frequencyId);
-      this.project.frequcenyBand.splice(this.index, 1);
+      const index = this.project.frequcenyBand.indexOf(frequencyId);
+      this.project.frequcenyBand[index] = null;
+
+
     }
 
   }
@@ -251,12 +260,11 @@ export class QuoteStep1Component implements OnInit {
   // affect category to object project
   getCategory() {
     const categoryId = this.project.category[this.countryId];
-
     this.glService.findCategory(categoryId)
       .subscribe(data => {
         const cat = data;
         this.categoryName[this.countryId] = cat.categoryName;
-      this.modalRef.close();
+        this.modalRef.close();
       }, err => {
         console.log(err);
       });
@@ -271,6 +279,7 @@ export class QuoteStep1Component implements OnInit {
 
     this.findTechnologie();
 
+    this.natureId = this.project.equipementNature;
     if (this.natureId === '2') {
       this.showFrequency = true;
 
@@ -285,7 +294,7 @@ export class QuoteStep1Component implements OnInit {
   getApprovalType(aprvlId: number) {
 
     this.approvalId = aprvlId;
-    this.project.equipementType = [];
+    this.project.equipementNature = [];
     this.project.country = [];
 
     // find from database equipment nature
@@ -297,13 +306,13 @@ export class QuoteStep1Component implements OnInit {
   // open modal
   open(countryId: number, categorieContent) {
     this.countryId = countryId;
-     this.findCategories(countryId, categorieContent);
+    this.findCategories(countryId, categorieContent);
 
   }
 
-   close() {
-   this.modalRef.close();
-
+  close() {
+    this.modalRef.close();
+this.checkCountry[ this.countryId] = false;
   }
 
 
