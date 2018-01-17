@@ -24,6 +24,7 @@ export class QuoteStep1Component implements OnInit {
   showFrequency: boolean;
   listFrequency: any;
   listCountries: any;
+  listCountriesFrequency: any;
 
   listCategories: any;
 
@@ -32,6 +33,7 @@ export class QuoteStep1Component implements OnInit {
   categoryName: string[] = [];
 
   checkCountry: boolean[] = [];
+  disabledCountry: boolean[] = [];
 
   modalRef: any;
   messageError: string;
@@ -104,8 +106,8 @@ export class QuoteStep1Component implements OnInit {
   // get technologie from database
 
   findTechnologie() {
- this.natureId = this.project.equipementNature;
-   
+    this.natureId = this.project.equipementNature;
+
     this.quoteStep1Service.findEquipementTech(this.natureId)
       .subscribe(data => {
         if (data.length < 1) {
@@ -167,24 +169,6 @@ export class QuoteStep1Component implements OnInit {
 
 
 
-  findCountriesByFrequency(frequencyId: number) {
-
-    this.addToFrequencyArray(frequencyId);
-
-    this.quoteStep1Service.findCountriesByFrequency(this.frequencyArray)
-      .subscribe(data => {
-        this.listCountries = data;
-
-        console.log(' ******* country success******* ');
-        console.log(JSON.stringify(this.listCountries));
-
-      }, err => {
-
-        console.log(' ******* country error******* ');
-        console.log(err);
-      });
-  }
-
   addToFrequencyArray(frequencyId: number) {
 
     if (!(this.frequencyArray.indexOf(frequencyId) > -1)) {
@@ -201,7 +185,7 @@ export class QuoteStep1Component implements OnInit {
     this.glService.findCategories(countryId)
       .subscribe(data => {
         this.listCategories = data;
-        this.hasCat[countryId] = this.listCategories.length ;
+        this.hasCat[countryId] = this.listCategories.length;
         if (this.listCategories.length > 1) {
           this.modalRef = this.modalService.open(categorieContent, {size: 'lg', backdrop: false, keyboard: false});
         } else if (this.listCategories.length = 1) {
@@ -227,7 +211,7 @@ export class QuoteStep1Component implements OnInit {
 
 
     const isCheckCountry = event.target.checked;
-    this.checkCountry[countryId] = isCheckCountry;
+    this.checkCountry[countryId] = !isCheckCountry;
     if (isCheckCountry) {
       this.findCategories(countryId, categorieContent);
       this.project.country.push(countryId);
@@ -248,6 +232,7 @@ export class QuoteStep1Component implements OnInit {
 
     if ((isCheck) && (this.project.frequcenyBand.indexOf(frequencyId) === -1)) {
       this.project.frequcenyBand.push(frequencyId);
+      this.checkFrequencyCountry(frequencyId);
     } else {
       const index = this.project.frequcenyBand.indexOf(frequencyId);
       this.project.frequcenyBand[index] = null;
@@ -312,7 +297,35 @@ export class QuoteStep1Component implements OnInit {
 
   close() {
     this.modalRef.close();
-this.checkCountry[ this.countryId] = false;
+    this.checkCountry[this.countryId] = false;
+  }
+
+  checkFrequencyCountry(idFrequency: number) {
+
+
+    this.quoteStep1Service.findCountriesByFrequency(idFrequency)
+      .subscribe(data => {
+        this.listCountriesFrequency = data;
+
+        this.listCountries.forEach(item => {
+
+          let isAuth = true;
+          this.listCountriesFrequency.forEach(function(contryFreq, i2) {
+
+            if (item.name === contryFreq.name) {
+              isAuth = false;
+
+            }
+
+          });
+          this.disabledCountry[item.id] = isAuth;
+        });
+
+
+
+      }, err => {
+        console.log(err);
+      });
   }
 
 

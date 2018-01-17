@@ -18,6 +18,8 @@ import {QuoteStep1Service} from './service/quote-step1-service';
 import {Glservice} from './service/glservice';
 import {ProjectService} from './service/project.service';
 import {CountryService } from './service/country.service';
+import { AgencyPriceService } from './service/agency-price.service';
+import {QuoteStep2Service} from './service/quote-step2.service';
 
 
 import {FormsModule} from '@angular/forms';
@@ -52,8 +54,8 @@ const appRoutes: Routes = [
     FormsModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [QuoteStep1Service, Glservice,
-     ProjectService, CountryService],
+  providers: [QuoteStep1Service, QuoteStep2Service, Glservice,
+     ProjectService, CountryService, AgencyPriceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

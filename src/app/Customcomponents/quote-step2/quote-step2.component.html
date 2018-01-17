@@ -101,10 +101,10 @@
 
 								<!--Table body-->
 								<tbody>
-									<tr *ngFor="let c of listCategories">
+									<tr *ngFor="let c of listCategories; let i = index">
 										<th>{{c.id}}</th>
 										<td>{{c.country.name}}</td>
-										<td></td>
+										<td>{{listAgency[i].agencyInitials}}</td>
 										<td>{{c.categoryPrice}}</td>
 										<th><a href="#"><i class="fa fa-trash red-text"></i>
 										</a></th>
