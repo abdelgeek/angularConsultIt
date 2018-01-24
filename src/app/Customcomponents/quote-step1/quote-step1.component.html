@@ -3,17 +3,7 @@
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
-		<h1>
-			Quotation <small>Get Quote - Equipement features</small>
-
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="index.html"><i class="fa fa-dashboard"></i>
-					Home</a></li>
-			<li><a href="#">Quotation</a></li>
-			<li class="active"><a href="#">Get Quote - Equipement
-					features</a></li>
-		</ol>
+		<h1>Get Quote</h1>
 	</section>
 
 	<!-- Main content -->
@@ -27,87 +17,62 @@
 
 				<!-- quick email widget -->
 				<div class="box box-info">
-					<div class="progress quote-progress">
+					<div class="progress progress-sm quote-progress">
 						<div class="progress-bar bg-primary" role="progressbar"
 							style="width: 25%" aria-valuenow="25" aria-valuemin="0"
 							aria-valuemax="100"></div>
 					</div>
-					<div class="box-header">
-						<i class="fa fa-calculator"></i>
 
-						<h3 class="box-title">Get quote - Equipement features</h3>
-
-					</div>
 					<div class="box-body">
 
+
 						<form action="#" method="post">
+							
+							<div class="row">
+								<div class="form-group col-md-4">
+									<label class="title">Approval Type</label> <select
+										(change)="getApprovalType()"
+										[(ngModel)]="project.approvalType" class="form-control "
+										name="approvalType">
+										<option *ngFor="let a of listApprovalType" [value]="a.id">{{a.name}}</option>
+									</select>
 
-							<div class="form-group">
-								<label for="equipementName">Product name</label> <input
-									type="text" (blur)="onNameBlurMethod(project.name)"
-									[(ngModel)]="project.name" placeholder="Enter product name"
-									class="form-control" name="equipementName" id="equipementName">
-
-								<div *ngIf="alertname " class="form-text mb-1 text-danger">
-									<small>The project name is required</small>
+									<!-- 
+									<div class="form-inline " id="approvalTypeDiv">
+										<div class="mr-1 form-group">
+											<input name="approvalType{{a.id}}"
+												[(ngModel)]="project.approvalType"
+												(ngModelChange)=""
+												class="mr-1 checked-title" type="radio" value="{{a.id}}"
+												id="{{a.name}}"> <label for="{{a.name}}">{{a.name}}</label>
+										</div>
+									</div> -->
 								</div>
-							</div>
 
+								<div class="col-md-4">
+									<div class="form-group">
 
-							<div class="form-group">
-								<label for="equipementModel">Product model</label> <input
-									type="text" placeholder="Enter product model"
-									(blur)="onModelBlurMethod(project.model)" class="form-control"
-									[(ngModel)]="project.model" name="equipementModel"
-									id="equipementModel">
-								<div *ngIf="alertmodel " class="mb-1 form-text text-danger">
-									<small>The project model is required</small>
-								</div>
-							</div>
+										<label class="title">Equipment Type</label> <select
+											[(ngModel)]="project.equipementType" class="form-control "
+											name="equipmentType">
+											<option *ngFor="let et of listEquipementType" [value]="et.id">{{et.name}}</option>
+										</select>
 
-							<div class="form-group">
-								<label for="equipementMark">Product Brand </label> <input
-									type="text" placeholder="Enter product brand"
-									(blur)="onBrandlBlurMethod(project.brand)" class="form-control"
-									[(ngModel)]="project.brand" name="equipementMark"
-									id="equipementMark">
-								<div *ngIf="alertbrand " class="mb-1 form-text text-danger">
-									<small>The project brand is required</small>
-								</div>
-							</div>
-
-
-							<div class="">
-								<hr>
-								<label class="title">Approval Type</label>
-								<div class="form-inline " id="approvalTypeDiv">
-									<div *ngFor="let a of listApprovalType" class="mr-4 form-group">
-										<input name="approvalType{{a.id}}"
-											[(ngModel)]="project.approvalType"
-											(ngModelChange)="getApprovalType(a.id,$event)"
-											class="mr-1 checked-title" type="radio" value="{{a.id}}"
-											id="{{a.name}}"> <label for="{{a.name}}">{{a.name}}</label>
 									</div>
 								</div>
 
-								<!-- equipement category -->
+								<div class="col-md-4">
 
-							</div>
-
-							<div class="form-group">
-								<hr>
-								<label class="title">Equipement Type</label>
-								<div id="eqmtType" class="  form-group  z-depth-0">
-									<select class="form-control">
-										<option>Mobile phone</option>
-										<option>Modems</option>
-										<option>Router</option>
-										<option>Switch</option>
-										<option>Printer</option>
+									<label class="title">Encryption capabilities</label> <select
+										[(ngModel)]="project.hasEncryptionFeature"
+										name="hasEncryptionFeature" class="form-control ">
+										<option [ngValue]="false">No</option>
+										<option [ngValue]="true">Yes</option>
 									</select>
 								</div>
-
 							</div>
+
+
 
 							<div *ngIf="showEquipementNature" class="">
 								<hr>
@@ -135,7 +100,7 @@
 								<div id="eqmtType" class="    z-depth-0">
 									<div class="row" id="eqmtType-item">
 										<div *ngFor="let f of listFrequency"
-											class="  col-md-3  col-sm-4">
+											class="  col-md-2  col-sm-3">
 											<input (click)="getfrequencyBand(f.id,$event)"
 												name="fid{{f.id}}" value="{{f.id}}" type="checkbox"
 												id="freq{{f.id}}"> <label for="freq{{f.id}}">{{f.minFrequency}}-{{f.maxFrequency}}
@@ -154,7 +119,8 @@
 									<div class="row" id="eqmtType-item">
 										<div *ngFor="let t of listTechnologie"
 											class="  col-md-3  col-sm-4">
-											<input type="checkbox" id="tech{{t.id}}"> <label
+											<input (click)="getEquipemenetTechnology(t.id,$event)"
+												type="checkbox" id="tech{{t.id}}"> <label
 												for="tech{{t.id}}">{{t.name}}</label>
 										</div>
 									</div>
@@ -164,34 +130,17 @@
 							</div>
 							<hr>
 
-
-							<div class="">
-
-								<label class="title">Equipement Encryption</label>
-								<div id="eqmtEncry" class="    z-depth-0">
-									<div class="row" id="eqmtEncry">
-										<div class="  col-md-3  col-sm-4">
-											<input type="checkbox" id="isEncrypt"> <label
-												for="isEncrypt">isEncrypt</label>
-										</div>
-									</div>
-									<!-- equipement category -->
-
-								</div>
-							</div>
-							<hr>
-
-
 							<div class="row mt-2">
 
 								<label class=" col-md-12 title">Countries </label>
 
 								<div *ngFor="let c of listCountries;let i=index"
-									class=" col-md-3  col-sm-4 mb-3">
-									<input name="country{{c.id}}" [disabled]="disabledCountry[c.id]"
-										(change)="getCountry(c.id,$event,categorieContent)"
-										type="checkbox" id="country{{c.id}}"> <label
-										for="country{{c.id}}">{{c.name}}</label>
+									class=" col-md-3 col-sm-4">
+									<input name="country{{c.id}}"
+										[disabled]="disabledCountry[c.id]"
+										(change)="getCountry(c.id,checkCountry[c.id],categorieContent)"
+										[(ngModel)]="checkCountry[c.id]" type="checkbox"
+										id="country{{c.id}}"> <label for="country{{c.id}}">{{c.name}}</label>
 									<div class="row">
 										<div class="col-md-12">
 											<small *ngIf="project.category[c.id] && hasCat[c.id]>1"><a
@@ -206,15 +155,15 @@
 								</div>
 
 							</div>
-<hr>
+							<hr>
 							<div class="row mt-2">
-								
-								<label class=" col-md-12 title">DataSheets (optional) </label> <label
-									class=" col-md-12">If you are not sure about the
-									information you have entered, you can download the technical
-									documents</label>
-									<div class="col-md-12">
-									<input type="file"></div>
+
+								<label class=" col-md-12 title">Need help ? (optional) </label>
+								<label class=" col-md-12">If you are not sure about the
+									informations you have entered, you can download the datasheet </label>
+								<div class="col-md-12">
+									<input type="file" (change)="onFileChange($event)" #fileInput>
+								</div>
 
 							</div>
 
@@ -253,25 +202,39 @@
 									</div>
 								</div>
 							</div>
-
-
-
-
-
-							<div class="modal-footer">
-								<button type="button" data-dismiss="modal" (click)="close()"
-									class="btn btn-danger pull-left">Close</button>
-								<button type="button" data-dismiss="modal"
-									(click)="getCategory()" class="btn btn-primary">Save</button>
-							</div>
 							</ng-template>
 
+							<!--  confirm model -->
+							<ng-template #confirmContent let-c="close" let-d="dismiss">
 
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel"></h5>
 
+							</div>
+							<div class="modal-body">
+
+								<div class="card-body">
+									<div class="container-fluid">
+										<div class="row">
+											<p>You are  download datasheet</p>
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" data-dismiss="modal" (click)="saveQuotation(0)"
+									class="btn btn-danger pull-left">Send to an agent</button>
+								<button type="button" data-dismiss="modal"
+									(click)="goToStep2()" class="btn btn-primary">Automatic
+									quote</button>
+							</div>
+							</ng-template>
 						</form>
 					</div>
 					<div class="box-footer clearfix">
-						<a (click)=" redirectNextStep()" type="button"
+						<a (click)=" redirectNextStep(confirmContent)" type="button"
 							class="pull-right btn btn-default">Next step <i
 							class="fa fa-arrow-circle-right"></i></a>
 					</div>

@@ -3,14 +3,17 @@
 MY CUSTOM CSS
 **/
 
-
-.main-header .logo{box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);height:90px}
-.logo-img{max-width:100%}
-.main-header .navbar {height: 90px}
+body {font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight: 300;font-size: 14px;color: #333;}
+.main-header .logo{box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);height:60px}
+.logo-img{max-width:50%}
+.main-header .navbar {height: 10px; min-height: 20px;}
+.main-sidebar {top: -35px;}
+.progress .progress-sm {height: 0.25rem}
 .skin .main-header .navbar {background-color: #bfb218;}
 .skin .main-header .navbar .sidebar-toggle { color: #fff;}
 .main-sidebar {padding-top: 95px;}
 .form-inline .form-group { margin-right: 0rem; }
+.form-control {display: block;width: 100%;padding: 6px 12px;padding: .375rem .75rem;font-size: 14px;font-size: .875rem;line-height: 1.5;color: #495057;background-color: #fff;background-image: none;background-clip: padding-box;border: 1px solid #827717;border-radius: .25rem;}
 .form-inline .form-control {width: 100%;}
 .login-box-msg {padding: 20px 20px 20px 20px;background-color: #827717;color: white;padding: 1rem; border-radius: 2px;box-shadow: 0 5px 11px 0 rgba(0,0,0,.18)}
 .login-box-body form{padding-top: 20px}
@@ -24,7 +27,6 @@ input[type=text]:focus:not([readonly]) + label,input[type=password]:focus:not([r
 input[type=text]:focus:not([readonly]),input[type=password]:focus:not([readonly]),input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]),input[type=time]:focus:not([readonly]),input[type=date]:focus:not([readonly]),input[type=datetime-local]:focus:not([readonly]),input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]),input[type=search-md]:focus:not([readonly]),input[type=search]:focus:not([readonly]),textarea.md-textarea:focus:not([readonly]) {border-bottom: 1px solid #827717; -webkit-box-shadow: 0 1px 0 0 #827717; box-shadow: 0 1px 0 0 #827717; }
 .skin .sidebar a {color: #444;}
 .skin .sidebar-menu>li>a { border-left: 3px solid transparent; font-weight: 400;}
-.logo-lg{margin:15px}
 .skin .sidebar-menu>li.active>a { border-left-color: #827717;}
 .skin .sidebar-menu>li:hover>a, .skin-green-light .sidebar-menu>li.active>a {color: #000;background: #bfb218;}
 .skin .sidebar-menu>li>.treeview-item {background: #f4f4f5;}
@@ -38,14 +40,13 @@ input[type=text]:focus:not([readonly]),input[type=password]:focus:not([readonly]
 .box.box-info { border-top: none;}
 .content-header {position: relative;padding: 15px 15px 15px 15px; background-color: white;}
 .breadcrumb li{display: inline}
-.btn-default {background-color: #827717;}
+.btn-default {background-color: #827717;color:#fff}
 .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active {background-color: #bfb218 !important;}
 .title{font-size: 1rem;color: #83791a;font-weight: 400;}
 
 .text-primary {color: #83791a !important;}
 a.text-primary:focus, a.text-primary:hover {color: #ddd786 !important;}
-hr {border: 1px solid #bdbdbd}
-.form-group label,.form-group legend {font-size: 15px;}
+hr {margin-top: 1px; margin-bottom: 1px; border: 1px solid #bdbdbd}
 .box-header>.fa, .box-header>.glyphicon, .box-header>.ion, .box-header .box-title {font-weight: 600;}
 .posr{position: relative}
 .posr .close{position: absolute;top: 4px;right: 6px;}

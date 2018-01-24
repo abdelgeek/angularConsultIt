@@ -3,7 +3,11 @@ import {ProjectService} from '../../service/project.service';
 import {Glservice} from '../../service/glservice';
 import {AgencyPriceService} from '../../service/agency-price.service';
 import {QuoteStep2Service} from '../../service/quote-step2.service';
+import {DatePipe} from '@angular/common';
 import {stringify} from 'querystring';
+import {Router} from '@angular/router';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {BotDetectCaptchaModule} from 'angular-captcha';
 
 @Component({
   selector: 'app-quote-step2',
@@ -12,21 +16,26 @@ import {stringify} from 'querystring';
 })
 export class QuoteStep2Component implements OnInit {
 
+  modalRef: any;
   listCategories: any[] = [];
   listAgency: any[] = [];
   totalPrice: number;
-  approvalId = 3;
-  constructor(public project: ProjectService, public glservice: Glservice,
-    public agencyService: AgencyPriceService, public quoteStep2Service: QuoteStep2Service
+  approvalId: any;
+  constructor(private datePipe: DatePipe, private modal: NgbModal,
+    private project: ProjectService, private glservice: Glservice,
+    private agencyService: AgencyPriceService, private quoteStep2Service: QuoteStep2Service,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.totalPrice = 0;
     console.log('Approval ' + this.project.approvalType);
     this.findCategories();
-
+    this.approvalId = this.project.approvalType;
   }
 
+
+  // retrieve category with price
   findCategories() {
 
     this.project.category.forEach(item => {
@@ -36,7 +45,7 @@ export class QuoteStep2Component implements OnInit {
           this.listCategories.push(data);
           this.totalPrice = this.totalPrice + data.categoryPrice;
 
-          this.quoteStep2Service.findAgency(data.id, this.approvalId)
+          this.quoteStep2Service.findAgency(data.country.id, this.approvalId)
             .subscribe(result => {
               this.listAgency.push(result);
             }, er => {
@@ -44,9 +53,36 @@ export class QuoteStep2Component implements OnInit {
             });
 
         });
-      this.agencyService.test = 'hum';
     });
 
   }
 
+  // save the quotation when client click on button save
+  saveQuotation(status) {
+
+    const today = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
+    this.project.date = today;
+    this.project.status = status;
+
+    this.project.saveQuotation(this.project).
+      subscribe(data => {
+        this.project = null;
+        close();
+        this.router.navigate(['/home']);
+
+      }, err => {
+        console.log(err);
+      });
+  }
+
+  openModal(modal) {
+    alert('hum');
+    this.modalRef.close();
+    this.modalRef = this.modal.open(modal, {size: 'sm'});
+  }
+
+  close() {
+
+    this.modalRef.close();
+  }
 }

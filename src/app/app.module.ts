@@ -3,6 +3,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpModule} from '@angular/http';
+import { DatePipe } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './Customcomponents/header/header.component';
@@ -20,8 +21,6 @@ import {ProjectService} from './service/project.service';
 import {CountryService } from './service/country.service';
 import { AgencyPriceService } from './service/agency-price.service';
 import {QuoteStep2Service} from './service/quote-step2.service';
-
-
 import {FormsModule} from '@angular/forms';
 
 const appRoutes: Routes = [
@@ -54,7 +53,7 @@ const appRoutes: Routes = [
     FormsModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [QuoteStep1Service, QuoteStep2Service, Glservice,
+  providers: [QuoteStep1Service, DatePipe, QuoteStep2Service, Glservice,
      ProjectService, CountryService, AgencyPriceService],
   bootstrap: [AppComponent]
 })

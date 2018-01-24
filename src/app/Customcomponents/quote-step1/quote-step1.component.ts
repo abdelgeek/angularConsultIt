@@ -1,12 +1,12 @@
 import {Glservice} from '../../service/glservice';
 import {Component, OnInit} from '@angular/core';
 import 'rxjs/add/operator/map';
-import {Http} from '@angular/http';
 import {QuoteStep1Service} from '../../service/quote-step1-service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import {ProjectService} from '../../service/project.service';
 import {CountryService} from '../../service/country.service';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-quote-step1',
@@ -14,6 +14,7 @@ import {CountryService} from '../../service/country.service';
   styleUrls: ['./quote-step1.component.scss']
 })
 export class QuoteStep1Component implements OnInit {
+
   listApprovalType: any;
   approvalId: any;
   frequencyArray: number[] = [];
@@ -25,10 +26,11 @@ export class QuoteStep1Component implements OnInit {
   listFrequency: any;
   listCountries: any;
   listCountriesFrequency: any;
+  listEquipementType: any;
 
   listCategories: any;
 
-
+  file: File;
   countryId: number;
   categoryName: string[] = [];
 
@@ -53,16 +55,18 @@ export class QuoteStep1Component implements OnInit {
   alertcategory = false;
 
   constructor(public project: ProjectService, private router: Router,
-    public http: Http, public quoteStep1Service: QuoteStep1Service,
+    public quoteStep1Service: QuoteStep1Service,
     public glService: Glservice, private modalService: NgbModal,
-    public country: CountryService,
+    public country: CountryService, private datePipe: DatePipe
   ) {
   }
 
   ngOnInit() {
 
+    this.findEquipmentType();
     this.findCountries();
     this.findFrequencyBand();
+
     this.quoteStep1Service.findApprovalType()
       .subscribe(data => {
         console.log(' *******success******* ');
@@ -77,35 +81,46 @@ export class QuoteStep1Component implements OnInit {
   // get from data base equipment nature list
   findEquipmentNature() {
 
-    this.quoteStep1Service.findEquipementNature(this.approvalId)
+    this.quoteStep1Service.findEquipementNature(this.project.approvalType)
       .subscribe(data => {
 
         if (data.length < 1) {
-
           // if equipment list < 1 hide frequency and technology
-
           this.showEquipementNature = false;
           this.showFrequency = false;
           this.showEquipementTech = false;
           this.natureId = null;
-
         } else {
-
           this.listEquipmentNature = data;
           this.showEquipementNature = true;
-
         }
-        this.findCountriesByApproval(this.approvalId);
-
       }, err => {
         console.log(err);
       });
   }
 
 
+  // get from data base equipment type list
+  findEquipmentType() {
+
+    this.quoteStep1Service.findEquipmentType()
+      .subscribe(data => {
+        this.listEquipementType = data;
+      }, err => {
+        console.log(err);
+      });
+  }
+
+  onFileChange(event) {
+    if (event.target.files.length > 0) {
+      this.file = event.target.files[0];
+    }
+  }
+
   // get technologie from database
 
   findTechnologie() {
+
     this.natureId = this.project.equipementNature;
 
     this.quoteStep1Service.findEquipementTech(this.natureId)
@@ -124,6 +139,7 @@ export class QuoteStep1Component implements OnInit {
       });
   }
 
+  // get from data base frequency band list
   findFrequencyBand() {
 
     this.quoteStep1Service.findFrequencyBand()
@@ -139,6 +155,7 @@ export class QuoteStep1Component implements OnInit {
 
   }
 
+  // get from data base list
   findCountriesByApproval(approvalId: number) {
     this.quoteStep1Service.findCountriesByApprovalType(approvalId)
       .subscribe(data => {
@@ -185,33 +202,47 @@ export class QuoteStep1Component implements OnInit {
     this.glService.findCategories(countryId)
       .subscribe(data => {
         this.listCategories = data;
-        this.hasCat[countryId] = this.listCategories.length;
-        if (this.listCategories.length > 1) {
-          this.modalRef = this.modalService.open(categorieContent, {size: 'lg', backdrop: false, keyboard: false});
-        } else if (this.listCategories.length = 1) {
+
+        this.project.category[countryId] = this.listCategories[0].id;
 
 
-          this.project.category[countryId] = this.listCategories[0].id;
-        }
-      }, err => {
-        console.log('erreur');
+        /*
+           this.hasCat[countryId] = this.listCategories.length;
+           if (this.listCategories.length > 1) {
+             this.modalRef = this.modalService.open(categorieContent, {size: 'lg', backdrop: false, keyboard: false});
+           } else if (this.listCategories.length = 1) {
+
+             this.project.category[countryId] = this.listCategories[0].id;
+           }
+         }, err => {
+           console.log('erreur');
+         }
+            */
       });
   }
 
 
-  redirectNextStep() {
+  redirectNextStep(confirmContent) {
 
-    this.router.navigate(['/quoteStep2']);
+    if (this.file == null) {
+      this.router.navigate(['/quoteStep2']);
+    } else {
+      this.modalRef = this.modalService.open(confirmContent, {size: 'sm', backdrop: false, keyboard: false});
+    }
+
   }
 
 
+  goToStep2() {
+    this.router.navigate(['/quoteStep2']);
+    this.modalRef.close();
+
+  }
 
   // afficher la liste des pays et retourner les categories par pays
-  getCountry(countryId: number, event, categorieContent) {
+  getCountry(countryId: number, isCheckCountry: boolean, categorieContent) {
 
-
-    const isCheckCountry = event.target.checked;
-    this.checkCountry[countryId] = !isCheckCountry;
+    // this.checkCountry[countryId] = !isCheckCountry;
     if (isCheckCountry) {
       this.findCategories(countryId, categorieContent);
       this.project.country.push(countryId);
@@ -230,16 +261,27 @@ export class QuoteStep1Component implements OnInit {
 
     const isCheck = event.target.checked;
 
-    if ((isCheck) && (this.project.frequcenyBand.indexOf(frequencyId) === -1)) {
-      this.project.frequcenyBand.push(frequencyId);
+    if ((isCheck) && (this.project.frequencyBand.indexOf(frequencyId) === -1)) {
+      this.project.frequencyBand.push(frequencyId);
       this.checkFrequencyCountry(frequencyId);
     } else {
-      const index = this.project.frequcenyBand.indexOf(frequencyId);
-      this.project.frequcenyBand[index] = null;
-
-
+      const index = this.project.frequencyBand.indexOf(frequencyId);
+      this.project.frequencyBand[index] = null;
     }
+  }
 
+
+  // affect frequency band to object project
+  getEquipemenetTechnology(technologyId: number, event) {
+
+    const isCheck = event.target.checked;
+
+    if ((isCheck) && (this.project.equipementTechnologie.indexOf(technologyId) === -1)) {
+      this.project.equipementTechnologie.push(technologyId);
+    } else {
+      const index = this.project.equipementTechnologie.indexOf(technologyId);
+      this.project.equipementTechnologie[index] = null;
+    }
   }
 
   // affect category to object project
@@ -263,6 +305,8 @@ export class QuoteStep1Component implements OnInit {
   getEquipementNature() {
 
     this.findTechnologie();
+    this.project.frequencyBand = [];
+    this.project.equipementTechnologie = [];
 
     this.natureId = this.project.equipementNature;
     if (this.natureId === '2') {
@@ -274,21 +318,22 @@ export class QuoteStep1Component implements OnInit {
 
   }
 
-
   // affect approval type to object project
-  getApprovalType(aprvlId: number) {
-
-    this.approvalId = aprvlId;
-    this.project.equipementNature = [];
+  getApprovalType() {
+    // this.approvalId = aprvlId;
     this.project.country = [];
+    this.checkCountry = [];
+    this.project.equipementTechnologie = [];
+    this.project.equipementNature = null;
+    this.project.frequencyBand = [];
 
     // find from database equipment nature
     this.findEquipmentNature();
     // find from database country of that approval
-    this.findCountriesByApproval(aprvlId);
+    this.findCountriesByApproval(this.project.approvalType);
   }
 
-  // open modal
+  // open modal category
   open(countryId: number, categorieContent) {
     this.countryId = countryId;
     this.findCategories(countryId, categorieContent);
@@ -301,12 +346,9 @@ export class QuoteStep1Component implements OnInit {
   }
 
   checkFrequencyCountry(idFrequency: number) {
-
-
     this.quoteStep1Service.findCountriesByFrequency(idFrequency)
       .subscribe(data => {
         this.listCountriesFrequency = data;
-
         this.listCountries.forEach(item => {
 
           let isAuth = true;
@@ -314,14 +356,11 @@ export class QuoteStep1Component implements OnInit {
 
             if (item.name === contryFreq.name) {
               isAuth = false;
-
             }
 
           });
           this.disabledCountry[item.id] = isAuth;
         });
-
-
 
       }, err => {
         console.log(err);
@@ -364,6 +403,25 @@ export class QuoteStep1Component implements OnInit {
       this.alertdescription = false;
     }
   }
+
+  // save quotation
+  saveQuotation(status) {
+
+    const today = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
+    this.project.date = today;
+    this.project.status = status;
+
+    this.project.saveQuotation(this.project).
+      subscribe(data => {
+        this.modalRef.close();
+        this.project = null;
+        this.router.navigate(['/home']);
+
+      }, err => {
+        console.log(err);
+      });
+  }
+
 }
 
 

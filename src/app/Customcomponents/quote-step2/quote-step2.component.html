@@ -2,16 +2,7 @@
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
-		<h1>
-			Quotation <small>Get Quote - Quote Details</small>
-
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="index.html"><i class="fa fa-dashboard"></i>
-					Home</a></li>
-			<li><a href="#">Quotation</a></li>
-			<li class="active"><a href="#">Get Quote - Quote Details</a></li>
-		</ol>
+		<h1>Get Quote</h1>
 	</section>
 
 
@@ -29,61 +20,13 @@
 				<!-- quick email widget -->
 				<div class="box box-info">
 
-					<div class="progress quote-progress">
+					<div class="progress progress-sm quote-progress">
 						<div class="progress-bar bg-primary" id="progression"
 							role="progressbar" style="width: 25%" aria-valuenow="25"
 							aria-valuemin="0" aria-valuemax="100"></div>
 					</div>
 
-					<div class="box-header">
-						<i class="fa fa-calculator"></i>
-
-						<h3 class="box-title">Quote Details</h3>
-
-					</div>
 					<div class="box-body">
-
-						<form   class="form-inline">
-							<div class="form-group col-4">
-								<label for="equipementName">Product name</label> <input
-									type="text" [(ngModel)]="project.name" class="form-control"
-									name="equipementName" id="equipementName">
-
-							</div>
-
-
-							<div class="form-group col-4">
-								<label for="equipementModel">Product model</label> <input
-									type="text" placeholder="Enter product model"
-									class="form-control" [(ngModel)]="project.model"
-									name="equipementModel" id="equipementModel">
-
-							</div>
-							
-							<div class="form-group col-4">
-							<label for="equipementMark">Product Brand </label>
-								<input type="text" placeholder="Enter product brand" 
-									class="form-control" [(ngModel)]="project.brand"
-									name="equipementMark" id="equipementMark"> 
-								
-							</div>
-
-							
-							
-							
-							
-							<div class="form-group col mb-3">
-							<label for="form107">Product Description</label>
-								<textarea type="text"
-								
-									id="form107" name="description"
-									[(ngModel)]="project.description" class="md-textarea"
-									style="height: 120px"></textarea>
-								
-								
-							</div>
-
-						</form>
 
 						<div class="table-wrapper-2">
 							<table class="table text-center  table-striped w-auto">
@@ -105,29 +48,31 @@
 										<th>{{c.id}}</th>
 										<td>{{c.country.name}}</td>
 										<td>{{listAgency[i].agencyInitials}}</td>
+
 										<td>{{c.categoryPrice}}</td>
 										<th><a href="#"><i class="fa fa-trash red-text"></i>
 										</a></th>
 
 									</tr>
-								
+
 								</tbody>
 								<!--Table body-->
 							</table>
 							<!--Table-->
 							<div class="box box-footer">
-								<span class="label-price pull-right">Total : {{totalPrice}} USD</span>
+								<span class="label-price pull-right">Total :
+									{{totalPrice}} USD</span>
 							</div>
 							<div class="box-footer clearfix">
 
-								<a routerLink ="/quoteStep1" class="pull-left btn btn-default"
+								<a routerLink="/quoteStep1" class="pull-left btn btn-default"
 									id="validateQuote">BACK <i class="fa fa-edit"></i>
-								</a> <a href="" class="pull-left btn btn-default" id="">SAVE <i
-									class="fa fa-floppy-o"></i></a>
+								</a> <a (click)="saveQuotation(1)" class="pull-left btn btn-default"
+									id="">SAVE <i class="fa fa-floppy-o"></i></a>
 
 								<!-- <a href="" class="pull-left btn btn-default" id="">PRINT <i
                                       class="fa fa-print"></i></a> -->
-								<a href="" data-toggle="modal" data-target="#modalRegisterForm"
+								<a (click)="openModal(placeOrderModal)"
 									class="pull-right btn btn-default">PLACE ORDER <i
 									class="fa fa-arrow-circle-right"></i>
 								</a>
@@ -142,6 +87,110 @@
 		<!-- /.row (main row) -->
 
 	</section>
+
+
+
+
+	<!-- Confirm modal form -->
+
+	<ng-template #placeOrderModal let-c="close" let-d="dismiss">
+
+	<div class="modal-header">
+		<p class="modal-title">By entering your informations you agree
+			that ...</p>
+	</div>
+	<div class="modal-body">
+
+		<div class="card-body">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="modal-body mx-3">
+						<div class="input-group m-1">
+							<span class="input-group-addon"> <i
+								class="fa fa-user prefix grey-text "></i>
+							</span><input type="text" id="username" class="form-control"
+								placeholder="Enter your username">
+
+						</div>
+
+						<div class="input-group m-1">
+							<span class="input-group-addon"> <i
+								class="fa fa-lock prefix grey-text"></i>
+							</span><input type="password" id="password" class="form-control"
+								placeholder="Enter your password">
+
+						</div>
+
+						<div class="form-group">
+							<div class="row">
+								<img class="" src="/assets/img/capatcha.png">
+							</div>
+						</div>
+
+					</div>
+
+					<div class="modal-footer d-flex justify-content-center">
+						<div class="row">
+							<a class="btn btn-block  btn-default" (click)="saveQuotation(1)">Your
+								are not yet ready save for later</a> <a
+								class="btn btn-block  btn-default" id="confirm"
+								(click)="openModal(saveEquipment)">Confirm </a> <a
+								class="btn btn-block btn-danger" (click)="close()">Close</a>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+	</ng-template>
+
+
+
+	<!-- Modal save Equipement -->
+	<ng-template #saveEquipment let-c="close" let-d="dismiss">
+
+	<div class="modal-header">
+		<h6 class="modal-title">Enter Equipment Informations</h6>
+	</div>
+	<div class="modal-body">
+
+		<div class="card-body">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="modal-body mx-3">
+
+
+						<div class="form-group">
+							<label>Name</label> <input type="text" id="name"
+								class="form-control" placeholder="Enter your equipment name">
+						</div>
+						<div class="form-group">
+							<label>Model</label> <input type="text" id="model"
+								class="form-control" placeholder="Enter your equipment model">
+						</div>
+
+						<div class="form-group">
+							<label>Brand</label> <input type="text" id="brand"
+								class="form-control" placeholder="Enter your equipment brand">
+						</div>
+
+					</div>
+
+					<div class="modal-footer d-flex justify-content-center">
+						<div class="row">
+							<a class="btn btn-block btn-danger">Next</a>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+	</ng-template>
+
 	<!-- /.content -->
 </div>
 <!-- /.content-wrapper -->

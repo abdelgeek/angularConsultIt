@@ -2,13 +2,17 @@ import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 
 @Injectable()
-export  class QuoteStep1Service {
-  constructor(public http: Http ) { }
+export class QuoteStep1Service {
+  constructor(public http: Http) {}
 
   findApprovalType() {
     return this.http.get('http://localhost:8084/findApprovalType')
-  .map(resp => resp.json());
+      .map(resp => resp.json());
+  }
 
+  findEquipmentType() {
+    return this.http.get('http://localhost:8084/findEquipementTypes')
+      .map(resp => resp.json());
   }
 
   findEquipementType(approvalId: number) {
@@ -16,7 +20,7 @@ export  class QuoteStep1Service {
       .map(resp => resp.json());
   }
 
-    findEquipementNature(approvalId: number) {
+  findEquipementNature(approvalId: number) {
 
     return this.http.get('http://localhost:8084/findEqmNatureByApprovalType?approvalId=' + approvalId)
       .map(resp => resp.json());
@@ -33,7 +37,7 @@ export  class QuoteStep1Service {
   }
 
 
-   findCountriesByFrequency(idFrequency: number) {
+  findCountriesByFrequency(idFrequency: number) {
     return this.http.get('http://localhost:8084/findCountryfrequency?idFrequency=' + idFrequency)
       .map(resp => resp.json());
   }
