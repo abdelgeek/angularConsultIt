@@ -8,11 +8,13 @@ import {ProjectService} from '../../service/project.service';
 import {CountryService} from '../../service/country.service';
 import {DatePipe} from '@angular/common';
 
+
 @Component({
   selector: 'app-quote-step1',
   templateUrl: './quote-step1.component.html',
   styleUrls: ['./quote-step1.component.scss']
 })
+
 export class QuoteStep1Component implements OnInit {
 
   listApprovalType: any;
@@ -24,8 +26,8 @@ export class QuoteStep1Component implements OnInit {
   showEquipementTech: boolean;
   showFrequency: boolean;
   listFrequency: any;
-  listCountries: any;
-  listCountriesFrequency: any;
+  listCountries: any[] = [];
+  listCountriesFrequency: any[] = [];
   listEquipementType: any;
 
   listCategories: any;
@@ -38,21 +40,21 @@ export class QuoteStep1Component implements OnInit {
   disabledCountry: boolean[] = [];
 
   modalRef: any;
+  modalRef2: any;
   messageError: string;
 
   hasCat: number[] = [];
 
   natureId: any;
 
-  alertname = false;
-  alertbrand = false;
-  alertmodel = false;
-  alertdescription = false;
   alertapproval = false;
-  alertequipement = false;
-  alertfrequency = false;
-  alertcountry = false;
-  alertcategory = false;
+  alertequipmentType = false;
+  alertencryption = false;
+  alertequipmentNature = false;
+  alertFrequency = false;
+  alertCountry = false;
+  alertEquipementTechnologie = false;
+
 
   constructor(public project: ProjectService, private router: Router,
     public quoteStep1Service: QuoteStep1Service,
@@ -65,8 +67,24 @@ export class QuoteStep1Component implements OnInit {
 
     this.findEquipmentType();
     this.findCountries();
-    this.findFrequencyBand();
 
+    this.findFrequencyBand();
+    this.findApprovalType();
+
+  }
+
+
+  // init disabled
+  initDisabledCountry() {
+
+    this.listCountries.forEach((item, index) => {
+      this.disabledCountry[item.id] = false;
+    });
+  }
+
+
+
+  findApprovalType() {
     this.quoteStep1Service.findApprovalType()
       .subscribe(data => {
         console.log(' *******success******* ');
@@ -76,8 +94,6 @@ export class QuoteStep1Component implements OnInit {
         console.log(err);
       });
   }
-
-
   // get from data base equipment nature list
   findEquipmentNature() {
 
@@ -132,7 +148,7 @@ export class QuoteStep1Component implements OnInit {
           this.showEquipementTech = true;
 
         }
-        this.findCountriesByApproval(this.approvalId);
+        // this.findCountriesByApproval(this.approvalId);
 
       }, err => {
         console.log(err);
@@ -156,7 +172,9 @@ export class QuoteStep1Component implements OnInit {
   }
 
   // get from data base list
-  findCountriesByApproval(approvalId: number) {
+  findCountriesByApproval(approvalId) {
+
+
     this.quoteStep1Service.findCountriesByApprovalType(approvalId)
       .subscribe(data => {
         this.listCountries = data;
@@ -175,7 +193,7 @@ export class QuoteStep1Component implements OnInit {
     this.glService.findCountries()
       .subscribe(data => {
         this.listCountries = data;
-
+        this.initDisabledCountry();
       }, err => {
 
         console.log(' ******* country error******* ');
@@ -223,9 +241,16 @@ export class QuoteStep1Component implements OnInit {
 
 
   redirectNextStep(confirmContent) {
-
     if (this.file == null) {
-      this.router.navigate(['/quoteStep2']);
+      this.checkRequired();
+      if (this.alertapproval == false && this.alertCountry == false &&
+        this.alertencryption == false && this.alertEquipementTechnologie == false
+        && this.alertequipmentNature == false && this.alertequipmentType == false
+        && this.alertFrequency == false) {
+        this.router.navigate(['/quoteStep2']);
+      }
+
+
     } else {
       this.modalRef = this.modalService.open(confirmContent, {size: 'sm', backdrop: false, keyboard: false});
     }
@@ -233,12 +258,73 @@ export class QuoteStep1Component implements OnInit {
   }
 
 
-  goToStep2() {
-    this.router.navigate(['/quoteStep2']);
-    this.modalRef.close();
+  checkRequired() {
+    if (this.project.approvalType === undefined) {
+      this.alertapproval = true;
+    } else {
+      this.alertapproval = false;
+
+    }
+
+    if (this.project.equipementType === undefined) {
+      this.alertequipmentType = true;
+    } else {
+      this.alertequipmentType = false;
+
+    }
+
+
+    if (this.project.hasEncryptionFeature === undefined) {
+
+      this.alertencryption = true;
+    } else {
+      this.alertencryption = false;
+
+    }
+
+    if (this.showEquipementNature == true && this.project.equipementNature == undefined) {
+      this.alertequipmentNature = true;
+    } else {
+      this.alertequipmentNature = false;
+
+    }
+
+    if (this.showFrequency == true && this.project.frequencyBand.length == 0) {
+      this.alertFrequency = true;
+    } else {
+      this.alertFrequency = false;
+
+    }
+
+
+
+    if (this.project.equipementTechnologie.length == 0 && this.showEquipementTech == true) {
+      this.alertEquipementTechnologie = true;
+    } else {
+      this.alertEquipementTechnologie = false;
+
+    }
+
+    if (this.project.country.length == 0) {
+      this.alertCountry = true;
+    } else {
+      this.alertCountry = false;
+
+    }
+
 
   }
 
+  goToStep2() {
+    this.modalRef.close();
+    this.router.navigate(['/quoteStep2']);
+
+  }
+
+  goToHome(modal) {
+    this.modalRef.close();
+    this.router.navigate(['/home']);
+  }
   // afficher la liste des pays et retourner les categories par pays
   getCountry(countryId: number, isCheckCountry: boolean, categorieContent) {
 
@@ -249,7 +335,7 @@ export class QuoteStep1Component implements OnInit {
     } else {
 
       const index = this.project.country.indexOf(countryId);
-      this.project.country[index] = null;
+      this.project.country.splice(index, 1);
       this.project.category[countryId] = null;
 
     }
@@ -263,11 +349,13 @@ export class QuoteStep1Component implements OnInit {
 
     if ((isCheck) && (this.project.frequencyBand.indexOf(frequencyId) === -1)) {
       this.project.frequencyBand.push(frequencyId);
-      this.checkFrequencyCountry(frequencyId);
     } else {
       const index = this.project.frequencyBand.indexOf(frequencyId);
-      this.project.frequencyBand[index] = null;
+      this.project.frequencyBand.splice(index, 1);
+
     }
+
+    this.checkFrequencyCountry(this.project.frequencyBand);
   }
 
 
@@ -280,7 +368,7 @@ export class QuoteStep1Component implements OnInit {
       this.project.equipementTechnologie.push(technologyId);
     } else {
       const index = this.project.equipementTechnologie.indexOf(technologyId);
-      this.project.equipementTechnologie[index] = null;
+      this.project.equipementTechnologie.splice(index, 1);
     }
   }
 
@@ -303,6 +391,8 @@ export class QuoteStep1Component implements OnInit {
   }
 
   getEquipementNature() {
+
+
 
     this.findTechnologie();
     this.project.frequencyBand = [];
@@ -330,6 +420,7 @@ export class QuoteStep1Component implements OnInit {
     // find from database equipment nature
     this.findEquipmentNature();
     // find from database country of that approval
+
     this.findCountriesByApproval(this.project.approvalType);
   }
 
@@ -345,83 +436,53 @@ export class QuoteStep1Component implements OnInit {
     this.checkCountry[this.countryId] = false;
   }
 
-  checkFrequencyCountry(idFrequency: number) {
-    this.quoteStep1Service.findCountriesByFrequency(idFrequency)
-      .subscribe(data => {
-        this.listCountriesFrequency = data;
-        this.listCountries.forEach(item => {
 
-          let isAuth = true;
-          this.listCountriesFrequency.forEach(function(contryFreq, i2) {
+  // check if an agency approval a frequency
+  checkFrequencyCountry(idFrequency: number[]) {
 
-            if (item.name === contryFreq.name) {
-              isAuth = false;
-            }
+    this.listCountries.forEach(item => {
+      this.disabledCountry[item.id] = false;
+      this.quoteStep1Service.findFrequenciesByCountry(item.id)
+        .subscribe(data => {
 
+          let listFrequenciesCountry: any[] = [];
+          listFrequenciesCountry = data;
+
+          let idFreq: any[] = [];
+
+          listFrequenciesCountry.forEach(itemfc => {
+            idFreq.push(itemfc.id);
           });
-          this.disabledCountry[item.id] = isAuth;
+
+          idFrequency.forEach(idFrequen => {
+            if (idFreq.indexOf(idFrequen) === - 1) {
+              this.disabledCountry[item.id] = true;
+            }
+          });
+
         });
+    });
 
-      }, err => {
-        console.log(err);
-      });
   }
 
 
-  // check if input name is set
-  onNameBlurMethod(v: any) {
-    if (v) {
-      this.alertname = false;
-    } else {
-      this.alertname = true;
-    }
-  }
-
-  // check if input model is set
-  onModelBlurMethod(v: any) {
-    if (v) {
-      this.alertmodel = false;
-    } else {
-      this.alertmodel = true;
-    }
-  }
-
-  // check if input brand is set
-  onBrandlBlurMethod(v: any) {
-    if (v) {
-      this.alertbrand = false;
-    } else {
-      this.alertbrand = true;
-    }
-  }
-
-  // check if input description is set
-  onDescriptionBlurMethod(v: any) {
-    if (!v || v.length > 500) {
-      this.alertdescription = true;
-    } else {
-      this.alertdescription = false;
-    }
-  }
 
   // save quotation
-  saveQuotation(status) {
+  saveQuotation(status, modalContent) {
 
+    this.modalRef.close();
+    this.modalRef = this.modalService.open(modalContent, {size: 'sm', backdrop: false, keyboard: false});
     const today = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
     this.project.date = today;
     this.project.status = status;
 
     this.project.saveQuotation(this.project).
       subscribe(data => {
-        this.modalRef.close();
         this.project = null;
-        this.router.navigate(['/home']);
-
       }, err => {
         console.log(err);
       });
   }
 
 }
-
 

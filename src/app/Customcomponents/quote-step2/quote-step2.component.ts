@@ -8,6 +8,7 @@ import {stringify} from 'querystring';
 import {Router} from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {BotDetectCaptchaModule} from 'angular-captcha';
+import {EquipementService} from '../../service/equipement.service';
 
 @Component({
   selector: 'app-quote-step2',
@@ -22,7 +23,8 @@ export class QuoteStep2Component implements OnInit {
   totalPrice: number;
   approvalId: any;
   constructor(private datePipe: DatePipe, private modal: NgbModal,
-    private project: ProjectService, private glservice: Glservice,
+    public equipement: EquipementService, private project: ProjectService,
+    private glservice: Glservice,
     private agencyService: AgencyPriceService, private quoteStep2Service: QuoteStep2Service,
     private router: Router
   ) {}
@@ -58,7 +60,10 @@ export class QuoteStep2Component implements OnInit {
   }
 
   // save the quotation when client click on button save
-  saveQuotation(status) {
+  saveQuotation(status, modal) {
+
+    this.modalRef.close();
+    this.openModal(modal);
 
     const today = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
     this.project.date = today;
@@ -67,22 +72,36 @@ export class QuoteStep2Component implements OnInit {
     this.project.saveQuotation(this.project).
       subscribe(data => {
         this.project = null;
-        close();
-        this.router.navigate(['/home']);
-
       }, err => {
         console.log(err);
       });
   }
 
   openModal(modal) {
-    alert('hum');
+
+    if (this.modalRef != null) {
+      this.modalRef.close();
+    }
+    this.modalRef = this.modal.open(modal, {size: 'sm', backdrop: false, keyboard: false});
+  }
+
+  goToHome(modal) {
     this.modalRef.close();
-    this.modalRef = this.modal.open(modal, {size: 'sm'});
+    this.router.navigate(['/home']);
   }
 
   close() {
-
     this.modalRef.close();
+  }
+
+  redirectHome(modal) {
+    this.close();
+    this.router.navigate(['/home']);
+
+  }
+
+  getEquipment() {
+    this.modalRef.close();
+    this.router.navigate(['/quoteStep3']);
   }
 }

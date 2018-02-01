@@ -37,8 +37,8 @@ export class QuoteStep1Service {
   }
 
 
-  findCountriesByFrequency(idFrequency: number) {
-    return this.http.get('http://localhost:8084/findCountryfrequency?idFrequency=' + idFrequency)
+  findFrequenciesByCountry(countryId: number) {
+    return this.http.get('http://localhost:8084/findFrequenciesCountry?countryId=' + countryId)
       .map(resp => resp.json());
   }
 

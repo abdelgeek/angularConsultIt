@@ -27,48 +27,44 @@
 
 
 						<form action="#" method="post">
-							
+
 							<div class="row">
 								<div class="form-group col-md-4">
-									<label class="title">Approval Type</label> <select
-										(change)="getApprovalType()"
+									<label class="title">Approval Type</label> <span
+										class="text-red">*</span> <select (change)="getApprovalType()"
 										[(ngModel)]="project.approvalType" class="form-control "
 										name="approvalType">
 										<option *ngFor="let a of listApprovalType" [value]="a.id">{{a.name}}</option>
 									</select>
-
-									<!-- 
-									<div class="form-inline " id="approvalTypeDiv">
-										<div class="mr-1 form-group">
-											<input name="approvalType{{a.id}}"
-												[(ngModel)]="project.approvalType"
-												(ngModelChange)=""
-												class="mr-1 checked-title" type="radio" value="{{a.id}}"
-												id="{{a.name}}"> <label for="{{a.name}}">{{a.name}}</label>
-										</div>
-									</div> -->
+									<p *ngIf="alertapproval" class="text-red">Please enter the
+										approval Type</p>
 								</div>
 
 								<div class="col-md-4">
 									<div class="form-group">
 
-										<label class="title">Equipment Type</label> <select
+										<label class="title">Equipment Type</label> <span
+											class="text-red">*</span><select
 											[(ngModel)]="project.equipementType" class="form-control "
 											name="equipmentType">
 											<option *ngFor="let et of listEquipementType" [value]="et.id">{{et.name}}</option>
 										</select>
 
+										<p *ngIf="alertequipmentType" class="text-red">Please
+											enter the equipment Type</p>
 									</div>
 								</div>
 
 								<div class="col-md-4">
-
-									<label class="title">Encryption capabilities</label> <select
+									<label class="title">Encryption capabilities</label> <span
+										class="text-red">*</span><select
 										[(ngModel)]="project.hasEncryptionFeature"
 										name="hasEncryptionFeature" class="form-control ">
 										<option [ngValue]="false">No</option>
 										<option [ngValue]="true">Yes</option>
 									</select>
+									<p *ngIf="alertencryption" class="text-red">Please enter if
+										the equipement has encryption feature</p>
 								</div>
 							</div>
 
@@ -76,7 +72,10 @@
 
 							<div *ngIf="showEquipementNature" class="">
 								<hr>
-								<label class="title">Equipement Nature</label>
+								<label class="title">Equipment Nature </label> <span
+									class="text-red">*</span>
+								<p *ngIf="alertequipmentNature" class="text-red">Please
+									enter the equipement nature</p>
 								<div id="eqmtType" class="    z-depth-0">
 									<div class="row" id="eqmtType-item">
 										<div *ngFor="let e of listEquipmentNature"
@@ -87,7 +86,7 @@
 												for="{{e.name}}">{{e.name}}</label>
 										</div>
 									</div>
-									<!-- equipement category -->
+
 
 								</div>
 							</div>
@@ -96,7 +95,10 @@
 
 							<div *ngIf="showFrequency" class="">
 								<hr>
-								<label class="title">Frequency Band</label>
+								<label class="title">Frequency Band </label> <span
+									class="text-red">*</span>
+								<p *ngIf="alertFrequency" class="text-red">Please choose at
+									least one frequency band for equipment</p>
 								<div id="eqmtType" class="    z-depth-0">
 									<div class="row" id="eqmtType-item">
 										<div *ngFor="let f of listFrequency"
@@ -107,16 +109,20 @@
 												{{f.unit}}</label>
 										</div>
 									</div>
-									<!-- equipement category -->
+
+
 
 								</div>
 							</div>
 
 							<div *ngIf="showEquipementTech" class="">
 								<hr>
-								<label class="title">Equipement Technologie</label>
+								<label class="title">Equipment Technologie</label> <span
+									class="text-red">*</span>
+								<p *ngIf="alertEquipementTechnologie" class="text-red">Please
+									enter the equipment technologie</p>
 								<div id="eqmtTech" class="    z-depth-0">
-									<div class="row" id="eqmtType-item">
+									<div class="row" style="overflow: scroll; height: 200px;" id="eqmtType-item">
 										<div *ngFor="let t of listTechnologie"
 											class="  col-md-3  col-sm-4">
 											<input (click)="getEquipemenetTechnology(t.id,$event)"
@@ -127,13 +133,20 @@
 									<!-- equipement category -->
 
 								</div>
+
 							</div>
 							<hr>
 
 							<div class="row mt-2">
 
-								<label class=" col-md-12 title">Countries </label>
+								<label class=" col-md-12 title">Countries <span
+									class="text-red">*</span></label>
+								<p *ngIf="alertCountry" class="col-md-12  text-red">Please
+									select a country of approval</p>
 
+							</div>
+
+							<div class="row mt-2" style="overflow: scroll; height: 200px;">
 								<div *ngFor="let c of listCountries;let i=index"
 									class=" col-md-3 col-sm-4">
 									<input name="country{{c.id}}"
@@ -207,28 +220,51 @@
 							<!--  confirm model -->
 							<ng-template #confirmContent let-c="close" let-d="dismiss">
 
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel"></h5>
+							<div class="modal-info">
 
-							</div>
-							<div class="modal-body">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">INFORMATION</h5>
+								</div>
+								<div class="modal-body">
 
-								<div class="card-body">
-									<div class="container-fluid">
-										<div class="row">
-											<p>You are  download datasheet</p>
+									<div class="card-body">
+										<div class="text-center">
+											<i class="fa fa-exclamation-circle fa-4x mb-3"
+												aria-hidden="true"></i>
+											<p>You have downloaded datasheets. That means you're not
+												sure about the informations that you have filled in.</p>
+											<p>By clicking continue your quote request will be sent
+												to our agents for processing.</p>
 										</div>
+									</div>
+								</div>
 
+								<div class="modal-footer d-flex justify-content-center">
+									<div class="container">
+										<a (click)="saveQuotation(0,successContent)"
+											class="btn btn-block  btn-default">Continue</a> <a
+											class="btn btn-block btn-danger" (click)="close()">Cancel</a>
 									</div>
 								</div>
 							</div>
+							</ng-template>
 
-							<div class="modal-footer">
-								<button type="button" data-dismiss="modal" (click)="saveQuotation(0)"
-									class="btn btn-danger pull-left">Send to an agent</button>
-								<button type="button" data-dismiss="modal"
-									(click)="goToStep2()" class="btn btn-primary">Automatic
-									quote</button>
+
+							<!--  confirm model -->
+							<ng-template #successContent let-c="close" let-d="dismiss">
+
+							<div class="modal-info">
+								<div class="modal-header">
+									<i style="color: #fff;" class="fa fa-check-circle fa-4x mb-3"
+										aria-hidden="true"></i>
+									<p class="text-center">Your quote request has been sent
+										successfully. We treat it.</p>
+								</div>
+								<div class="modal-footer white">
+									<button (click)="goToHome(successContent)"
+										class="btn btn-primary pull-left">OK</button>
+
+								</div>
 							</div>
 							</ng-template>
 						</form>

@@ -12,6 +12,11 @@ body {font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif
 .skin .main-header .navbar {background-color: #bfb218;}
 .skin .main-header .navbar .sidebar-toggle { color: #fff;}
 .main-sidebar {padding-top: 95px;}
+.modal-info .modal-body {background-color: #fff !important;color: #000 !important;}
+img{width: 100%;}
+.modal-info .fa{color: #00a7d0;}
+.modal-info .modal-footer.white{background-color:#fff !important}
+.modal-body {padding: 5px;}
 .form-inline .form-group { margin-right: 0rem; }
 .form-control {display: block;width: 100%;padding: 6px 12px;padding: .375rem .75rem;font-size: 14px;font-size: .875rem;line-height: 1.5;color: #495057;background-color: #fff;background-image: none;background-clip: padding-box;border: 1px solid #827717;border-radius: .25rem;}
 .form-inline .form-control {width: 100%;}
