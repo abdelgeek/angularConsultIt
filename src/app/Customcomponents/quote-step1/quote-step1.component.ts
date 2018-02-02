@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import {QuoteStep1Service} from '../../service/quote-step1-service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
-import {ProjectService} from '../../service/project.service';
+import {QuotationService} from '../../service/quotation.service';
 import {CountryService} from '../../service/country.service';
 import {DatePipe} from '@angular/common';
 
@@ -21,7 +21,7 @@ export class QuoteStep1Component implements OnInit {
   approvalId: any;
   frequencyArray: number[] = [];
   listTechnologie: any;
-  listEquipmentNature: any;
+  listEquipmentNature = [];
   showEquipementNature: boolean;
   showEquipementTech: boolean;
   showFrequency: boolean;
@@ -56,7 +56,7 @@ export class QuoteStep1Component implements OnInit {
   alertEquipementTechnologie = false;
 
 
-  constructor(public project: ProjectService, private router: Router,
+  constructor(public quotation: QuotationService, private router: Router,
     public quoteStep1Service: QuoteStep1Service,
     public glService: Glservice, private modalService: NgbModal,
     public country: CountryService, private datePipe: DatePipe
@@ -70,7 +70,6 @@ export class QuoteStep1Component implements OnInit {
 
     this.findFrequencyBand();
     this.findApprovalType();
-
   }
 
 
@@ -97,7 +96,7 @@ export class QuoteStep1Component implements OnInit {
   // get from data base equipment nature list
   findEquipmentNature() {
 
-    this.quoteStep1Service.findEquipementNature(this.project.approvalType)
+    this.quoteStep1Service.findEquipementNature(this.quotation.approvalType)
       .subscribe(data => {
 
         if (data.length < 1) {
@@ -137,7 +136,7 @@ export class QuoteStep1Component implements OnInit {
 
   findTechnologie() {
 
-    this.natureId = this.project.equipementNature;
+    this.natureId = this.quotation.equipementNature;
 
     this.quoteStep1Service.findEquipementTech(this.natureId)
       .subscribe(data => {
@@ -221,7 +220,7 @@ export class QuoteStep1Component implements OnInit {
       .subscribe(data => {
         this.listCategories = data;
 
-        this.project.category[countryId] = this.listCategories[0].id;
+        this.quotation.category[countryId] = this.listCategories[0].id;
 
 
         /*
@@ -247,6 +246,8 @@ export class QuoteStep1Component implements OnInit {
         this.alertencryption == false && this.alertEquipementTechnologie == false
         && this.alertequipmentNature == false && this.alertequipmentType == false
         && this.alertFrequency == false) {
+
+        alert(JSON.stringify(this.quotation));
         this.router.navigate(['/quoteStep2']);
       }
 
@@ -259,14 +260,14 @@ export class QuoteStep1Component implements OnInit {
 
 
   checkRequired() {
-    if (this.project.approvalType === undefined) {
+    if (this.quotation.approvalType === undefined) {
       this.alertapproval = true;
     } else {
       this.alertapproval = false;
 
     }
 
-    if (this.project.equipementType === undefined) {
+    if (this.quotation.equipementType === undefined) {
       this.alertequipmentType = true;
     } else {
       this.alertequipmentType = false;
@@ -274,7 +275,7 @@ export class QuoteStep1Component implements OnInit {
     }
 
 
-    if (this.project.hasEncryptionFeature === undefined) {
+    if (this.quotation.hasEncryptionFeature === undefined) {
 
       this.alertencryption = true;
     } else {
@@ -282,14 +283,14 @@ export class QuoteStep1Component implements OnInit {
 
     }
 
-    if (this.showEquipementNature == true && this.project.equipementNature == undefined) {
+    if (this.showEquipementNature == true && this.quotation.equipementNature == undefined) {
       this.alertequipmentNature = true;
     } else {
       this.alertequipmentNature = false;
 
     }
 
-    if (this.showFrequency == true && this.project.frequencyBand.length == 0) {
+    if (this.showFrequency == true && this.quotation.frequencyBand.length == 0) {
       this.alertFrequency = true;
     } else {
       this.alertFrequency = false;
@@ -298,14 +299,14 @@ export class QuoteStep1Component implements OnInit {
 
 
 
-    if (this.project.equipementTechnologie.length == 0 && this.showEquipementTech == true) {
+    if (this.quotation.equipementTechnologie.length == 0 && this.showEquipementTech == true) {
       this.alertEquipementTechnologie = true;
     } else {
       this.alertEquipementTechnologie = false;
 
     }
 
-    if (this.project.country.length == 0) {
+    if (this.quotation.country.length == 0) {
       this.alertCountry = true;
     } else {
       this.alertCountry = false;
@@ -331,12 +332,12 @@ export class QuoteStep1Component implements OnInit {
     // this.checkCountry[countryId] = !isCheckCountry;
     if (isCheckCountry) {
       this.findCategories(countryId, categorieContent);
-      this.project.country.push(countryId);
+      this.quotation.country.push(countryId);
     } else {
 
-      const index = this.project.country.indexOf(countryId);
-      this.project.country.splice(index, 1);
-      this.project.category[countryId] = null;
+      const index = this.quotation.country.indexOf(countryId);
+      this.quotation.country.splice(index, 1);
+      this.quotation.category[countryId] = null;
 
     }
 
@@ -347,15 +348,15 @@ export class QuoteStep1Component implements OnInit {
 
     const isCheck = event.target.checked;
 
-    if ((isCheck) && (this.project.frequencyBand.indexOf(frequencyId) === -1)) {
-      this.project.frequencyBand.push(frequencyId);
+    if ((isCheck) && (this.quotation.frequencyBand.indexOf(frequencyId) === -1)) {
+      this.quotation.frequencyBand.push(frequencyId);
     } else {
-      const index = this.project.frequencyBand.indexOf(frequencyId);
-      this.project.frequencyBand.splice(index, 1);
+      const index = this.quotation.frequencyBand.indexOf(frequencyId);
+      this.quotation.frequencyBand.splice(index, 1);
 
     }
 
-    this.checkFrequencyCountry(this.project.frequencyBand);
+    this.checkFrequencyCountry(this.quotation.frequencyBand);
   }
 
 
@@ -364,17 +365,17 @@ export class QuoteStep1Component implements OnInit {
 
     const isCheck = event.target.checked;
 
-    if ((isCheck) && (this.project.equipementTechnologie.indexOf(technologyId) === -1)) {
-      this.project.equipementTechnologie.push(technologyId);
+    if ((isCheck) && (this.quotation.equipementTechnologie.indexOf(technologyId) === -1)) {
+      this.quotation.equipementTechnologie.push(technologyId);
     } else {
-      const index = this.project.equipementTechnologie.indexOf(technologyId);
-      this.project.equipementTechnologie.splice(index, 1);
+      const index = this.quotation.equipementTechnologie.indexOf(technologyId);
+      this.quotation.equipementTechnologie.splice(index, 1);
     }
   }
 
   // affect category to object project
   getCategory() {
-    const categoryId = this.project.category[this.countryId];
+    const categoryId = this.quotation.category[this.countryId];
     this.glService.findCategory(categoryId)
       .subscribe(data => {
         const cat = data;
@@ -392,36 +393,36 @@ export class QuoteStep1Component implements OnInit {
 
   getEquipementNature() {
 
-
-
     this.findTechnologie();
-    this.project.frequencyBand = [];
-    this.project.equipementTechnologie = [];
+    this.quotation.frequencyBand = [];
+    this.quotation.equipementTechnologie = [];
 
-    this.natureId = this.project.equipementNature;
-    if (this.natureId === '2') {
+    this.natureId = this.quotation.equipementNature;
+
+    const frequency = this.listEquipmentNature.find(x => x.id == this.quotation.equipementNature);
+
+    if (frequency.hasFrequency == true) {
       this.showFrequency = true;
 
     } else {
       this.showFrequency = false;
     }
-
   }
 
   // affect approval type to object project
   getApprovalType() {
     // this.approvalId = aprvlId;
-    this.project.country = [];
+    this.quotation.country = [];
     this.checkCountry = [];
-    this.project.equipementTechnologie = [];
-    this.project.equipementNature = null;
-    this.project.frequencyBand = [];
+    this.quotation.equipementTechnologie = [];
+    this.quotation.equipementNature = null;
+    this.quotation.frequencyBand = [];
 
     // find from database equipment nature
     this.findEquipmentNature();
     // find from database country of that approval
 
-    this.findCountriesByApproval(this.project.approvalType);
+    this.findCountriesByApproval(this.quotation.approvalType);
   }
 
   // open modal category
@@ -473,12 +474,12 @@ export class QuoteStep1Component implements OnInit {
     this.modalRef.close();
     this.modalRef = this.modalService.open(modalContent, {size: 'sm', backdrop: false, keyboard: false});
     const today = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
-    this.project.date = today;
-    this.project.status = status;
+    this.quotation.date = today;
+    this.quotation.status = status;
 
-    this.project.saveQuotation(this.project).
+    this.glService.saveQuotation(this.quotation).
       subscribe(data => {
-        this.project = null;
+        this.quotation = null;
       }, err => {
         console.log(err);
       });

@@ -17,12 +17,14 @@ import {QuoteStep3Component} from './Customcomponents/quote-step3/quote-step3.co
 import {LoginComponent} from './Customcomponents/login/login.component';
 import {QuoteStep1Service} from './service/quote-step1-service';
 import {Glservice} from './service/glservice';
-import {ProjectService} from './service/project.service';
+import {QuotationService} from './service/quotation.service';
 import {EquipementService} from './service/equipement.service';
 import {CountryService} from './service/country.service';
 import {AgencyPriceService} from './service/agency-price.service';
 import {QuoteStep2Service} from './service/quote-step2.service';
 import {FormsModule} from '@angular/forms';
+import {PurchaseorderService} from './service/purchaseorder.service';
+
 
 const appRoutes: Routes = [
 
@@ -55,8 +57,8 @@ const appRoutes: Routes = [
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [QuoteStep1Service, DatePipe,
-    QuoteStep2Service, Glservice, EquipementService,
-    ProjectService, CountryService, AgencyPriceService],
+    QuoteStep2Service, Glservice, EquipementService, PurchaseorderService,
+    QuotationService, CountryService, AgencyPriceService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

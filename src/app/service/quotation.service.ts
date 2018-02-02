@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 
 @Injectable()
-export class ProjectService {
+export class QuotationService {
 
   name: string;
   model: string;
@@ -19,8 +19,9 @@ export class ProjectService {
   dataSheetUrl: string;
   status: number;
   date: any;
+  amount: number;
 
-  constructor(public http: Http) {
+  constructor() {
 
     this.country = [];
     this.category = [];
@@ -28,8 +29,4 @@ export class ProjectService {
     this.frequencyBand = [];
   }
 
-  saveQuotation(project: ProjectService) {
-    return this.http.post('http://localhost:8084/saveQuotation', project).
-      map(resp => resp.json());
-  }
 }

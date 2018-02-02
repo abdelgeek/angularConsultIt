@@ -133,9 +133,9 @@
 		<div class="modal-footer d-flex justify-content-center">
 			<div class="container">
 				<a class="btn btn-block  btn-default"
-					(click)="saveQuotation(1,saveQuote)">Your are not yet ready
-					save for later</a> <a class="btn btn-block  btn-default" id="confirm"
-					(click)="openModal(saveEquipment)">Confirm </a> <a
+					(click)="saveNotOrderedQuotation(1,saveQuote)">Your are not yet
+					ready save for later</a> <a class="btn btn-block  btn-default"
+					id="confirm" (click)="openModal(saveEquipment)">Confirm </a> <a
 					class="btn btn-block  btn-danger" (click)="close()">Cancel</a>
 			</div>
 		</div>
@@ -176,7 +176,8 @@
 
 		<div class="modal-footer d-flex justify-content-center">
 			<div class="container">
-				<button (click)="getEquipment()" class="btn btn-block btn-default">Next</button>
+				<button (click)="placeOrderfunct()"
+					class="btn btn-block btn-default">Next</button>
 			</div>
 		</div>
 	</div>
@@ -198,7 +199,7 @@
 		</div>
 		<div class="modal-footer white">
 			<button (click)="close()" class="btn btn-danger">Cancel</button>
-			<button (click)="saveQuotation(1,successSave)"
+			<button (click)="saveNotOrderedQuotation(1,successSave)"
 				class="btn btn-primary">Next</button>
 
 		</div>

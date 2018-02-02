@@ -32,7 +32,7 @@
 								<div class="form-group col-md-4">
 									<label class="title">Approval Type</label> <span
 										class="text-red">*</span> <select (change)="getApprovalType()"
-										[(ngModel)]="project.approvalType" class="form-control "
+										[(ngModel)]="quotation.approvalType" class="form-control "
 										name="approvalType">
 										<option *ngFor="let a of listApprovalType" [value]="a.id">{{a.name}}</option>
 									</select>
@@ -45,7 +45,7 @@
 
 										<label class="title">Equipment Type</label> <span
 											class="text-red">*</span><select
-											[(ngModel)]="project.equipementType" class="form-control "
+											[(ngModel)]="quotation.equipementType" class="form-control "
 											name="equipmentType">
 											<option *ngFor="let et of listEquipementType" [value]="et.id">{{et.name}}</option>
 										</select>
@@ -58,7 +58,7 @@
 								<div class="col-md-4">
 									<label class="title">Encryption capabilities</label> <span
 										class="text-red">*</span><select
-										[(ngModel)]="project.hasEncryptionFeature"
+										[(ngModel)]="quotation.hasEncryptionFeature"
 										name="hasEncryptionFeature" class="form-control ">
 										<option [ngValue]="false">No</option>
 										<option [ngValue]="true">Yes</option>
@@ -80,7 +80,7 @@
 									<div class="row" id="eqmtType-item">
 										<div *ngFor="let e of listEquipmentNature"
 											class="  col-md-3  col-sm-4">
-											<input [(ngModel)]="project.equipementNature" name="natureId"
+											<input [(ngModel)]="quotation.equipementNature" name="natureId"
 												(change)='getEquipementNature()' value="{{e.id}}"
 												type="radio" id="{{e.name}}"> <label
 												for="{{e.name}}">{{e.name}}</label>
@@ -156,7 +156,7 @@
 										id="country{{c.id}}"> <label for="country{{c.id}}">{{c.name}}</label>
 									<div class="row">
 										<div class="col-md-12">
-											<small *ngIf="project.category[c.id] && hasCat[c.id]>1"><a
+											<small *ngIf="quotation.category[c.id] && hasCat[c.id]>1"><a
 												(click)=" open(c.id,categorieContent);" class="text-primary">Click
 													here to change category</a><span></span>:
 												{{this.categoryName[c.id]}}</small>
@@ -200,7 +200,7 @@
 												<div class="form-group">
 													<input name="catcountry{{cat.country.id}}"
 														(click)="setCategory(cat.country.id)"
-														[(ngModel)]="project.category[cat.country.id]"
+														[(ngModel)]="quotation.category[cat.country.id]"
 														value="{{cat.id}}" type="radio" id="cat{{cat.id}}">
 													<label for="cat{{cat.id}}">{{cat.categoryName}}</label>
 
