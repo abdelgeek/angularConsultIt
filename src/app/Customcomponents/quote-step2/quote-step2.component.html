@@ -33,7 +33,7 @@
 								<!--Table head-->
 								<thead class="blue-grey lighten-4">
 									<tr>
-										<th>id</th>
+										<th></th>
 										<th>Country</th>
 										<th>Agency</th>
 										<th>Price (USD)</th>
@@ -45,9 +45,9 @@
 								<!--Table body-->
 								<tbody>
 									<tr *ngFor="let c of listCategories; let i = index">
-										<th>{{c.id}}</th>
+									<td>{{i}} </td>
 										<td>{{c.country.name}}</td>
-										<td>{{listAgency[i].agencyInitials}}</td>
+										<td>{{listAgency[0].agencyInitials}}</td>
 
 										<td>{{c.categoryPrice}}</td>
 										<th><a href="#"><i class="fa fa-trash red-text"></i>
@@ -156,18 +156,21 @@
 
 		<div class="modal-body">
 			<div class="form-group mb-3">
-				<label for="EquipmentName">Name</label><input type="text"
-					[(ngModel)]="equipement.name" id="EquipmentName"
+				<label for="EquipmentName">Name <span class="text-red">*</span></label>
+				<p *ngIf="alertEquipmentName" class="text-red">Please enter the equipment name</p>
+				<input type="text" [(ngModel)]="equipement.name" id="EquipmentName"
 					class="form-control" placeholder="Equipment name">
 			</div>
 			<div class="form-group mb-3">
-				<label for="EquipmentModel">Model</label><input type="text"
+				<label for="EquipmentModel">Model</label>
+				<p *ngIf="alertEquipmentModel" class="text-red">Please enter the equipment model</p><input type="text"
 					[(ngModel)]="equipement.model" id="EquipmentModel"
 					class="form-control" placeholder="Equipment model">
 			</div>
 
 			<div class="form-group mb-3">
-				<label for="EquipmentBrand">Brand</label><input type="text"
+				<label for="EquipmentBrand">Brand</label>
+				<p *ngIf="alertEquipmentBrand" class="text-red">Please enter the equipment brand</p><input type="text"
 					[(ngModel)]="equipement.brand" id="EquipmentBrand"
 					class="form-control" placeholder="Equipment brand ">
 			</div>
@@ -176,7 +179,7 @@
 
 		<div class="modal-footer d-flex justify-content-center">
 			<div class="container">
-				<button (click)="placeOrderfunct()"
+				<button (click)="redirectToStep3()"
 					class="btn btn-block btn-default">Next</button>
 			</div>
 		</div>

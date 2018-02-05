@@ -1,49 +1,49 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class QuoteStep1Service {
-  constructor(public http: Http) {}
+  constructor(public http: HttpClient) {}
 
   findApprovalType() {
-    return this.http.get('http://localhost:8084/findApprovalType')
-      .map(resp => resp.json());
+    return this.http.get('/api/findApprovalType');
+
   }
 
   findEquipmentType() {
-    return this.http.get('http://localhost:8084/findEquipementTypes')
-      .map(resp => resp.json());
+    return this.http.get('/api/findEquipementTypes');
+
   }
 
   findEquipementType(approvalId: number) {
-    return this.http.get('http://localhost:8084/findEqmtypeByApprovalType?approvalId=' + approvalId)
-      .map(resp => resp.json());
+    return this.http.get('/api/findEqmtypeByApprovalType?approvalId=' + approvalId);
+
   }
 
   findEquipementNature(approvalId: number) {
 
-    return this.http.get('http://localhost:8084/findEqmNatureByApprovalType?approvalId=' + approvalId)
-      .map(resp => resp.json());
+    return this.http.get('/api/findEqmNatureByApprovalType?approvalId=' + approvalId);
+
   }
 
   findFrequencyBand() {
-    return this.http.get('http://localhost:8084/findFrequencyBand')
-      .map(resp => resp.json());
+    return this.http.get('/api/findFrequencyBand');
+
   }
 
   findCountriesByApprovalType(approvalId: number) {
-    return this.http.get('http://localhost:8084/findCountryByApprovalTypes?approvalId=' + approvalId)
-      .map(resp => resp.json());
+    return this.http.get('api/findCountryByApprovalTypes?approvalId=' + approvalId);
+
   }
 
 
   findFrequenciesByCountry(countryId: number) {
-    return this.http.get('http://localhost:8084/findFrequenciesCountry?countryId=' + countryId)
-      .map(resp => resp.json());
+    return this.http.get('/api/findFrequenciesCountry?countryId=' + countryId);
+
   }
 
   findEquipementTech(eqpmtNatureId: number) {
-    return this.http.get('http://localhost:8084/findByEquipementNature?eqpmtNatureId=' + eqpmtNatureId)
-      .map(resp => resp.json());
+    return this.http.get('/api/findByEquipementNature?eqpmtNatureId=' + eqpmtNatureId);
+
   }
 }

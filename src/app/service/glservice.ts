@@ -1,31 +1,27 @@
+import {Country} from '../class/country';
 import {QuotationService} from './quotation.service';
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {HttpClient, HttpRequest} from '@angular/common/http';
 
 @Injectable()
 export class Glservice {
 
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
   findCountries() {
-    return this.http.get('http://localhost:8084//findCountries')
-      .map(resp => resp.json());
-
+    return this.http.get('/api/findCountries');
   }
 
   findCategory(categoryId) {
-    return this.http.get('http://localhost:8084//findOneCategory?categoryId=' + categoryId)
-      .map(resp => resp.json());
+    return this.http.get('/api/findOneCategory?categoryId=' + categoryId);
   }
 
   findCategories(idCountry: number) {
-    return this.http.get('http://localhost:8084/findCategorieByCountry?idCountry=' + idCountry)
-      .map(resp => resp.json());
+    return this.http.get('/api/findCategorieByCountry?idCountry=' + idCountry);
   }
 
   saveQuotation(quotation: QuotationService) {
-    return this.http.post('http://localhost:8084/saveQuotation', quotation).
-      map(resp => resp.json());
+    return this.http.post('/api/saveQuotation', quotation);
   }
 
 }

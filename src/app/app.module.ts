@@ -13,6 +13,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {QuoteStep1Component} from './Customcomponents/quote-step1/quote-step1.component';
 import {QuoteStep2Component} from './Customcomponents/quote-step2/quote-step2.component';
 import {QuoteStep3Component} from './Customcomponents/quote-step3/quote-step3.component';
+import {QuoteStep4Component} from './Customcomponents/quote-step4/quote-step4.component';
 
 import {LoginComponent} from './Customcomponents/login/login.component';
 import {QuoteStep1Service} from './service/quote-step1-service';
@@ -24,6 +25,9 @@ import {AgencyPriceService} from './service/agency-price.service';
 import {QuoteStep2Service} from './service/quote-step2.service';
 import {FormsModule} from '@angular/forms';
 import {PurchaseorderService} from './service/purchaseorder.service';
+import {FormUploadComponent} from './Customcomponents/form-upload/form-upload.component';
+import {HttpClientModule} from '@angular/common/http';
+import {UploadFileService} from './service/upload-file.service';
 
 
 const appRoutes: Routes = [
@@ -32,7 +36,9 @@ const appRoutes: Routes = [
   {path: 'quoteStep1', component: QuoteStep1Component},
   {path: 'quoteStep2', component: QuoteStep2Component},
   {path: 'quoteStep3', component: QuoteStep3Component},
-  {path: '', redirectTo: '/home', pathMatch: 'full'}
+  {path: 'quoteStep4', component: QuoteStep4Component},
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: 'upload', component: FormUploadComponent}
 
 ];
 @NgModule({
@@ -44,8 +50,9 @@ const appRoutes: Routes = [
     QuoteStep1Component,
     QuoteStep2Component,
     QuoteStep3Component,
-    LoginComponent
-
+    LoginComponent,
+    QuoteStep4Component,
+    FormUploadComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -53,12 +60,13 @@ const appRoutes: Routes = [
     MDBBootstrapModule.forRoot(),
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [QuoteStep1Service, DatePipe,
     QuoteStep2Service, Glservice, EquipementService, PurchaseorderService,
-    QuotationService, CountryService, AgencyPriceService],
+    QuotationService, CountryService, AgencyPriceService, UploadFileService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

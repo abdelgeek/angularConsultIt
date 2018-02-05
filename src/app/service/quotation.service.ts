@@ -19,7 +19,7 @@ export class QuotationService {
   dataSheetUrl: string;
   status: number;
   date: any;
-  amount: number;
+  totalAmount: number;
 
   constructor() {
 

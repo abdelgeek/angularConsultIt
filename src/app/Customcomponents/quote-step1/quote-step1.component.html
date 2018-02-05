@@ -80,9 +80,9 @@
 									<div class="row" id="eqmtType-item">
 										<div *ngFor="let e of listEquipmentNature"
 											class="  col-md-3  col-sm-4">
-											<input [(ngModel)]="quotation.equipementNature" name="natureId"
-												(change)='getEquipementNature()' value="{{e.id}}"
-												type="radio" id="{{e.name}}"> <label
+											<input [(ngModel)]="quotation.equipementNature"
+												name="natureId" (change)='getEquipementNature()'
+												value="{{e.id}}" type="radio" id="{{e.name}}"> <label
 												for="{{e.name}}">{{e.name}}</label>
 										</div>
 									</div>
@@ -122,7 +122,8 @@
 								<p *ngIf="alertEquipementTechnologie" class="text-red">Please
 									enter the equipment technologie</p>
 								<div id="eqmtTech" class="    z-depth-0">
-									<div class="row" style="overflow: scroll; height: 200px;" id="eqmtType-item">
+									<div class="row" style="overflow: scroll; height: 200px;"
+										id="eqmtType-item">
 										<div *ngFor="let t of listTechnologie"
 											class="  col-md-3  col-sm-4">
 											<input (click)="getEquipemenetTechnology(t.id,$event)"
@@ -175,8 +176,11 @@
 								<label class=" col-md-12">If you are not sure about the
 									informations you have entered, you can download the datasheet </label>
 								<div class="col-md-12">
-									<input type="file" (change)="onFileChange($event)" #fileInput>
+									<label> <input type="file"
+										(change)="selectFile($event)">
+									</label>
 								</div>
+
 
 							</div>
 

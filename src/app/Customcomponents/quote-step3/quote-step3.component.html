@@ -1,7 +1,7 @@
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
-		<h1>Get Quote</h1>
+		<h1>Place Order</h1>
 
 	</section>
 
@@ -134,7 +134,7 @@
 										service</label>
 								</div>
 							</div>
-							<button [disabled]="!aggreed" class="pull-left btn btn-default" id="validateQuote">
+							<button (click)="placeOrderfunct()" [disabled]="!aggreed" class="pull-left btn btn-default" id="validateQuote">
 								Submit <i class="fa fa-arrow-circle-right"></i>
 							</button>
 

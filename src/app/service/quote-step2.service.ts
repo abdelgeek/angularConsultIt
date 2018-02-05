@@ -1,20 +1,20 @@
-import { Injectable } from '@angular/core';
-import {Http} from '@angular/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class QuoteStep2Service {
 
-  constructor( public htpp: Http) { }
+  constructor(public htpp: HttpClient) {}
 
- findCountries(approvalId: number) {
-    return this.htpp.get('http://localhost:8080/findCountryByEquipementTypes?equipementId=' + approvalId)
-      .map(resp => resp.json()) ;
+  findCountries(approvalId: number) {
+    return this.htpp.get('/api/findCountryByEquipementTypes?equipementId=' + approvalId);
+
   }
 
   findAgency(countryId: number, approvalTypeId: number) {
-    return this.htpp.get('http://localhost:8084/findByCountryAndApprovalType?countryId=' + countryId +
-       '&approvalTypeId=' + approvalTypeId )
-    .map(resp => resp.json());
+    return this.htpp.get('/api/findByCountryAndApprovalType?countryId=' + countryId +
+      '&approvalTypeId=' + approvalTypeId);
+
   }
 
 }

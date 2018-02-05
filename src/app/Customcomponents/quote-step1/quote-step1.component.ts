@@ -7,6 +7,7 @@ import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import {QuotationService} from '../../service/quotation.service';
 import {CountryService} from '../../service/country.service';
 import {DatePipe} from '@angular/common';
+import {UploadFileService} from '../../service/upload-file.service';
 
 
 @Component({
@@ -26,9 +27,12 @@ export class QuoteStep1Component implements OnInit {
   showEquipementTech: boolean;
   showFrequency: boolean;
   listFrequency: any;
-  listCountries: any[] = [];
+  listCountries = [];
   listCountriesFrequency: any[] = [];
   listEquipementType: any;
+  selectedFiles: FileList;
+  currentFileUpload: File;
+  progress: {percentage: number} = {percentage: 0};
 
   listCategories: any;
 
@@ -59,7 +63,8 @@ export class QuoteStep1Component implements OnInit {
   constructor(public quotation: QuotationService, private router: Router,
     public quoteStep1Service: QuoteStep1Service,
     public glService: Glservice, private modalService: NgbModal,
-    public country: CountryService, private datePipe: DatePipe
+    public country: CountryService, private datePipe: DatePipe,
+   public uploadService: UploadFileService
   ) {
   }
 
@@ -97,7 +102,7 @@ export class QuoteStep1Component implements OnInit {
   findEquipmentNature() {
 
     this.quoteStep1Service.findEquipementNature(this.quotation.approvalType)
-      .subscribe(data => {
+      .subscribe((data: any[]) => {
 
         if (data.length < 1) {
           // if equipment list < 1 hide frequency and technology
@@ -139,7 +144,7 @@ export class QuoteStep1Component implements OnInit {
     this.natureId = this.quotation.equipementNature;
 
     this.quoteStep1Service.findEquipementTech(this.natureId)
-      .subscribe(data => {
+      .subscribe((data: any[]) => {
         if (data.length < 1) {
           this.showEquipementTech = false;
         } else {
@@ -147,7 +152,7 @@ export class QuoteStep1Component implements OnInit {
           this.showEquipementTech = true;
 
         }
-        // this.findCountriesByApproval(this.approvalId);
+        this.findCountriesByApproval(this.approvalId);
 
       }, err => {
         console.log(err);
@@ -175,7 +180,7 @@ export class QuoteStep1Component implements OnInit {
 
 
     this.quoteStep1Service.findCountriesByApprovalType(approvalId)
-      .subscribe(data => {
+      .subscribe((data: any[]) => {
         this.listCountries = data;
 
         console.log(' ******* country success******* ');
@@ -190,7 +195,9 @@ export class QuoteStep1Component implements OnInit {
 
   findCountries() {
     this.glService.findCountries()
-      .subscribe(data => {
+      .subscribe((data: any[]) => {
+        console.log('data');
+        console.log(data);
         this.listCountries = data;
         this.initDisabledCountry();
       }, err => {
@@ -240,14 +247,13 @@ export class QuoteStep1Component implements OnInit {
 
 
   redirectNextStep(confirmContent) {
+
     if (this.file == null) {
       this.checkRequired();
       if (this.alertapproval == false && this.alertCountry == false &&
         this.alertencryption == false && this.alertEquipementTechnologie == false
         && this.alertequipmentNature == false && this.alertequipmentType == false
         && this.alertFrequency == false) {
-
-        alert(JSON.stringify(this.quotation));
         this.router.navigate(['/quoteStep2']);
       }
 
@@ -377,7 +383,7 @@ export class QuoteStep1Component implements OnInit {
   getCategory() {
     const categoryId = this.quotation.category[this.countryId];
     this.glService.findCategory(categoryId)
-      .subscribe(data => {
+      .subscribe((data: any) => {
         const cat = data;
         this.categoryName[this.countryId] = cat.categoryName;
         this.modalRef.close();
@@ -444,7 +450,7 @@ export class QuoteStep1Component implements OnInit {
     this.listCountries.forEach(item => {
       this.disabledCountry[item.id] = false;
       this.quoteStep1Service.findFrequenciesByCountry(item.id)
-        .subscribe(data => {
+        .subscribe((data: any[]) => {
 
           let listFrequenciesCountry: any[] = [];
           listFrequenciesCountry = data;
@@ -483,6 +489,24 @@ export class QuoteStep1Component implements OnInit {
       }, err => {
         console.log(err);
       });
+  }
+
+  // select file
+  selectFile(event) {
+    this.selectedFiles = event.target.files;
+  }
+
+
+  // upload file
+  upload() {
+
+
+    this.currentFileUpload = this.selectedFiles.item(0);
+    this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
+      console.log('file upload');
+    });
+
+    this.selectedFiles = undefined;
   }
 
 }
