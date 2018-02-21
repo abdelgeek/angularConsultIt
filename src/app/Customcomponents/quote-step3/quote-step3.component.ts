@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-
+import {QuoteStep3Service} from '../../service/quote-step3.service';
 import {QuotationService} from '../../service/quotation.service';
 import {Glservice} from '../../service/glservice';
 import {DatePipe} from '@angular/common';
@@ -17,7 +17,7 @@ export class QuoteStep3Component implements OnInit {
 
   constructor(private datePipe: DatePipe, private quotation: QuotationService,
     private purchaseorder: PurchaseorderService, private http: Http,
-    private router: Router
+    private router: Router, private quoteStep3Service: QuoteStep3Service
   ) {}
   aggreed: boolean;
 
@@ -35,11 +35,10 @@ export class QuoteStep3Component implements OnInit {
 
     this.purchaseorder.placeOrderDate = placeOrderDate;
 
-    alert(JSON.stringify(this.purchaseorder));
-    this.http.post('http://localhost:8084/purchaseOrder', this.purchaseorder).
-      map(resp => resp.json)
+    alert('je suis fatigué ');
+    this.quoteStep3Service.placedOrder(this.purchaseorder)
       .subscribe(data => {
-       this.router.navigate(['/quoteStep4']);
+        this.router.navigate(['/quoteStep4']);
       }, err => {
         console.log(err);
       });

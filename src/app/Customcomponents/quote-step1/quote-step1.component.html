@@ -147,6 +147,8 @@
 
 							</div>
 
+
+
 							<div class="row mt-2" style="overflow: scroll; height: 200px;">
 								<div *ngFor="let c of listCountries;let i=index"
 									class=" col-md-3 col-sm-4">
@@ -155,6 +157,8 @@
 										(change)="getCountry(c.id,checkCountry[c.id],categorieContent)"
 										[(ngModel)]="checkCountry[c.id]" type="checkbox"
 										id="country{{c.id}}"> <label for="country{{c.id}}">{{c.name}}</label>
+
+
 									<div class="row">
 										<div class="col-md-12">
 											<small *ngIf="quotation.category[c.id] && hasCat[c.id]>1"><a
@@ -171,12 +175,12 @@
 							</div>
 							<hr>
 							<div class="row mt-2">
-
 								<label class=" col-md-12 title">Need help ? (optional) </label>
 								<label class=" col-md-12">If you are not sure about the
 									informations you have entered, you can download the datasheet </label>
+								<p *ngIf="alertfileError" class="col-md-12  text-red">{{fileError}}</p>
 								<div class="col-md-12">
-									<label> <input type="file"
+									<label> <input #datasheet type="file"
 										(change)="selectFile($event)">
 									</label>
 								</div>
@@ -247,7 +251,7 @@
 									<div class="container">
 										<a (click)="saveQuotation(0,successContent)"
 											class="btn btn-block  btn-default">Continue</a> <a
-											class="btn btn-block btn-danger" (click)="close()">Cancel</a>
+											class="btn btn-block btn-danger" (click)="resetForm()">Cancel</a>
 									</div>
 								</div>
 							</div>

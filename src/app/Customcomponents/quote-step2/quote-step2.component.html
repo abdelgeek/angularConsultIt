@@ -29,15 +29,16 @@
 					<div class="box-body">
 
 						<div class="table-wrapper-2">
+
 							<table class="table text-center  table-striped w-auto">
 								<!--Table head-->
 								<thead class="blue-grey lighten-4">
 									<tr>
-										<th></th>
+
 										<th>Country</th>
 										<th>Agency</th>
 										<th>Price (USD)</th>
-										<th>Action</th>
+
 									</tr>
 								</thead>
 								<!--Table head-->
@@ -45,13 +46,10 @@
 								<!--Table body-->
 								<tbody>
 									<tr *ngFor="let c of listCategories; let i = index">
-									<td>{{i}} </td>
-										<td>{{c.country.name}}</td>
-										<td>{{listAgency[0].agencyInitials}}</td>
 
+										<td>{{c.agency.country.name}}</td>
+										<td>{{c.agency.agencyInitials}}</td>
 										<td>{{c.categoryPrice}}</td>
-										<th><a href="#"><i class="fa fa-trash red-text"></i>
-										</a></th>
 
 									</tr>
 
@@ -63,6 +61,8 @@
 								<span class="label-price pull-right">Total :
 									{{totalPrice}} USD</span>
 							</div>
+
+
 							<div class="box-footer clearfix">
 
 								<a routerLink="/quoteStep1" class="pull-left btn btn-default"
@@ -157,22 +157,27 @@
 		<div class="modal-body">
 			<div class="form-group mb-3">
 				<label for="EquipmentName">Name <span class="text-red">*</span></label>
-				<p *ngIf="alertEquipmentName" class="text-red">Please enter the equipment name</p>
+				<p *ngIf="alertEquipmentName" class="text-red">Please enter the
+					equipment name</p>
 				<input type="text" [(ngModel)]="equipement.name" id="EquipmentName"
 					class="form-control" placeholder="Equipment name">
 			</div>
 			<div class="form-group mb-3">
 				<label for="EquipmentModel">Model</label>
-				<p *ngIf="alertEquipmentModel" class="text-red">Please enter the equipment model</p><input type="text"
-					[(ngModel)]="equipement.model" id="EquipmentModel"
-					class="form-control" placeholder="Equipment model">
+				<p *ngIf="alertEquipmentModel" class="text-red">Please enter the
+					equipment model</p>
+				<input type="text" [(ngModel)]="equipement.model"
+					id="EquipmentModel" class="form-control"
+					placeholder="Equipment model">
 			</div>
 
 			<div class="form-group mb-3">
 				<label for="EquipmentBrand">Brand</label>
-				<p *ngIf="alertEquipmentBrand" class="text-red">Please enter the equipment brand</p><input type="text"
-					[(ngModel)]="equipement.brand" id="EquipmentBrand"
-					class="form-control" placeholder="Equipment brand ">
+				<p *ngIf="alertEquipmentBrand" class="text-red">Please enter the
+					equipment brand</p>
+				<input type="text" [(ngModel)]="equipement.brand"
+					id="EquipmentBrand" class="form-control"
+					placeholder="Equipment brand ">
 			</div>
 
 		</div>

@@ -7,12 +7,10 @@ export class QuoteStep1Service {
 
   findApprovalType() {
     return this.http.get('/api/findApprovalType');
-
   }
 
   findEquipmentType() {
     return this.http.get('/api/findEquipementTypes');
-
   }
 
   findEquipementType(approvalId: number) {
@@ -28,18 +26,19 @@ export class QuoteStep1Service {
 
   findFrequencyBand() {
     return this.http.get('/api/findFrequencyBand');
-
   }
 
   findCountriesByApprovalType(approvalId: number) {
     return this.http.get('api/findCountryByApprovalTypes?approvalId=' + approvalId);
+  }
 
+  findCountriesByEquipmentNature(approvalId: number) {
+    return this.http.get('api/findCountryByApprovalTypes?approvalId=' + approvalId);
   }
 
 
   findFrequenciesByCountry(countryId: number) {
     return this.http.get('/api/findFrequenciesCountry?countryId=' + countryId);
-
   }
 
   findEquipementTech(eqpmtNatureId: number) {

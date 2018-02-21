@@ -4,9 +4,7 @@ import {Http} from '@angular/http';
 @Injectable()
 export class QuotationService {
 
-  name: string;
-  model: string;
-  brand: string;
+
   description: string;
   approvalType: number;
   equipementType: number;

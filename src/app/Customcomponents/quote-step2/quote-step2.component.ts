@@ -39,7 +39,6 @@ export class QuoteStep2Component implements OnInit {
 
   ngOnInit() {
     this.totalPrice = 0;
-    console.log('Approval ' + this.qotation.approvalType);
     this.findCategories();
     this.approvalId = this.qotation.approvalType;
   }
@@ -50,19 +49,19 @@ export class QuoteStep2Component implements OnInit {
 
     this.qotation.category.forEach(item => {
 
-      this.glservice.findCategory(item)
-        .subscribe(data => {
-          this.listCategories.push(data);
-          //    this.totalPrice = this.totalPrice + data.categoryPrice;
-          this.qotation.totalAmount = this.totalPrice;
-          /*    this.quoteStep2Service.findAgency(data.country.id, this.approvalId)
-                .subscribe(result => {
-                  this.listAgency.push(result);
-                }, er => {
-                  console.log(er);
-                });
-    */
-        });
+      if (item != null) {
+        this.glservice.findCategory(item)
+          .subscribe((data: any) => {
+
+            this.listCategories.push(data);
+
+            this.totalPrice = this.totalPrice + data.categoryPrice;
+            this.qotation.totalAmount = this.totalPrice;
+          });
+
+      }
+
+
     });
 
   }

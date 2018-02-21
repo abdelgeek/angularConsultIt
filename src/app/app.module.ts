@@ -23,12 +23,15 @@ import {EquipementService} from './service/equipement.service';
 import {CountryService} from './service/country.service';
 import {AgencyPriceService} from './service/agency-price.service';
 import {QuoteStep2Service} from './service/quote-step2.service';
+import {QuoteStep3Service} from './service/quote-step3.service';
 import {FormsModule} from '@angular/forms';
 import {PurchaseorderService} from './service/purchaseorder.service';
 import {FormUploadComponent} from './Customcomponents/form-upload/form-upload.component';
 import {HttpClientModule} from '@angular/common/http';
-import {UploadFileService} from './service/upload-file.service';
-
+import {UploadFileComponent} from './service/upload-file/upload-file.component';
+import { PdfGeneratorComponent } from './Customcomponents/pdf-generator/pdf-generator.component';
+import { HomeTestComponent } from './Customcomponents/home-test/home-test.component';
+import { LoginService } from './service/login.service';
 
 const appRoutes: Routes = [
 
@@ -38,7 +41,10 @@ const appRoutes: Routes = [
   {path: 'quoteStep3', component: QuoteStep3Component},
   {path: 'quoteStep4', component: QuoteStep4Component},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'upload', component: FormUploadComponent}
+  {path: 'upload', component: FormUploadComponent},
+  {path: 'pdfGenerator', component: PdfGeneratorComponent},
+  { path: 'homeTest', component: HomeTestComponent},
+  { path: 'login', component: LoginComponent}
 
 ];
 @NgModule({
@@ -52,7 +58,10 @@ const appRoutes: Routes = [
     QuoteStep3Component,
     LoginComponent,
     QuoteStep4Component,
-    FormUploadComponent
+    FormUploadComponent,
+    UploadFileComponent,
+   PdfGeneratorComponent,
+   HomeTestComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -64,9 +73,9 @@ const appRoutes: Routes = [
     HttpClientModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
-  providers: [QuoteStep1Service, DatePipe,
+  providers: [QuoteStep1Service, DatePipe, QuoteStep3Service,
     QuoteStep2Service, Glservice, EquipementService, PurchaseorderService,
-    QuotationService, CountryService, AgencyPriceService, UploadFileService],
+    QuotationService, CountryService, AgencyPriceService, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
