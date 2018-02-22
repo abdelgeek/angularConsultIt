@@ -10,5 +10,10 @@ export class QuoteStep3Service {
   public placedOrder(purchaseorder) {
     return this.http.post('/api/purchaseOrder', purchaseorder);
   }
+
+
+  public getListOfRequirements(countryId) {
+    return this.http.get('/api/findRequirementsByAgency?countryId=' + countryId);
+  }
 }
 

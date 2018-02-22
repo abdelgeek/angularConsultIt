@@ -15,8 +15,11 @@ export class LoginComponent implements OnInit {
 
   login() {
 
-    alert('ew');
-    this.router.navigate(['/homeTest']);
+
+    this.app.authenticate(this.credentials, () => {
+      this.router.navigateByUrl('/');
+  });
+  return false;
   }
 
 }

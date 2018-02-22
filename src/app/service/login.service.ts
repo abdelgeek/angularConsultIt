@@ -10,7 +10,6 @@ export class LoginService {
   }
 
   authenticate(credentials, callback) {
-
     const headers = new HttpHeaders(credentials ? {
         authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
     } : {});

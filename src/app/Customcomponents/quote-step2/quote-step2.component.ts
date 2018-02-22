@@ -1,16 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {Glservice} from '../../service/glservice';
-import {AgencyPriceService} from '../../service/agency-price.service';
-import {QuoteStep2Service} from '../../service/quote-step2.service';
-import {DatePipe} from '@angular/common';
-import {stringify} from 'querystring';
-import {Router} from '@angular/router';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {BotDetectCaptchaModule} from 'angular-captcha';
-import {EquipementService} from '../../service/equipement.service';
-import {QuotationService} from '../../service/quotation.service';
+import { Component, OnInit } from '@angular/core';
+import { Glservice } from '../../service/glservice';
+import { AgencyPriceService } from '../../service/agency-price.service';
+import { QuoteStep2Service } from '../../service/quote-step2.service';
+import { DatePipe } from '@angular/common';
+import { stringify } from 'querystring';
+import { Router } from '@angular/router';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { BotDetectCaptchaModule } from 'angular-captcha';
+import { EquipementService } from '../../service/equipement.service';
+import { QuotationService } from '../../service/quotation.service';
 
-import {Http} from '@angular/http';
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'app-quote-step2',
@@ -35,7 +35,7 @@ export class QuoteStep2Component implements OnInit {
     private glservice: Glservice, private agencyService: AgencyPriceService,
     private quoteStep2Service: QuoteStep2Service, private router: Router,
     private http: Http,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.totalPrice = 0;
@@ -46,24 +46,14 @@ export class QuoteStep2Component implements OnInit {
 
   // retrieve category with price
   findCategories() {
+    this.glservice.findCategoryPriceForQuotation(this.qotation).
+      subscribe((data: any[]) => {
+        console.log('liste des category de price');
 
-    this.qotation.category.forEach(item => {
+        this.listCategories = data;
 
-      if (item != null) {
-        this.glservice.findCategory(item)
-          .subscribe((data: any) => {
-
-            this.listCategories.push(data);
-
-            this.totalPrice = this.totalPrice + data.categoryPrice;
-            this.qotation.totalAmount = this.totalPrice;
-          });
-
-      }
-
-
-    });
-
+        this.getTotalPrice(data);
+      });
   }
 
   // save the quotation when client click on button save
@@ -89,7 +79,7 @@ export class QuoteStep2Component implements OnInit {
     if (this.modalRef != null) {
       this.modalRef.close();
     }
-    this.modalRef = this.modal.open(modal, {size: 'sm', backdrop: false, keyboard: false});
+    this.modalRef = this.modal.open(modal, { size: 'sm', backdrop: false, keyboard: false });
   }
 
   goToHome(modal) {
@@ -138,6 +128,13 @@ export class QuoteStep2Component implements OnInit {
       && this.alertEquipmentModel == false) {
       this.modalRef.close();
       this.router.navigate(['/quoteStep3']);
+    }
+  }
+
+
+  getTotalPrice(data: any[]) {
+    for (let i = 0; i < data.length; i++) {
+      this.totalPrice = this.totalPrice + data[i].price;
     }
   }
 

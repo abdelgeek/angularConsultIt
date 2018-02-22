@@ -21,9 +21,8 @@
 				<div class="box box-info">
 
 					<div class="progress quote-progress">
-						<div class="progress-bar bg-primary" id="progression"
-							role="progressbar" style="width: 50%" aria-valuenow="75"
-							aria-valuemin="0" aria-valuemax="100"></div>
+						<div class="progress-bar bg-primary" id="progression" role="progressbar" style="width: 50%" aria-valuenow="75" aria-valuemin="0"
+						 aria-valuemax="100"></div>
 					</div>
 
 					<div class="box-header">
@@ -35,107 +34,99 @@
 
 
 					<div class="box-body ">
-						<div>
+						<div class="container">
 							<img style="max-width: 100%" src="assets/img/Invoice.jpg">
 						</div>
-						<label class="title">Terms and conditions</label>
-						<div
-							style="position: relative; overflow-y: scroll; height: 350px;">
 
-							<ol class="term-text">
-
-								<li><h6>TERM AND CONDITIONS</h6>
-
+						<div class="container">
 							<p>
-										<b>Consult IT SARL</b>, will provide approval services as
-										applicable for all identified countries. Only those tasks as
-										outlined in this proposal are included. As part of this
-										service, we will coordinate all necessary efforts to obtain
-										approval. This quotation is based upon information received to
-										date from the client and may be revised upon the receipt of
-										any additional information or alterations that may influence
-										the timescale and/or cost aspects. Outside testing and
-										certification fees will be billed at actual cost, using the
-										currency exchange rate valid at the time of billing as
-										applicable. Any required re-testing costs are NOT included and
-										will be billed at a cost. Unless specified in this quotation,
-										all shipping costs, import taxes, etc... are excluded and are
-										the responsibilities of the client. <b>Consult It</b>, SARL is
-										offering “Approval Management Services” for your company. We
-										cannot guarantee that products will gain approval. We will
-										identify any obstacles to approval to you, but it remains your
-										responsibility to ensure the product meets technical
-										requirements and that your company has all the legal
-										requirements in place. Additional technologies, product types
-										or derivable beyond the scope of this project will be
-										considered separately and will be renegotiated as necessary.
-									</p></li>
-
-								<li>
-									<h6>Disclaimer</h6>
-									<p>
-										<b>Consult IT SARL</b>, guarantees that it will provide
-										regulatory agencies with the same information regarding
-										product naming and technical specifications (model number,
-										manufacturer name, address, product name and brand, etc…) as
-										provided by the client. It is possible that regulatory
-										agencies will not transfer this information correctly onto the
-										certificates that are issued. If that occurs, after
-										consultation with the client, <b>Consult It</b>, has the
-										option of requesting an email confirming the validity of the
-										certificate for the particular product or to ask for a
-										corrected certificate. In either case, payment will not be
-										delayed due to such errors.
-									</p>
-								</li>
-
-								<li>
-									<h6>Payment</h6>
-									<p>
-										<b> Consult IT SARL, projects require payment of services
-											as outline below: Our payment terms are 50% when the project
-											is ordered and 50% once completed.</b>
-									</p>
-								</li>
-
-
-								<li><h6>Expenses</h6>
-
-									<p>
-										Unless specifically detailed within proposal, travel expenses,
-										all shipping costs (including express shipment of derivable)
-										and local taxes and miscellaneous expenses required to
-										complete your project are not included and will be invoiced in
-										addition to the fees quoted. <b>Consult It</b>, SARL will seek
-										authorization prior to incurring any costs not included in the
-										current scope of work.
-									</p></li>
-
-								<li>
-									<h6>Project cancellation</h6>
-
-									<p>
-										Postponements or cancellations will be accepted if sufficient
-										written notice is given to <b>Consult It</b>, SARL. If a
-										cancellation is given client is responsible for paying any
-										testing, certification and corresponding management fees
-										incurred by <b>Consult It</b>, SARL at the time of
-										cancellation.
-								</li>
-							</ol>
+							<button (click)="getListOfRequirements()" >click here for the list of requirements</button></p>
 						</div>
-						{{aggreed}}
+						<div class="container">
+
+
+							<label class="">Terms and conditions</label>
+							<div style="position: relative; overflow-y: scroll; height: 350px;">
+
+								<ol class="term-text">
+
+									<li>
+										<h6>TERM AND CONDITIONS</h6>
+
+										<p>
+											<b>Consult IT SARL</b>, will provide approval services as applicable for all identified countries. Only those tasks
+											as outlined in this proposal are included. As part of this service, we will coordinate all necessary efforts to
+											obtain approval. This quotation is based upon information received to date from the client and may be revised
+											upon the receipt of any additional information or alterations that may influence the timescale and/or cost aspects.
+											Outside testing and certification fees will be billed at actual cost, using the currency exchange rate valid at
+											the time of billing as applicable. Any required re-testing costs are NOT included and will be billed at a cost.
+											Unless specified in this quotation, all shipping costs, import taxes, etc... are excluded and are the responsibilities
+											of the client.
+											<b>Consult It</b>, SARL is offering ï¿½Approval Management Servicesï¿½ for your company. We cannot guarantee that products
+											will gain approval. We will identify any obstacles to approval to you, but it remains your responsibility to ensure
+											the product meets technical requirements and that your company has all the legal requirements in place. Additional
+											technologies, product types or derivable beyond the scope of this project will be considered separately and will
+											be renegotiated as necessary.
+										</p>
+									</li>
+
+									<li>
+										<h6>Disclaimer</h6>
+										<p>
+											<b>Consult IT SARL</b>, guarantees that it will provide regulatory agencies with the same information regarding product
+											naming and technical specifications (model number, manufacturer name, address, product name and brand, etcï¿½) as
+											provided by the client. It is possible that regulatory agencies will not transfer this information correctly onto
+											the certificates that are issued. If that occurs, after consultation with the client,
+											<b>Consult It</b>, has the option of requesting an email confirming the validity of the certificate for the particular
+											product or to ask for a corrected certificate. In either case, payment will not be delayed due to such errors.
+										</p>
+									</li>
+
+									<li>
+										<h6>Payment</h6>
+										<p>
+											<b> Consult IT SARL, projects require payment of services as outline below: Our payment terms are 50% when the project
+												is ordered and 50% once completed.</b>
+										</p>
+									</li>
+
+
+									<li>
+										<h6>Expenses</h6>
+
+										<p>
+											Unless specifically detailed within proposal, travel expenses, all shipping costs (including express shipment of derivable)
+											and local taxes and miscellaneous expenses required to complete your project are not included and will be invoiced
+											in addition to the fees quoted.
+											<b>Consult It</b>, SARL will seek authorization prior to incurring any costs not included in the current scope of
+											work.
+										</p>
+									</li>
+
+									<li>
+										<h6>Project cancellation</h6>
+
+										<p>
+											Postponements or cancellations will be accepted if sufficient written notice is given to
+											<b>Consult It</b>, SARL. If a cancellation is given client is responsible for paying any testing, certification and
+											corresponding management fees incurred by
+											<b>Consult It</b>, SARL at the time of cancellation.
+									</li>
+								</ol>
+							</div>
+						</div>
+
 						<div class="box clearfix">
 							<div class="">
 								<div class="form-group">
-									<input type="checkbox" id="checkboxConfirm"
-										[(ngModel)]="aggreed"> <label for="checkboxConfirm">Check
-										here to indicate that you have read and agree to the terms of
-										service</label>
+									<input type="checkbox" id="checkboxConfirm" [(ngModel)]="aggreed">
+									<label for="checkboxConfirm">Check here to indicate that you have read and agree to the terms of service
+									</label>
 								</div>
 							</div>
 							<button (click)="placeOrderfunct()" [disabled]="!aggreed" class="pull-left btn btn-default" id="validateQuote">
-								Submit <i class="fa fa-arrow-circle-right"></i>
+								Submit
+								<i class="fa fa-arrow-circle-right"></i>
 							</button>
 
 						</div>

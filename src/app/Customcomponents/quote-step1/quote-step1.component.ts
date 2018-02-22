@@ -22,7 +22,7 @@ import {HttpClient} from '@angular/common/http';
 export class QuoteStep1Component implements OnInit {
 
   listApprovalType: any;
-  approvalId: any;
+  //approvalId: any;
   frequencyArray: number[] = [];
   listTechnologie: any;
   listEquipmentNature = [];
@@ -157,7 +157,6 @@ export class QuoteStep1Component implements OnInit {
           this.showEquipementTech = true;
 
         }
-        this.findCountriesByApproval(this.approvalId);
 
       }, err => {
         console.log(err);
@@ -183,7 +182,6 @@ export class QuoteStep1Component implements OnInit {
   // get from data base list
   findCountriesByApproval(approvalId) {
 
-
     this.quoteStep1Service.findCountriesByApprovalType(approvalId)
       .subscribe((data: any[]) => {
         this.listCountries = data;
@@ -198,23 +196,6 @@ export class QuoteStep1Component implements OnInit {
       });
   }
 
-  // get from data base list
-  findCountriesByEquipementNature(approvalId) {
-
-
-    this.quoteStep1Service.findCountriesByApprovalType(approvalId)
-      .subscribe((data: any[]) => {
-        this.listCountries = data;
-
-        console.log(' ******* country success******* ');
-        console.log(JSON.stringify(this.listCountries));
-
-      }, err => {
-
-        console.log(' ******* country error******* ');
-        console.log(err);
-      });
-  }
   findCountries() {
     this.glService.findCountries()
       .subscribe((data: any[]) => {
@@ -247,7 +228,7 @@ export class QuoteStep1Component implements OnInit {
     }
 
   }
-
+/*
   findCategories(countryId: number, categorieContent) {
 
 
@@ -258,8 +239,7 @@ export class QuoteStep1Component implements OnInit {
 
         this.quotation.category[countryId] = this.listCategories[0].id;
       });
-  }
-
+  }*/
 
   redirectNextStep(confirmContent) {
 
@@ -318,8 +298,6 @@ export class QuoteStep1Component implements OnInit {
 
     }
 
-
-
     if (this.quotation.equipementTechnologie.length == 0 && this.showEquipementTech == true) {
       this.alertEquipementTechnologie = true;
     } else {
@@ -344,7 +322,7 @@ export class QuoteStep1Component implements OnInit {
     // this.checkCountry[countryId] = !isCheckCountry;
 
     if (isCheckCountry) {
-      this.findCategories(countryId, categorieContent);
+     // this.findCategories(countryId, categorieContent);
       this.quotation.country.push(countryId);
     } else {
 
@@ -425,7 +403,6 @@ export class QuoteStep1Component implements OnInit {
 
   // affect approval type to object project
   getApprovalType() {
-    // this.approvalId = aprvlId;
     this.quotation.country = [];
     this.checkCountry = [];
     this.quotation.equipementTechnologie = [];
@@ -442,7 +419,7 @@ export class QuoteStep1Component implements OnInit {
   // open modal category
   open(countryId: number, categorieContent) {
     this.countryId = countryId;
-    this.findCategories(countryId, categorieContent);
+    // this.findCategories(countryId, categorieContent);
 
   }
 
@@ -560,7 +537,6 @@ export class QuoteStep1Component implements OnInit {
     this.quotation.totalAmount = null;
     this.fileError = null;
 
-    this.approvalId = null;
     this.frequencyArray = null;
     this.listTechnologie = null;
     this.listEquipmentNature = [];

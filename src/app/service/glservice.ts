@@ -23,5 +23,7 @@ export class Glservice {
   saveQuotation(quotation: QuotationService) {
     return this.http.post('/api/saveQuotation', quotation);
   }
-
+  findCategoryPriceForQuotation(quotation: QuotationService) {
+    return this.http.post('/api/findCategoryPriceForQuotation', quotation);
+  }
 }
