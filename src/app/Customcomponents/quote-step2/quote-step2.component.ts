@@ -10,6 +10,7 @@ import { BotDetectCaptchaModule } from 'angular-captcha';
 import { EquipementService } from '../../service/equipement.service';
 import { QuotationService } from '../../service/quotation.service';
 
+
 import { Http } from '@angular/http';
 
 @Component({
@@ -30,6 +31,7 @@ export class QuoteStep2Component implements OnInit {
   alertEquipmentModel = false;
   alertEquipmentBrand = false;
 
+  today = new  Date();
   constructor(private datePipe: DatePipe, private modal: NgbModal,
     public equipement: EquipementService, private qotation: QuotationService,
     private glservice: Glservice, private agencyService: AgencyPriceService,
@@ -41,6 +43,7 @@ export class QuoteStep2Component implements OnInit {
     this.totalPrice = 0;
     this.findCategories();
     this.approvalId = this.qotation.approvalType;
+    this.today.setDate( this.today.getDate() + 30 );
   }
 
 
@@ -58,6 +61,9 @@ export class QuoteStep2Component implements OnInit {
 
   // save the quotation when client click on button save
   saveNotOrderedQuotation(status, modal) {
+
+  //  this.glservice.sendMail('savedQuoteMail.html');
+
 
     this.modalRef.close();
     this.openModal(modal);

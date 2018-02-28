@@ -1,4 +1,3 @@
-
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -18,9 +17,7 @@
 				<!-- quick email widget -->
 				<div class="box box-info">
 					<div class="progress progress-sm quote-progress">
-						<div class="progress-bar bg-primary" role="progressbar"
-							style="width: 25%" aria-valuenow="25" aria-valuemin="0"
-							aria-valuemax="100"></div>
+						<div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 					</div>
 
 					<div class="box-body">
@@ -30,63 +27,70 @@
 
 							<div class="row">
 								<div class="form-group col-md-4">
-									<label class="title">Approval Type</label> <span
-										class="text-red">*</span> <select (change)="getApprovalType()"
-										[(ngModel)]="quotation.approvalType" class="form-control "
-										name="approvalType">
+									<label class="title">Approval Type</label>
+									<span class="text-red">*</span>
+									<span  class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the approval type">
+										?</span>
+									
+									<select (change)="getApprovalType()" [(ngModel)]="quotation.approvalType" class="form-control " name="approvalType">
+										<option [ngValue]="null">Please select one</option>
 										<option *ngFor="let a of listApprovalType" [value]="a.id">{{a.name}}</option>
 									</select>
-									<p *ngIf="alertapproval" class="text-red">Please enter the
-										approval Type</p>
+									<p *ngIf="alertapproval" class="text-red">Please enter the approval Type</p>
 								</div>
 
-								<div class="col-md-4">
-									<div class="form-group">
-
-										<label class="title">Equipment Type</label> <span
-											class="text-red">*</span><select
-											[(ngModel)]="quotation.equipementType" class="form-control "
-											name="equipmentType">
-											<option *ngFor="let et of listEquipementType" [value]="et.id">{{et.name}}</option>
-										</select>
-
-										<p *ngIf="alertequipmentType" class="text-red">Please
-											enter the equipment Type</p>
-									</div>
-								</div>
 
 								<div class="col-md-4">
-									<label class="title">Encryption capabilities</label> <span
-										class="text-red">*</span><select
-										[(ngModel)]="quotation.hasEncryptionFeature"
-										name="hasEncryptionFeature" class="form-control ">
+									<label class="title">Encryption capabilities</label>
+									<span class="text-red">*</span>
+									<span  class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select encryption capabilities">
+											?</span>
+									<select (change)="getEncryption()" [(ngModel)]="quotation.hasEncryptionFeature" name="hasEncryptionFeature" class="form-control ">
+										<option [ngValue]="null">Please select one</option>
 										<option [ngValue]="false">No</option>
 										<option [ngValue]="true">Yes</option>
 									</select>
-									<p *ngIf="alertencryption" class="text-red">Please enter if
-										the equipement has encryption feature</p>
+									<p *ngIf="alertencryption" class="text-red">Please enter if the equipement has encryption feature</p>
 								</div>
 							</div>
 
-
-
 							<div *ngIf="showEquipementNature" class="">
 								<hr>
-								<label class="title">Equipment Nature </label> <span
-									class="text-red">*</span>
-								<p *ngIf="alertequipmentNature" class="text-red">Please
-									enter the equipement nature</p>
-								<div id="eqmtType" class="    z-depth-0">
-									<div class="row" id="eqmtType-item">
-										<div *ngFor="let e of listEquipmentNature"
-											class="  col-md-3  col-sm-4">
-											<input [(ngModel)]="quotation.equipementNature"
-												name="natureId" (change)='getEquipementNature()'
-												value="{{e.id}}" type="radio" id="{{e.name}}"> <label
-												for="{{e.name}}">{{e.name}}</label>
+								<label class="title">Equipment Nature </label>
+								<span class="text-red">*</span>
+								<span  class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the equipment  nature">
+										?</span>
+								<p *ngIf="alertequipmentNature" class="text-red">Please enter the equipement nature</p>
+								<div id="eqmtNature" class="    z-depth-0">
+									<div class="row" id="eqmtNature-item">
+										<div *ngFor="let e of listEquipmentNature" class="  col-md-3  col-sm-4">
+											<input [(ngModel)]="quotation.equipementNature" name="natureId"
+											 (change)='getEquipementNature()' value="{{e.id}}" type="radio"
+											 id="{{e.name}}">
+											<label for="{{e.name}}">{{e.name}}</label>
+										</div>
+									</div></div>
+							</div>
+
+							<div class="">
+								<hr>
+								<label class="title">Equipment Type</label>
+								<span class="text-red">*</span>
+								<span  class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the equipment  type">
+										?</span>
+								<p *ngIf="alertequipmentType" class="text-red">Please enter the equipment Type</p>
+								<div id="" class="    z-depth-0">
+									<div class="row" style="overflow: scroll; height: 200px;" id="eqmtType-item">
+										<div *ngFor="let et of listEquipementType" class="  col-md-4  col-sm-4">
+
+											<input (change)="getEquipmentType()"
+											 [(ngModel)]="quotation.equipementType" 
+											 name="equipementTypeId" value="{{et.id}}" type="radio"
+											 id="et{{et.name}}">
+											<label for="et{{et.name}}">{{et.name}}</label>
 										</div>
 									</div>
-
+									<!-- equipement category -->
 
 								</div>
 							</div>
@@ -95,18 +99,17 @@
 
 							<div *ngIf="showFrequency" class="">
 								<hr>
-								<label class="title">Frequency Band </label> <span
-									class="text-red">*</span>
-								<p *ngIf="alertFrequency" class="text-red">Please choose at
-									least one frequency band for equipment</p>
-								<div id="eqmtType" class="    z-depth-0">
-									<div class="row" id="eqmtType-item">
-										<div *ngFor="let f of listFrequency"
-											class="  col-md-2  col-sm-3">
-											<input (click)="getfrequencyBand(f.id,$event)"
-												name="fid{{f.id}}" value="{{f.id}}" type="checkbox"
-												id="freq{{f.id}}"> <label for="freq{{f.id}}">{{f.minFrequency}}-{{f.maxFrequency}}
-												{{f.unit}}</label>
+								<label class="title">Frequency Band </label>
+								<span class="text-red">*</span>
+								<span  class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the fraquence Band">
+										?</span>
+								<p *ngIf="alertFrequency" class="text-red">Please choose at least one frequency band for equipment</p>
+								<div id="freqDiv" class="    z-depth-0">
+									<div class="row" id="freqDiv-item">
+										<div *ngFor="let f of listFrequency" class="  col-md-2  col-sm-3">
+											<input (click)="getfrequencyBand(f.id,$event)" name="fid{{f.id}}" value="{{f.id}}" type="checkbox" id="freq{{f.id}}">
+											<label for="freq{{f.id}}">{{f.minFrequency}}-{{f.maxFrequency}} {{f.unit}}
+											</label>
 										</div>
 									</div>
 
@@ -117,18 +120,17 @@
 
 							<div *ngIf="showEquipementTech" class="">
 								<hr>
-								<label class="title">Equipment Technologie</label> <span
-									class="text-red">*</span>
-								<p *ngIf="alertEquipementTechnologie" class="text-red">Please
-									enter the equipment technologie</p>
+								<label class="title">Equipment Technologie</label>
+								<span class="text-red">*</span>
+								<span  class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the Equipment  technologie">
+										?</span>
+								<p *ngIf="alertEquipementTechnologie" class="text-red">Please enter the equipment technologie</p>
+								
 								<div id="eqmtTech" class="    z-depth-0">
-									<div class="row" style="overflow: scroll; height: 200px;"
-										id="eqmtType-item">
-										<div *ngFor="let t of listTechnologie"
-											class="  col-md-3  col-sm-4">
-											<input (click)="getEquipemenetTechnology(t.id,$event)"
-												type="checkbox" id="tech{{t.id}}"> <label
-												for="tech{{t.id}}">{{t.name}}</label>
+									<div class="row" style="overflow: scroll; height: 200px;" id="eqmtTech-item">
+										<div *ngFor="let t of listTechnologie" class="  col-md-3  col-sm-4">
+											<input (click)="getEquipemenetTechnology(t.id,$event)" type="checkbox" id="tech{{t.id}}">
+											<label for="tech{{t.id}}">{{t.name}}</label>
 										</div>
 									</div>
 									<!-- equipement category -->
@@ -140,31 +142,30 @@
 
 							<div class="row mt-2">
 
-								<label class=" col-md-12 title">Countries <span
-									class="text-red">*</span></label>
-								<p *ngIf="alertCountry" class="col-md-12  text-red">Please
-									select a country of approval</p>
+								<label class=" col-md-12 title">Countries
+										<span class="text-red">*</span>
+										<span  class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the country  of approval">
+												?</span>
+								</label>
+								<p *ngIf="alertCountry" class="col-md-12  text-red">Please select a country of approval</p>
 
 							</div>
 
 
 
-							<div class="row mt-2" style="overflow: scroll; height: 200px;">
-								<div *ngFor="let c of listCountries;let i=index"
-									class=" col-md-3 col-sm-4">
-									<input name="country{{c.id}}"
-										[disabled]="disabledCountry[c.id]"
-										(change)="getCountry(c.id,checkCountry[c.id],categorieContent)"
-										[(ngModel)]="checkCountry[c.id]" type="checkbox"
-										id="country{{c.id}}"> <label for="country{{c.id}}">{{c.name}}</label>
+							<div class="row mt-2" style="overflow: scroll; height:200px;">
+								<div *ngFor="let c of listCountries;let i=index" class=" col-md-3 col-sm-4">
+									<input name="country{{c.id}}" [disabled]="disabledCountry[c.id]" (change)="getCountry(c.id,checkCountry[c.id],categorieContent)"
+									 [(ngModel)]="checkCountry[c.id]" type="checkbox" id="country{{c.id}}">
+									<label for="country{{c.id}}">{{c.name}}</label>
 
 
 									<div class="row">
 										<div class="col-md-12">
-											<small *ngIf="quotation.category[c.id] && hasCat[c.id]>1"><a
-												(click)=" open(c.id,categorieContent);" class="text-primary">Click
-													here to change category</a><span></span>:
-												{{this.categoryName[c.id]}}</small>
+											<small *ngIf="quotation.category[c.id] && hasCat[c.id]>1">
+												<a (click)=" open(c.id,categorieContent);" class="text-primary">Click here to change category</a>
+												<span></span>: {{this.categoryName[c.id]}}
+											</small>
 
 										</div>
 									</div>
@@ -175,13 +176,14 @@
 							</div>
 							<hr>
 							<div class="row mt-2">
-								<label class=" col-md-12 title">Need help ? (optional) </label>
-								<label class=" col-md-12">If you are not sure about the
-									informations you have entered, you can download the datasheet </label>
+								<label class=" col-md-12 title">Need help (optional) 
+								<span  class="text-red tooltipLabel" placement="bottom" ngbTooltip="Download datasheet">
+										?</span></label>
+								<label class=" col-md-12">If you are not sure about the informations you have entered, you can upload the datasheet </label>
 								<p *ngIf="alertfileError" class="col-md-12  text-red">{{fileError}}</p>
 								<div class="col-md-12">
-									<label> <input #datasheet type="file"
-										(change)="selectFile($event)">
+									<label>
+										<input #datasheet type="file" (change)="selectFile($event)">
 									</label>
 								</div>
 
@@ -193,94 +195,88 @@
 
 							<ng-template #categorieContent let-c="close" let-d="dismiss">
 
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Choose the
-									categorie of the equipement</h5>
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Choose the categorie of the equipement</h5>
 
-							</div>
-							<div class="modal-body">
+								</div>
+								<div class="modal-body">
 
-								<div class="card-body">
-									<div class="container-fluid">
-										<div class="row">
+									<div class="card-body">
+										<div class="container-fluid">
+											<div class="row">
 
-											<div class="col" *ngFor="let cat of listCategories ">
-												<div class="form-group">
-													<input name="catcountry{{cat.country.id}}"
-														(click)="setCategory(cat.country.id)"
-														[(ngModel)]="quotation.category[cat.country.id]"
-														value="{{cat.id}}" type="radio" id="cat{{cat.id}}">
-													<label for="cat{{cat.id}}">{{cat.categoryName}}</label>
+												<div class="col" *ngFor="let cat of listCategories ">
+													<div class="form-group">
+														<input name="catcountry{{cat.country.id}}" (click)="setCategory(cat.country.id)" [(ngModel)]="quotation.category[cat.country.id]"
+														 value="{{cat.id}}" type="radio" id="cat{{cat.id}}">
+														<label for="cat{{cat.id}}">{{cat.categoryName}}</label>
 
+													</div>
+													<ul class="categorie-items">
+														<li></li>
+
+													</ul>
 												</div>
-												<ul class="categorie-items">
-													<li></li>
-
-												</ul>
 											</div>
-										</div>
 
+										</div>
 									</div>
 								</div>
-							</div>
 							</ng-template>
 
 							<!--  confirm model -->
 							<ng-template #confirmContent let-c="close" let-d="dismiss">
 
-							<div class="modal-info">
+								<div class="modal-info">
 
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">INFORMATION</h5>
-								</div>
-								<div class="modal-body">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">INFORMATION</h5>
+									</div>
+									<div class="modal-body">
 
-									<div class="card-body">
-										<div class="text-center">
-											<i class="fa fa-exclamation-circle fa-4x mb-3"
-												aria-hidden="true"></i>
-											<p>You have downloaded datasheets. That means you're not
+										<div class="card-body">
+											<div class="text-center">
+												<i class="fa fa-exclamation-circle fa-4x mb-3" aria-hidden="true"></i>
+											
+
+													<p>You have uploaded datasheets. That means you're not
 												sure about the informations that you have filled in.</p>
 											<p>By clicking continue your quote request will be sent
 												to our agents for processing.</p>
+											</div>
+										</div>
+									</div>
+
+									<div class="modal-footer d-flex justify-content-center">
+										<div class="container">
+											<a (click)="saveQuotation(0,successContent)" class="btn btn-block  btn-default">Continue</a>
+											<a class="btn btn-block btn-danger" (click)="resetForm()">Cancel</a>
 										</div>
 									</div>
 								</div>
-
-								<div class="modal-footer d-flex justify-content-center">
-									<div class="container">
-										<a (click)="saveQuotation(0,successContent)"
-											class="btn btn-block  btn-default">Continue</a> <a
-											class="btn btn-block btn-danger" (click)="resetForm()">Cancel</a>
-									</div>
-								</div>
-							</div>
 							</ng-template>
 
 
 							<!--  confirm model -->
 							<ng-template #successContent let-c="close" let-d="dismiss">
 
-							<div class="modal-info">
-								<div class="modal-header">
-									<i style="color: #fff;" class="fa fa-check-circle fa-4x mb-3"
-										aria-hidden="true"></i>
-									<p class="text-center">Your quote request has been sent
-										successfully. We treat it.</p>
-								</div>
-								<div class="modal-footer white">
-									<button (click)="goToHome(successContent)"
-										class="btn btn-primary pull-left">OK</button>
+								<div class="modal-info">
+									<div class="modal-header">
+										<i style="color: #fff;" class="fa fa-check-circle fa-4x mb-3" aria-hidden="true"></i>
+										<p class="text-center">Your quote request has been sent successfully. We treat it.</p>
+									</div>
+									<div class="modal-footer white">
+										<button (click)="goToHome(successContent)" class="btn btn-primary pull-left">OK</button>
 
+									</div>
 								</div>
-							</div>
 							</ng-template>
 						</form>
 					</div>
 					<div class="box-footer clearfix">
-						<a (click)=" redirectNextStep(confirmContent)" type="button"
-							class="pull-right btn btn-default">Next step <i
-							class="fa fa-arrow-circle-right"></i></a>
+						<a (click)=" redirectNextStep(confirmContent)" type="button" class="pull-right btn btn-default">Next step
+							<i class="fa fa-arrow-circle-right"></i>
+						</a>
 					</div>
 				</div>
 
@@ -296,3 +292,4 @@
 	<!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+

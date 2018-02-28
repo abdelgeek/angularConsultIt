@@ -9,10 +9,7 @@ export class HomeTestComponent implements OnInit {
   user: {};
   constructor(private loginService: LoginService) {
 
-    this.loginService.authenticate(response => {
-      this.user = response;
-      this.message();
-    });
+
   }
 
   ngOnInit() {

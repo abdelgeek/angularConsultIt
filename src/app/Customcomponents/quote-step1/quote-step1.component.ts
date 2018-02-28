@@ -1,16 +1,16 @@
-import {Result} from '../../Model/result';
-import {Glservice} from '../../service/glservice';
-import {Component, OnInit} from '@angular/core';
+import { Result } from '../../Model/result';
+import { Glservice } from '../../service/glservice';
+import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/map';
-import {QuoteStep1Service} from '../../service/quote-step1-service';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {Router, ActivatedRoute, ParamMap} from '@angular/router';
-import {QuotationService} from '../../service/quotation.service';
-import {CountryService} from '../../service/country.service';
-import {DatePipe} from '@angular/common';
-import {ViewChild} from '@angular/core';
+import { QuoteStep1Service } from '../../service/quote-step1-service';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { QuotationService } from '../../service/quotation.service';
+import { CountryService } from '../../service/country.service';
+import { DatePipe } from '@angular/common';
+import { ViewChild } from '@angular/core';
 
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -22,7 +22,7 @@ import {HttpClient} from '@angular/common/http';
 export class QuoteStep1Component implements OnInit {
 
   listApprovalType: any;
-  //approvalId: any;
+  // approvalId: any;
   frequencyArray: number[] = [];
   listTechnologie: any;
   listEquipmentNature = [];
@@ -228,18 +228,17 @@ export class QuoteStep1Component implements OnInit {
     }
 
   }
-/*
-  findCategories(countryId: number, categorieContent) {
+  /*
+    findCategories(countryId: number, categorieContent) {
 
+      this.glService.findCategories(countryId)
+        .subscribe((data: any[]) => {
 
-    this.glService.findCategories(countryId)
-      .subscribe((data: any[]) => {
+          this.listCategories = data;
 
-        this.listCategories = data;
-
-        this.quotation.category[countryId] = this.listCategories[0].id;
-      });
-  }*/
+          this.quotation.category[countryId] = this.listCategories[0].id;
+        });
+    }*/
 
   redirectNextStep(confirmContent) {
 
@@ -250,11 +249,12 @@ export class QuoteStep1Component implements OnInit {
         && this.alertequipmentNature == false && this.alertequipmentType == false
         && this.alertFrequency == false && this.alertfileError == false) {
         this.router.navigate(['/quoteStep2']);
+
       }
 
 
     } else {
-      this.modalRef = this.modalService.open(confirmContent, {size: 'sm', backdrop: false, keyboard: false});
+      this.modalRef = this.modalService.open(confirmContent, { size: 'sm', backdrop: false, keyboard: false });
     }
 
   }
@@ -298,6 +298,14 @@ export class QuoteStep1Component implements OnInit {
 
     }
 
+    if (this.quotation.country.length == 0) {
+
+      this.alertCountry = true;
+    } else {
+      this.alertCountry = false;
+
+    }
+
     if (this.quotation.equipementTechnologie.length == 0 && this.showEquipementTech == true) {
       this.alertEquipementTechnologie = true;
     } else {
@@ -322,13 +330,22 @@ export class QuoteStep1Component implements OnInit {
     // this.checkCountry[countryId] = !isCheckCountry;
 
     if (isCheckCountry) {
-     // this.findCategories(countryId, categorieContent);
+      // this.findCategories(countryId, categorieContent);
       this.quotation.country.push(countryId);
     } else {
 
       const index = this.quotation.country.indexOf(countryId);
       this.quotation.country.splice(index, 1);
       this.quotation.category[countryId] = null;
+
+    }
+
+
+    if (this.quotation.country.length == 0) {
+
+      this.alertCountry = true;
+    } else {
+      this.alertCountry = false;
 
     }
   }
@@ -347,6 +364,13 @@ export class QuoteStep1Component implements OnInit {
     }
 
     this.checkFrequencyCountry(this.quotation.frequencyBand);
+
+    if (this.showFrequency == true && this.quotation.frequencyBand.length == 0) {
+      this.alertFrequency = true;
+    } else {
+      this.alertFrequency = false;
+
+    }
   }
 
 
@@ -360,6 +384,13 @@ export class QuoteStep1Component implements OnInit {
     } else {
       const index = this.quotation.equipementTechnologie.indexOf(technologyId);
       this.quotation.equipementTechnologie.splice(index, 1);
+    }
+
+
+    if (this.quotation.equipementTechnologie.length > 0) {
+      this.alertEquipementTechnologie = false;
+    } else {
+      this.alertEquipementTechnologie = true;
     }
   }
 
@@ -399,6 +430,13 @@ export class QuoteStep1Component implements OnInit {
     } else {
       this.showFrequency = false;
     }
+
+    if (this.showEquipementNature == true && this.quotation.equipementNature == null) {
+      this.alertequipmentNature = true;
+    } else {
+      this.alertequipmentNature = false;
+
+    }
   }
 
   // affect approval type to object project
@@ -414,6 +452,25 @@ export class QuoteStep1Component implements OnInit {
     // find from database country of that approval
 
     this.findCountriesByApproval(this.quotation.approvalType);
+
+
+    if (this.quotation.approvalType == null) {
+      this.alertapproval = true;
+    } else {
+      this.alertapproval = false;
+    }
+  }
+
+  getEncryption() {
+    if (this.quotation.hasEncryptionFeature == null) {
+      this.alertencryption = true;
+    } else {
+      this.alertencryption = false;
+    }
+  }
+
+  getEquipmentType() {
+    this.alertequipmentType = false;
   }
 
   // open modal category
@@ -475,7 +532,7 @@ export class QuoteStep1Component implements OnInit {
 
     this.modalRef.close();
 
-    this.modalRef = this.modalService.open(modalContent, {size: 'sm', backdrop: false, keyboard: false});
+    this.modalRef = this.modalService.open(modalContent, { size: 'sm', backdrop: false, keyboard: false });
     const today = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
     this.quotation.date = today;
     this.quotation.status = status;

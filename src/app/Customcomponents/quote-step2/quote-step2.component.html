@@ -21,9 +21,8 @@
 				<div class="box box-info">
 
 					<div class="progress progress-sm quote-progress">
-						<div class="progress-bar bg-primary" id="progression"
-							role="progressbar" style="width: 25%" aria-valuenow="25"
-							aria-valuemin="0" aria-valuemax="100"></div>
+						<div class="progress-bar bg-primary" id="progression" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+						 aria-valuemax="100"></div>
 					</div>
 
 					<div class="box-body">
@@ -58,24 +57,23 @@
 							</table>
 							<!--Table-->
 							<div class="box box-footer">
-								<span class="label-price pull-right">Total :
-									{{totalPrice}} USD</span>
+								<span class="label-price pull-right">Total : {{totalPrice}} USD</span>
 							</div>
 
 
 							<div class="box-footer clearfix">
 
-								<a routerLink="/quoteStep1" class="pull-left btn btn-default"
-									id="validateQuote">BACK <i class="fa fa-edit"></i>
-								</a> <a (click)="openModal(saveQuote)"
-									class="pull-left btn btn-default" id="">SAVE <i
-									class="fa fa-floppy-o"></i></a>
+								<a routerLink="/quoteStep1" class="pull-left btn btn-default" id="validateQuote">BACK
+									<i class="fa fa-edit"></i>
+								</a>
+								<a (click)="openModal(saveQuote)" class="pull-left btn btn-default" id="">SAVE
+									<i class="fa fa-floppy-o"></i>
+								</a>
 
 								<!-- <a href="" class="pull-left btn btn-default" id="">PRINT <i
                                       class="fa fa-print"></i></a> -->
-								<a (click)="openModal(placeOrderModal)"
-									class="pull-right btn btn-default">PLACE ORDER <i
-									class="fa fa-arrow-circle-right"></i>
+								<a (click)="openModal(placeOrderModal)" class="pull-right btn btn-default">PLACE ORDER
+									<i class="fa fa-arrow-circle-right"></i>
 								</a>
 							</div>
 
@@ -96,50 +94,62 @@
 
 	<ng-template #placeOrderModal let-c="close" let-d="dismiss">
 
-	<div class="modal-info">
-		<div class="modal-header text-center">
-			<i style="color: #fff;" class="fa fa-exclamation-circle fa-4x mb-3"
-				aria-hidden="true"></i>
-			<p>To confirm your order, you must enter your username and your
-				password.</p>
-		</div>
-		<div class="modal-body">
-			<div class="card-body">
-				<div class="modal-body">
-					<div class="input-group mb-3">
-						<span class="input-group-addon"> <i
-							class="fa fa-user prefix grey-text "></i>
-						</span><input type="text" id="username" class="form-control"
-							placeholder="Enter your username">
+		<div class="modal-info">
+			<div class="modal-header text-center">
+				
+
+					<div class="col-md-12">
+						<!--<i style="color: #fff;" class="fa fa-exclamation-circle fa-4x mb-3" aria-hidden="true"></i>>-->
+						<p> <i  class="text-white fa fa-exclamation-triangle" > </i>&nbsp;
+							To confirm your order, you must enter your username and your password.
+						</p>
+
+						
+						<p class="text-red">
+							
+								<i  class="text-red fa fa-exclamation-circle" ></i> &nbsp; Any Cancellation may result in fees to be paid.
+							</p>
 					</div>
 
-					<div class="input-group mb-3">
-						<span class="input-group-addon"> <i
-							class="fa fa-lock prefix grey-text"></i>
-						</span><input type="password" id="password" class="form-control"
-							placeholder="Enter your password">
+				
+				
 
-					</div>
-
-					<div class="form-group">
-						<div class="container">
-							<img class="" src="/assets/img/capatcha.png">
+			</div>
+			<div class="modal-body">
+				<div class="card-body">
+					<div class="modal-body">
+						<div class="input-group mb-3">
+							<span class="input-group-addon">
+								<i class="fa fa-user prefix grey-text "></i>
+							</span>
+							<input type="text" id="username" class="form-control" placeholder="Enter your username">
 						</div>
-					</div>
 
+						<div class="input-group mb-3">
+							<span class="input-group-addon">
+								<i class="fa fa-lock prefix grey-text"></i>
+							</span>
+							<input type="password" id="password" class="form-control" placeholder="Enter your password">
+
+						</div>
+
+						<div class="form-group">
+							<div class="container">
+								<img class="" src="/assets/img/capatcha.png">
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer d-flex justify-content-center">
+				<div class="container">
+					<a class="btn btn-block  btn-default" (click)="saveNotOrderedQuotation(-1,saveQuote)">Your are not yet ready save for later</a>
+					<a class="btn btn-block  btn-default" id="confirm" (click)="openModal(saveEquipment)">Confirm </a>
+					<a class="btn btn-block  btn-danger" (click)="close()">Cancel</a>
 				</div>
 			</div>
 		</div>
-		<div class="modal-footer d-flex justify-content-center">
-			<div class="container">
-				<a class="btn btn-block  btn-default"
-					(click)="saveNotOrderedQuotation(1,saveQuote)">Your are not yet
-					ready save for later</a> <a class="btn btn-block  btn-default"
-					id="confirm" (click)="openModal(saveEquipment)">Confirm </a> <a
-					class="btn btn-block  btn-danger" (click)="close()">Cancel</a>
-			</div>
-		</div>
-	</div>
 	</ng-template>
 
 
@@ -147,87 +157,77 @@
 	<!-- Modal save Equipement -->
 	<ng-template #saveEquipment let-c="close" let-d="dismiss">
 
-	<div class="modal-info">
-		<div class="modal-header ">
-			<i style="color: #fff;" class="fa fa-exclamation-circle fa-4x mb-3"
-				aria-hidden="true"></i>
-			<p>Your equipment</p>
-		</div>
-
-		<div class="modal-body">
-			<div class="form-group mb-3">
-				<label for="EquipmentName">Name <span class="text-red">*</span></label>
-				<p *ngIf="alertEquipmentName" class="text-red">Please enter the
-					equipment name</p>
-				<input type="text" [(ngModel)]="equipement.name" id="EquipmentName"
-					class="form-control" placeholder="Equipment name">
-			</div>
-			<div class="form-group mb-3">
-				<label for="EquipmentModel">Model</label>
-				<p *ngIf="alertEquipmentModel" class="text-red">Please enter the
-					equipment model</p>
-				<input type="text" [(ngModel)]="equipement.model"
-					id="EquipmentModel" class="form-control"
-					placeholder="Equipment model">
+		<div class="modal-info">
+			<div class="modal-header ">
+				<i style="color: #fff;" class="fa fa-exclamation-circle fa-4x mb-3" aria-hidden="true"></i>
+				<p>Your equipment</p>
 			</div>
 
-			<div class="form-group mb-3">
-				<label for="EquipmentBrand">Brand</label>
-				<p *ngIf="alertEquipmentBrand" class="text-red">Please enter the
-					equipment brand</p>
-				<input type="text" [(ngModel)]="equipement.brand"
-					id="EquipmentBrand" class="form-control"
-					placeholder="Equipment brand ">
+			<div class="modal-body">
+				<div class="form-group mb-3">
+					<label for="EquipmentName">Name
+						<span class="text-red">*</span>
+					</label>
+					<p *ngIf="alertEquipmentName" class="text-red">Please enter the equipment name</p>
+					<input type="text" [(ngModel)]="equipement.name" id="EquipmentName" class="form-control" placeholder="Equipment name">
+				</div>
+				<div class="form-group mb-3">
+					<label for="EquipmentModel">Model</label>
+					<p *ngIf="alertEquipmentModel" class="text-red">Please enter the equipment model</p>
+					<input type="text" [(ngModel)]="equipement.model" id="EquipmentModel" class="form-control" placeholder="Equipment model">
+				</div>
+
+				<div class="form-group mb-3">
+					<label for="EquipmentBrand">Brand</label>
+					<p *ngIf="alertEquipmentBrand" class="text-red">Please enter the equipment brand</p>
+					<input type="text" [(ngModel)]="equipement.brand" id="EquipmentBrand" class="form-control" placeholder="Equipment brand ">
+				</div>
+
 			</div>
 
-		</div>
-
-		<div class="modal-footer d-flex justify-content-center">
-			<div class="container">
-				<button (click)="redirectToStep3()"
-					class="btn btn-block btn-default">Next</button>
+			<div class="modal-footer d-flex justify-content-center">
+				<div class="container">
+					<button (click)="redirectToStep3()" class="btn btn-block btn-default">Next</button>
+				</div>
 			</div>
 		</div>
-	</div>
 	</ng-template>
 
 
 	<ng-template #saveQuote let-c="close" let-d="dismiss">
 
-	<div class="modal-info">
-		<div class="modal-header">
-			<h5 class="modal-title" id="exampleModalLabel">INFORMATION</h5>
-		</div>
-		<div class="card-body">
-			<div class="text-center">
-				<i class="fa fa-exclamation-circle fa-4x mb-3" aria-hidden="true"></i>
-				<p>You can save this quote and place your order later. However
-					it is still available for 30 days.</p>
+		<div class="modal-info">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">INFORMATION</h5>
+			</div>
+			<div class="card-body">
+				<div class="text-center">
+					<i class="fa fa-exclamation-circle fa-4x mb-3" aria-hidden="true"></i>
+					<p>You can save this quote for 30 days.
+						<br/> You have possibility of editing it or placing your order later.
+						<br/> This quote is available until {{today | date:'fullDate'}}.</p>
+				</div>
+			</div>
+			<div class="modal-footer white">
+				<button (click)="close()" class="btn btn-danger">Cancel</button>
+				<button (click)="saveNotOrderedQuotation(0,successSave)" class="btn btn-primary">Next</button>
+
 			</div>
 		</div>
-		<div class="modal-footer white">
-			<button (click)="close()" class="btn btn-danger">Cancel</button>
-			<button (click)="saveNotOrderedQuotation(1,successSave)"
-				class="btn btn-primary">Next</button>
-
-		</div>
-	</div>
 	</ng-template>
 
 	<ng-template #successSave let-c="close" let-d="dismiss">
 
-	<div class="modal-info">
-		<div class="modal-header">
-			<i style="color: #fff;" class="fa fa-check-circle fa-4x mb-3"
-				aria-hidden="true"></i>
-			<p class="text-center">Your quote has been save successfully. It
-				remains available for 30 days.</p>
-		</div>
-		<div class="modal-footer white">
-			<button (click)="goToHome(successSave)" class="btn btn-primary">OK</button>
+		<div class="modal-info">
+			<div class="modal-header">
+				<i style="color: #fff;" class="fa fa-check-circle fa-4x mb-3" aria-hidden="true"></i>
+				<p class="text-center">Your quote has been save successfully. It remains available for 30 days.</p>
+			</div>
+			<div class="modal-footer white">
+				<button (click)="goToHome(successSave)" class="btn btn-primary">OK</button>
 
+			</div>
 		</div>
-	</div>
 	</ng-template>
 
 	<!-- /.content -->

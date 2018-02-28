@@ -1,12 +1,12 @@
-import {Country} from '../class/country';
-import {QuotationService} from './quotation.service';
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpRequest} from '@angular/common/http';
+import { Country } from '../class/country';
+import { QuotationService } from './quotation.service';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 
 @Injectable()
 export class Glservice {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   findCountries() {
     return this.http.get('/api/findCountries');
@@ -26,4 +26,14 @@ export class Glservice {
   findCategoryPriceForQuotation(quotation: QuotationService) {
     return this.http.post('/api/findCategoryPriceForQuotation', quotation);
   }
+
+  sendMail(templateEmail) {
+    alert('ok');
+    this.http.get('/api/send?templateEmail=' + templateEmail).
+      subscribe(data => {
+        alert('ok2');
+      });
+      alert('ok3');
+  }
+
 }

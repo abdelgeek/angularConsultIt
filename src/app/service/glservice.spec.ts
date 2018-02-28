@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { GlserviceService } from './glservice.service';
+import { Glservice } from './glservice';
 
 describe('GlserviceService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [GlserviceService]
+      providers: [Glservice]
     });
   });
 
-  it('should be created', inject([GlserviceService], (service: GlserviceService) => {
+  it('should be created', inject([Glservice], (service: Glservice) => {
     expect(service).toBeTruthy();
   }));
 });
