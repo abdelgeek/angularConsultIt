@@ -94,8 +94,6 @@ export class QuoteStep1Component implements OnInit {
     });
   }
 
-
-
   findApprovalType() {
     this.quoteStep1Service.findApprovalType()
       .subscribe(data => {
@@ -106,9 +104,9 @@ export class QuoteStep1Component implements OnInit {
         console.log(err);
       });
   }
+
   // get from data base equipment nature list
   findEquipmentNature() {
-
     this.quoteStep1Service.findEquipementNature(this.quotation.approvalType)
       .subscribe((data: any[]) => {
 
@@ -414,7 +412,6 @@ export class QuoteStep1Component implements OnInit {
 
   getEquipementNature() {
 
-    this.findTechnologie();
     this.quotation.frequencyBand = [];
     this.quotation.equipementTechnologie = [];
     this.disabledCountry = [];
@@ -422,13 +419,21 @@ export class QuoteStep1Component implements OnInit {
     this.quotation.country = [];
     this.natureId = this.quotation.equipementNature;
 
-    const frequency = this.listEquipmentNature.find(x => x.id == this.quotation.equipementNature);
-
-    if (frequency.hasFrequency == true) {
-      this.showFrequency = true;
+    if (this.quotation.equipementNature == null) {
+      this.showFrequency = false;
+      this.showEquipementTech = false;
 
     } else {
-      this.showFrequency = false;
+
+      this.findTechnologie();
+      const frequency = this.listEquipmentNature.find(x => x.id == this.quotation.equipementNature);
+
+      if (frequency.hasFrequency == true) {
+        this.showFrequency = true;
+
+      } else {
+        this.showFrequency = false;
+      }
     }
 
     if (this.showEquipementNature == true && this.quotation.equipementNature == null) {

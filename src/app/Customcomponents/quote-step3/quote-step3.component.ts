@@ -15,13 +15,15 @@ import { Router } from '@angular/router';
 })
 export class QuoteStep3Component implements OnInit {
 
-  constructor(private datePipe: DatePipe, private quotation: QuotationService,
+  constructor(private datePipe: DatePipe, public quotation: QuotationService,
     private purchaseorder: PurchaseorderService, private http: Http,
     private router: Router, private quoteStep3Service: QuoteStep3Service
   ) { }
   aggreed: boolean;
 
   ngOnInit() {
+
+    alert(JSON.stringify( this.quotation));
   }
 
 

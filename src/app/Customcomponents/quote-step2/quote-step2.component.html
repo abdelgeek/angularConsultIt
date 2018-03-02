@@ -57,7 +57,7 @@
 							</table>
 							<!--Table-->
 							<div class="box box-footer">
-								<span class="label-price pull-right">Total : {{totalPrice}} USD</span>
+								<span class="label-price pull-right">Total : {{qotation.totalAmount}} USD</span>
 							</div>
 
 
@@ -96,23 +96,24 @@
 
 		<div class="modal-info">
 			<div class="modal-header text-center">
-				
 
-					<div class="col-md-12">
-						<!--<i style="color: #fff;" class="fa fa-exclamation-circle fa-4x mb-3" aria-hidden="true"></i>>-->
-						<p> <i  class="text-white fa fa-exclamation-triangle" > </i>&nbsp;
-							To confirm your order, you must enter your username and your password.
-						</p>
 
-						
-						<p class="text-red">
-							
-								<i  class="text-red fa fa-exclamation-circle" ></i> &nbsp; Any Cancellation may result in fees to be paid.
-							</p>
-					</div>
+				<div class="col-md-12">
+					<!--<i style="color: #fff;" class="fa fa-exclamation-circle fa-4x mb-3" aria-hidden="true"></i>>-->
+					<p>
+						<i class="text-white fa fa-exclamation-triangle"> </i>&nbsp; 
+						Please enter username and password to confirm your order !
+					</p>
 
-				
-				
+
+					<p class="text-red">
+
+						<i class="text-red fa fa-exclamation-circle"></i> &nbsp; Cancellation fees may apply !
+					</p>
+				</div>
+
+
+
 
 			</div>
 			<div class="modal-body">
@@ -144,7 +145,8 @@
 			</div>
 			<div class="modal-footer d-flex justify-content-center">
 				<div class="container">
-					<a class="btn btn-block  btn-default" (click)="saveNotOrderedQuotation(-1,saveQuote)">Your are not yet ready save for later</a>
+					<a class="btn btn-block  btn-default" (click)="saveNotOrderedQuotation(-1,saveQuote)">
+						Your are not yet ready save for later</a>
 					<a class="btn btn-block  btn-default" id="confirm" (click)="openModal(saveEquipment)">Confirm </a>
 					<a class="btn btn-block  btn-danger" (click)="close()">Cancel</a>
 				</div>
@@ -169,18 +171,18 @@
 						<span class="text-red">*</span>
 					</label>
 					<p *ngIf="alertEquipmentName" class="text-red">Please enter the equipment name</p>
-					<input type="text" [(ngModel)]="equipement.name" id="EquipmentName" class="form-control" placeholder="Equipment name">
+					<input (blur)="onBlurEquipmentName()" type="text" [(ngModel)]="equipement.name" id="EquipmentName" class="form-control" placeholder="Equipment name">
 				</div>
 				<div class="form-group mb-3">
 					<label for="EquipmentModel">Model</label>
 					<p *ngIf="alertEquipmentModel" class="text-red">Please enter the equipment model</p>
-					<input type="text" [(ngModel)]="equipement.model" id="EquipmentModel" class="form-control" placeholder="Equipment model">
+					<input (blur)="onBlurEquipmentModel()"  type="text" [(ngModel)]="equipement.model" id="EquipmentModel" class="form-control" placeholder="Equipment model">
 				</div>
 
 				<div class="form-group mb-3">
 					<label for="EquipmentBrand">Brand</label>
 					<p *ngIf="alertEquipmentBrand" class="text-red">Please enter the equipment brand</p>
-					<input type="text" [(ngModel)]="equipement.brand" id="EquipmentBrand" class="form-control" placeholder="Equipment brand ">
+					<input (blur)="onBlurEquipmentBrand()" type="text" [(ngModel)]="equipement.brand" id="EquipmentBrand" class="form-control" placeholder="Equipment brand ">
 				</div>
 
 			</div>
@@ -203,9 +205,12 @@
 			<div class="card-body">
 				<div class="text-center">
 					<i class="fa fa-exclamation-circle fa-4x mb-3" aria-hidden="true"></i>
-					<p>You can save this quote for 30 days.
-						<br/> You have possibility of editing it or placing your order later.
-						<br/> This quote is available until {{today | date:'fullDate'}}.</p>
+					
+						<p>This quote can be saved for 30 days. During this period
+						you may update it or place an order</p>
+
+
+						
 				</div>
 			</div>
 			<div class="modal-footer white">
@@ -221,7 +226,9 @@
 		<div class="modal-info">
 			<div class="modal-header">
 				<i style="color: #fff;" class="fa fa-check-circle fa-4x mb-3" aria-hidden="true"></i>
-				<p class="text-center">Your quote has been save successfully. It remains available for 30 days.</p>
+				<p class="text-center">Your quote has successfully been saved and will remain
+					 available until {{today | date:'fullDate'}}
+				</p>
 			</div>
 			<div class="modal-footer white">
 				<button (click)="goToHome(successSave)" class="btn btn-primary">OK</button>

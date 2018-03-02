@@ -1,0 +1,78 @@
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Saved Quotations
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- /.row -->
+        <!-- Main row -->
+        <div class="row justify-content-center">
+            <!-- Left col -->
+            <section class="col-9">
+
+
+                <!-- quick email widget -->
+                <div class="box box-info">
+                  
+                    <div class="box-body">
+                        <!--Table-->
+                        <table class="table table-striped w-auto">
+
+                            <!--Table head-->
+                            <thead>
+                                <tr>
+                                   
+                                    <th>Date</th>
+                                    <th>Number</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <!--Table head-->
+
+                            <!--Table body-->
+                            <tbody>
+                                <tr *ngFor="let q of listQuotation">
+                                    
+                                    <td>{{q.date}}</td>
+                                    <td>{{q.number}}</td>
+
+                                    <td><a class="btn btn-primary"> 
+                                          <i class="fa fa-pencil"></i>
+                                          <span>Edit</span>
+                                        </a>
+                                        <a (click)="goToOrder(q)" class="btn btn-primary"> 
+                                            <i class="fa fa-file-text-o"></i>
+                                            <span>Order</span>
+                                          </a>
+                                    </td>
+                                </tr>
+                              
+                              
+                            </tbody>
+                            <!--Table body-->
+                        </table>
+                        <!--Table-->
+
+
+                    </div>
+
+                </div>
+
+            </section>
+            <!-- /.Left col -->
+            <!-- right col (We are only adding the ID to make the widgets sortable)-->
+
+            <!-- right col -->
+        </div>
+        <!-- /.row (main row) -->
+
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

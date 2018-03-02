@@ -18,9 +18,11 @@ export class QuotationService {
   status: number;
   date: any;
   totalAmount: number;
+  number: number;
+  id: number;
 
   constructor() {
-
+    this.totalAmount = 0;
     this.country = [];
     this.category = [];
     this.equipementTechnologie = [];

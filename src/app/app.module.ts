@@ -32,6 +32,8 @@ import {UploadFileComponent} from './service/upload-file/upload-file.component';
 import { PdfGeneratorComponent } from './Customcomponents/pdf-generator/pdf-generator.component';
 import { HomeTestComponent } from './Customcomponents/home-test/home-test.component';
 import { LoginService } from './service/login.service';
+import { SaveQuotationComponent } from './Customcomponents/save-quotation/save-quotation.component';
+import { SaveQuotationService } from './service/save-quotation.service';
 
 const appRoutes: Routes = [
 
@@ -44,7 +46,8 @@ const appRoutes: Routes = [
   {path: 'upload', component: FormUploadComponent},
   {path: 'pdfGenerator', component: PdfGeneratorComponent},
   { path: 'homeTest', component: HomeTestComponent},
-  { path: 'login', component: LoginComponent}
+  { path: 'login', component: LoginComponent},
+  { path: 'savedQuotation', component: SaveQuotationComponent}
 
 ];
 @NgModule({
@@ -61,7 +64,8 @@ const appRoutes: Routes = [
     FormUploadComponent,
     UploadFileComponent,
    PdfGeneratorComponent,
-   HomeTestComponent
+   HomeTestComponent,
+   SaveQuotationComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -73,7 +77,7 @@ const appRoutes: Routes = [
     HttpClientModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
-  providers: [QuoteStep1Service, DatePipe, QuoteStep3Service,
+  providers: [QuoteStep1Service, SaveQuotationService, DatePipe, QuoteStep3Service,
     QuoteStep2Service, Glservice, EquipementService, PurchaseorderService,
     QuotationService, CountryService, AgencyPriceService, LoginService],
   bootstrap: [AppComponent]

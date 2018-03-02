@@ -24,26 +24,27 @@ export class QuoteStep2Component implements OnInit {
   modalRef: any;
   listCategories: any[] = [];
   listAgency = [];
-  totalPrice: number;
   approvalId: any;
 
   alertEquipmentName = false;
   alertEquipmentModel = false;
   alertEquipmentBrand = false;
 
-  today = new  Date();
+  today = new Date();
   constructor(private datePipe: DatePipe, private modal: NgbModal,
-    public equipement: EquipementService, private qotation: QuotationService,
+    public equipement: EquipementService, public qotation: QuotationService,
     private glservice: Glservice, private agencyService: AgencyPriceService,
     private quoteStep2Service: QuoteStep2Service, private router: Router,
     private http: Http,
   ) { }
 
   ngOnInit() {
-    this.totalPrice = 0;
+
+    alert(this.qotation.totalAmount);
+
     this.findCategories();
     this.approvalId = this.qotation.approvalType;
-    this.today.setDate( this.today.getDate() + 30 );
+    this.today.setDate(this.today.getDate() + 30);
   }
 
 
@@ -54,7 +55,6 @@ export class QuoteStep2Component implements OnInit {
         console.log('liste des category de price');
 
         this.listCategories = data;
-
         this.getTotalPrice(data);
       });
   }
@@ -62,7 +62,7 @@ export class QuoteStep2Component implements OnInit {
   // save the quotation when client click on button save
   saveNotOrderedQuotation(status, modal) {
 
-  //  this.glservice.sendMail('savedQuoteMail.html');
+    //  this.glservice.sendMail('savedQuoteMail.html');
 
 
     this.modalRef.close();
@@ -137,10 +137,39 @@ export class QuoteStep2Component implements OnInit {
     }
   }
 
+  // check if input is empty
+  onBlurEquipmentName() {
 
+    if (this.equipement.name == '') {
+      this.alertEquipmentName = true;
+    } else {
+      this.alertEquipmentName = false;
+    }
+
+  }
+
+  // check if input is empty
+  onBlurEquipmentBrand() {
+    if (this.equipement.brand == '') {
+      this.alertEquipmentBrand = true;
+    } else {
+      this.alertEquipmentBrand = false;
+    }
+
+  }
+
+  onBlurEquipmentModel() {
+    if (this.equipement.model == '') {
+      this.alertEquipmentModel = true;
+    } else {
+      this.alertEquipmentModel = false;
+    }
+  }
+
+  // check if input is empty
   getTotalPrice(data: any[]) {
     for (let i = 0; i < data.length; i++) {
-      this.totalPrice = this.totalPrice + data[i].price;
+      this.qotation.totalAmount = this.qotation.totalAmount + data[i].price;
     }
   }
 

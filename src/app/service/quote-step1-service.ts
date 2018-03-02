@@ -19,7 +19,6 @@ export class QuoteStep1Service {
   }
 
   findEquipementNature(approvalId: number) {
-
     return this.http.get('/api/findEqmNatureByApprovalType?approvalId=' + approvalId);
 
   }

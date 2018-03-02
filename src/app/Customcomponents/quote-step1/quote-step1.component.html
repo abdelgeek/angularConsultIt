@@ -29,9 +29,9 @@
 								<div class="form-group col-md-4">
 									<label class="title">Approval Type</label>
 									<span class="text-red">*</span>
-									<span  class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the approval type">
+									<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the approval type">
 										?</span>
-									
+
 									<select (change)="getApprovalType()" [(ngModel)]="quotation.approvalType" class="form-control " name="approvalType">
 										<option [ngValue]="null">Please select one</option>
 										<option *ngFor="let a of listApprovalType" [value]="a.id">{{a.name}}</option>
@@ -40,7 +40,7 @@
 								</div>
 
 
-								<div class="col-md-4">
+								<!--<div class="col-md-4">
 									<label class="title">Encryption capabilities</label>
 									<span class="text-red">*</span>
 									<span  class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select encryption capabilities">
@@ -51,9 +51,56 @@
 										<option [ngValue]="true">Yes</option>
 									</select>
 									<p *ngIf="alertencryption" class="text-red">Please enter if the equipement has encryption feature</p>
+								</div>-->
+
+								<div class="col-md-1"></div>
+
+								<div class=" col-md-4">
+
+									<div *ngIf="showEquipementNature" class="">
+
+										<label class="title">Equipment Nature </label>
+										<span class="text-red">*</span>
+										<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the equipment  nature">
+											?</span>
+
+										<div id="eqmtNature" class="    z-depth-0">
+											<div class="row" id="eqmtNature-item">
+
+												<select (change)="getEquipementNature()" [(ngModel)]="quotation.equipementNature" class="form-control " name="natureId">
+													<option [ngValue]="null">Please select one</option>
+													<option *ngFor="let e of listEquipmentNature" [value]="e.id">{{e.name}}</option>
+												</select>
+												<p *ngIf="alertequipmentNature" class="text-red">Please enter the equipement nature</p>
+												<!--
+												<div *ngFor="let e of listEquipmentNature" class="  col-md-6  col-sm-6">
+													<input [(ngModel)]="quotation.equipementNature" name="natureId" (change)='getEquipementNature()' value="{{e.id}}" type="radio"
+													 id="{{e.name}}">
+													<label for="{{e.name}}">{{e.name}}</label>
+												</div>-->
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
+							<hr>
+							<div class="row">
 
+								<div class="form-group col-md-4">
+									<label class="title">Encryption capabilities</label>
+									<span class="text-red">*</span>
+									<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select encryption capabilities">
+										?</span>
+									<select (change)="getEncryption()" [(ngModel)]="quotation.hasEncryptionFeature" name="hasEncryptionFeature" class="form-control ">
+										<option [ngValue]="null">Please select one</option>
+										<option [ngValue]="false">No</option>
+										<option [ngValue]="true">Yes</option>
+									</select>
+									<p *ngIf="alertencryption" class="text-red">Please enter if the equipement has encryption feature</p>
+								</div>
+
+							</div>
+							<!--
 							<div *ngIf="showEquipementNature" class="">
 								<hr>
 								<label class="title">Equipment Nature </label>
@@ -71,21 +118,20 @@
 										</div>
 									</div></div>
 							</div>
+						-->
 
 							<div class="">
 								<hr>
 								<label class="title">Equipment Type</label>
 								<span class="text-red">*</span>
-								<span  class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the equipment  type">
-										?</span>
+								<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the equipment  type">
+									?</span>
 								<p *ngIf="alertequipmentType" class="text-red">Please enter the equipment Type</p>
 								<div id="" class="    z-depth-0">
 									<div class="row" style="overflow: scroll; height: 200px;" id="eqmtType-item">
 										<div *ngFor="let et of listEquipementType" class="  col-md-4  col-sm-4">
 
-											<input (change)="getEquipmentType()"
-											 [(ngModel)]="quotation.equipementType" 
-											 name="equipementTypeId" value="{{et.id}}" type="radio"
+											<input (change)="getEquipmentType()" [(ngModel)]="quotation.equipementType" name="equipementTypeId" value="{{et.id}}" type="radio"
 											 id="et{{et.name}}">
 											<label for="et{{et.name}}">{{et.name}}</label>
 										</div>
@@ -101,8 +147,8 @@
 								<hr>
 								<label class="title">Frequency Band </label>
 								<span class="text-red">*</span>
-								<span  class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the fraquence Band">
-										?</span>
+								<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the fraquence Band">
+									?</span>
 								<p *ngIf="alertFrequency" class="text-red">Please choose at least one frequency band for equipment</p>
 								<div id="freqDiv" class="    z-depth-0">
 									<div class="row" id="freqDiv-item">
@@ -122,10 +168,10 @@
 								<hr>
 								<label class="title">Equipment Technologie</label>
 								<span class="text-red">*</span>
-								<span  class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the Equipment  technologie">
-										?</span>
+								<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the Equipment  technologie">
+									?</span>
 								<p *ngIf="alertEquipementTechnologie" class="text-red">Please enter the equipment technologie</p>
-								
+
 								<div id="eqmtTech" class="    z-depth-0">
 									<div class="row" style="overflow: scroll; height: 200px;" id="eqmtTech-item">
 										<div *ngFor="let t of listTechnologie" class="  col-md-3  col-sm-4">
@@ -143,9 +189,9 @@
 							<div class="row mt-2">
 
 								<label class=" col-md-12 title">Countries
-										<span class="text-red">*</span>
-										<span  class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the country  of approval">
-												?</span>
+									<span class="text-red">*</span>
+									<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the country  of approval">
+										?</span>
 								</label>
 								<p *ngIf="alertCountry" class="col-md-12  text-red">Please select a country of approval</p>
 
@@ -176,10 +222,11 @@
 							</div>
 							<hr>
 							<div class="row mt-2">
-								<label class=" col-md-12 title">Need help (optional) 
-								<span  class="text-red tooltipLabel" placement="bottom" ngbTooltip="Download datasheet">
-										?</span></label>
-								<label class=" col-md-12">If you are not sure about the informations you have entered, you can upload the datasheet </label>
+								<label class=" col-md-12 title">Need help (optional)
+									<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Download datasheet">
+										?</span>
+								</label>
+								<label class=" col-md-12">Upload the datasheet, if you need help from our staff</label>
 								<p *ngIf="alertfileError" class="col-md-12  text-red">{{fileError}}</p>
 								<div class="col-md-12">
 									<label>
@@ -237,12 +284,12 @@
 										<div class="card-body">
 											<div class="text-center">
 												<i class="fa fa-exclamation-circle fa-4x mb-3" aria-hidden="true"></i>
-											
 
-													<p>You have uploaded datasheets. That means you're not
-												sure about the informations that you have filled in.</p>
-											<p>By clicking continue your quote request will be sent
-												to our agents for processing.</p>
+												<p>The datasheet has successfully been uploaded.
+												Our staff will examine it and establish a quote accordingly.  
+											</p>
+											<!--	<p>You have uploaded datasheets. That means you're not sure about the informations that you have filled in.</p>
+												<p>By clicking continue your quote request will be sent to our agents for processing.</p>-->
 											</div>
 										</div>
 									</div>
@@ -263,7 +310,7 @@
 								<div class="modal-info">
 									<div class="modal-header">
 										<i style="color: #fff;" class="fa fa-check-circle fa-4x mb-3" aria-hidden="true"></i>
-										<p class="text-center">Your quote request has been sent successfully. We treat it.</p>
+										<p class="text-center">Your quote request has been sent successfully and will be processed.</p>
 									</div>
 									<div class="modal-footer white">
 										<button (click)="goToHome(successContent)" class="btn btn-primary pull-left">OK</button>
@@ -292,4 +339,3 @@
 	<!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-
