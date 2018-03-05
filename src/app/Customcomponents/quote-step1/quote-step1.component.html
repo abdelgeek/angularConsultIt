@@ -131,7 +131,11 @@
 									<div class="row" style="overflow: scroll; height: 200px;" id="eqmtType-item">
 										<div *ngFor="let et of listEquipementType" class="  col-md-4  col-sm-4">
 
-											<input (change)="getEquipmentType()" [(ngModel)]="quotation.equipementType" name="equipementTypeId" value="{{et.id}}" type="radio"
+											<input (change)="getEquipmentType()" 
+											[(ngModel)]="quotation.equipementType" 
+											name="equipementTypeId" 
+											[value]="et.id" 
+											type="radio"
 											 id="et{{et.name}}">
 											<label for="et{{et.name}}">{{et.name}}</label>
 										</div>
@@ -153,14 +157,12 @@
 								<div id="freqDiv" class="    z-depth-0">
 									<div class="row" id="freqDiv-item">
 										<div *ngFor="let f of listFrequency" class="  col-md-2  col-sm-3">
-											<input (click)="getfrequencyBand(f.id,$event)" name="fid{{f.id}}" value="{{f.id}}" type="checkbox" id="freq{{f.id}}">
+											<input (click)="getfrequencyBand(f.id,$event)" [(ngModel)]="checkFrequency[f.id]" 
+											name="fid{{f.id}}" value="{{f.id}}" type="checkbox" id="freq{{f.id}}">
 											<label for="freq{{f.id}}">{{f.minFrequency}}-{{f.maxFrequency}} {{f.unit}}
 											</label>
 										</div>
 									</div>
-
-
-
 								</div>
 							</div>
 
@@ -175,7 +177,8 @@
 								<div id="eqmtTech" class="    z-depth-0">
 									<div class="row" style="overflow: scroll; height: 200px;" id="eqmtTech-item">
 										<div *ngFor="let t of listTechnologie" class="  col-md-3  col-sm-4">
-											<input (click)="getEquipemenetTechnology(t.id,$event)" type="checkbox" id="tech{{t.id}}">
+											<input name="tech{{t.id}}" (click)="getEquipemenetTechnology(t.id,$event)"
+											[(ngModel)]="checkTech[t.id]"  type="checkbox" id="tech{{t.id}}">
 											<label for="tech{{t.id}}">{{t.name}}</label>
 										</div>
 									</div>
@@ -201,7 +204,8 @@
 
 							<div class="row mt-2" style="overflow: scroll; height:200px;">
 								<div *ngFor="let c of listCountries;let i=index" class=" col-md-3 col-sm-4">
-									<input name="country{{c.id}}" [disabled]="disabledCountry[c.id]" (change)="getCountry(c.id,checkCountry[c.id],categorieContent)"
+									<input name="country{{c.id}}" [disabled]="disabledCountry[c.id]" 
+									(change)="getCountry(c.id,checkCountry[c.id],categorieContent)"
 									 [(ngModel)]="checkCountry[c.id]" type="checkbox" id="country{{c.id}}">
 									<label for="country{{c.id}}">{{c.name}}</label>
 

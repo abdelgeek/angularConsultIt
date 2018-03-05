@@ -12,6 +12,7 @@ import { QuotationService } from '../../service/quotation.service';
 
 
 import { Http } from '@angular/http';
+import { Alert } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-quote-step2',
@@ -39,9 +40,6 @@ export class QuoteStep2Component implements OnInit {
   ) { }
 
   ngOnInit() {
-
-    alert(this.qotation.totalAmount);
-
     this.findCategories();
     this.approvalId = this.qotation.approvalType;
     this.today.setDate(this.today.getDate() + 30);
@@ -52,9 +50,8 @@ export class QuoteStep2Component implements OnInit {
   findCategories() {
     this.glservice.findCategoryPriceForQuotation(this.qotation).
       subscribe((data: any[]) => {
-        console.log('liste des category de price');
+     this.listCategories = data;
 
-        this.listCategories = data;
         this.getTotalPrice(data);
       });
   }

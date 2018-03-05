@@ -28,12 +28,18 @@ export class Glservice {
   }
 
   sendMail(templateEmail) {
-    alert('ok');
+
     this.http.get('/api/send?templateEmail=' + templateEmail).
       subscribe(data => {
         alert('ok2');
       });
-      alert('ok3');
+    alert('ok3');
   }
 
+
+
+
+  getQuotationModel(quotation: QuotationService) {
+    return this.http.post('/api/getQuotationModel', quotation);
+  }
 }

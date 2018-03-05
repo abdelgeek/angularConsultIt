@@ -8,6 +8,6 @@ export class SaveQuotationService {
 
 
    getSavedQuotation(status: any) {
-    return this.http.get('/api/findQuotationsByStatus?status=' + status);
+    return this.http.get('/api/findQuotationModelsByStatus?status=' + status);
   }
 }

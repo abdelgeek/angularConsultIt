@@ -24,13 +24,13 @@ export class QuoteStep1Component implements OnInit {
   listApprovalType: any;
   // approvalId: any;
   frequencyArray: number[] = [];
-  listTechnologie: any;
-  listEquipmentNature = [];
+  listTechnologie: any[] = [];
+  listEquipmentNature: any[] = [];
   showEquipementNature: boolean;
   showEquipementTech: boolean;
   showFrequency: boolean;
   listFrequency: any;
-  listCountries = [];
+  listCountries: any[] = [];
   listCountriesFrequency: any[] = [];
   listEquipementType: any;
   currentFileUpload: FileList;
@@ -42,13 +42,15 @@ export class QuoteStep1Component implements OnInit {
   categoryName: string[] = [];
 
   checkCountry: boolean[] = [];
+  checkTech: boolean[] = [];
+  checkFrequency: boolean[] = [];
+
   disabledCountry: boolean[] = [];
 
   modalRef: any;
   modalRef2: any;
   messageError: string;
 
-  hasCat: number[] = [];
 
   natureId: any;
 
@@ -107,9 +109,9 @@ export class QuoteStep1Component implements OnInit {
 
   // get from data base equipment nature list
   findEquipmentNature() {
+
     this.quoteStep1Service.findEquipementNature(this.quotation.approvalType)
       .subscribe((data: any[]) => {
-
         if (data.length < 1) {
           this.showEquipementNature = false;
           this.showFrequency = false;
@@ -200,10 +202,6 @@ export class QuoteStep1Component implements OnInit {
         console.log('data');
         console.log(data);
         this.listCountries = data;
-
-        this.listCountries.forEach(item => {
-          this.quotation.category.push(null);
-        });
 
         this.initDisabledCountry();
       }, err => {
@@ -349,9 +347,7 @@ export class QuoteStep1Component implements OnInit {
   }
 
   // affect frequency band to object project
-  getfrequencyBand(frequencyId: number, event) {
-
-    const isCheck = event.target.checked;
+  getfrequencyBand(frequencyId: number, isCheck) {
 
     if ((isCheck) && (this.quotation.frequencyBand.indexOf(frequencyId) === -1)) {
       this.quotation.frequencyBand.push(frequencyId);
@@ -375,9 +371,7 @@ export class QuoteStep1Component implements OnInit {
   // affect frequency band to object project
   getEquipemenetTechnology(technologyId: number, event) {
 
-    const isCheck = event.target.checked;
-
-    if ((isCheck) && (this.quotation.equipementTechnologie.indexOf(technologyId) === -1)) {
+    if ((event.target.checked) && (this.quotation.equipementTechnologie.indexOf(technologyId) === -1)) {
       this.quotation.equipementTechnologie.push(technologyId);
     } else {
       const index = this.quotation.equipementTechnologie.indexOf(technologyId);
@@ -416,6 +410,8 @@ export class QuoteStep1Component implements OnInit {
     this.quotation.equipementTechnologie = [];
     this.disabledCountry = [];
     this.checkCountry = [];
+    this.checkFrequency = [];
+    this.checkTech = [];
     this.quotation.country = [];
     this.natureId = this.quotation.equipementNature;
 
@@ -499,38 +495,50 @@ export class QuoteStep1Component implements OnInit {
   // check if an agency approval a frequency
   checkFrequencyCountry(idFrequency: number[]) {
 
-    this.listCountries.forEach(item => {
-      this.disabledCountry[item.id] = false;
-      this.quoteStep1Service.findFrequenciesByCountry(item.id)
-        .subscribe((data: any[]) => {
 
-          let listFrequenciesCountry: any[] = [];
-          listFrequenciesCountry = data;
+    this.glService.findCountries()
+      .subscribe((data: any[]) => {
 
-          let idFreq: any[] = [];
+        this.listCountries = data;
+        this.initDisabledCountry();
 
-          listFrequenciesCountry.forEach(itemfc => {
-            idFreq.push(itemfc.id);
-          });
+        this.listCountries.forEach(item => {
+          this.disabledCountry[item.id] = false;
 
-          idFrequency.forEach(idFrequen => {
-            if (idFreq.indexOf(idFrequen) === - 1) {
+          this.quoteStep1Service.findFrequenciesByCountry(item.id)
+            .subscribe((data2: any[]) => {
 
-              let id = item.id;
-              this.disabledCountry[id] = true;
-              this.checkCountry[id] = false;
+              let listFrequenciesCountry: any[] = [];
+              listFrequenciesCountry = data2;
 
-              let index = this.quotation.country.indexOf(id);
-              this.quotation.country.splice(index, 1);
-            }
-          });
+              let idFreq: any[] = [];
 
+              listFrequenciesCountry.forEach(itemfc => {
+                idFreq.push(itemfc.id);
+              });
+
+              idFrequency.forEach(idFrequen => {
+                if (idFreq.indexOf(idFrequen) === - 1) {
+
+                  let id = item.id;
+                  this.disabledCountry[id] = true;
+                  this.checkCountry[id] = false;
+
+                  let index = this.quotation.country.indexOf(id);
+                  this.quotation.country.splice(index, 1);
+                }
+              });
+
+            });
         });
-    });
+      }, err => {
+
+        console.log(' ******* country error******* ');
+        console.log(err);
+      });
+
 
   }
-
-
 
   // save quotation
   saveQuotation(status, modalContent) {
@@ -585,47 +593,85 @@ export class QuoteStep1Component implements OnInit {
   init() {
 
 
-    this.quotation.approvalType = null;
-    this.quotation.equipementType = null;
-    this.quotation.equipementNature = null;
-    this.quotation.frequencyBand = [];
-    this.quotation.equipementTechnologie = [];
-    this.quotation.country = [];
-    this.quotation.category = [];
-    this.quotation.hasEncryptionFeature = null;
-    this.quotation.dataSheetUrl = null;
-    this.quotation.status = null;
-    this.quotation.date = null;
-    this.quotation.totalAmount = null;
-    this.fileError = null;
+
+    this.findCountries();
+    this.findEquipmentType();
+    this.findFrequencyBand();
+    this.findApprovalType();
+
+
+    // this.quotation.approvalType = null;
+    // this.quotation.equipementType = null;
+    // this.quotation.equipementNature = null;
+    // this.quotation.frequencyBand = [];
+    // this.quotation.equipementTechnologie = [];
+    // this.quotation.country = [];
+    // this.quotation.category = [];
+    // this.quotation.hasEncryptionFeature = null;
+    // this.quotation.dataSheetUrl = null;
+    // this.quotation.status = null;
+    // this.quotation.date = null;
+    // this.quotation.totalAmount = null;
+    // this.fileError = null;
+
+    this.quotation.country.forEach(value => {
+      this.checkCountry[value] = true;
+    });
+
+    this.findEquipmentNature();
+
+    if (this.quotation.equipementNature == null) {
+      this.showFrequency = false;
+      this.showEquipementTech = false;
+
+    } else {
+
+      this.findTechnologie();
+
+      if (this.quotation.frequencyBand.length >= 1) {
+        this.showFrequency = true;
+      } else {
+        this.showFrequency = false;
+      }
+    }
+
+
+    this.quotation.equipementTechnologie.forEach(value => {
+      this.checkTech[value] = true;
+    });
+
+    this.quotation.frequencyBand.forEach(value => {
+      this.checkFrequency[value] = true;
+    });
+
+    this.checkFrequencyCountry(this.quotation.frequencyBand);
 
     this.frequencyArray = null;
-    this.listTechnologie = null;
-    this.listEquipmentNature = [];
-    this.showEquipementNature = null;
-    this.showEquipementTech = null;
-    this.showFrequency = null;
+    // this.listTechnologie = null;
+    // this.listEquipmentNature = [];
+    // this.showEquipementNature = null;
+    // this.showEquipementTech = null;
+    // this.showFrequency = null;
 
-    this.listCountriesFrequency = null;
-    this.currentFileUpload = null;
-    this.listCategories = null;
-    this.listEquipementType = null;
-    this.listCountries = null;
-    this.listFrequency = null;
-    this.listApprovalType = null;
+
+    // this.listCountriesFrequency = null;
+    //  this.currentFileUpload = null;
+    // this.listCategories = null;
+    //  this.listEquipementType = null;
+    // this.listCountries = null;
+    // this.listFrequency = null;
+    // this.listApprovalType = null;
 
     this.file = null;
     this.countryId = null;
     this.categoryName = null;
 
-    this.checkCountry = [];
-    this.disabledCountry = [];
+
+    // this.disabledCountry = [];
 
     this.messageError = null;
 
-    this.hasCat = [];
-
-    this.natureId = null;
+    // this.natureId = null;
     this.datasheetVar.nativeElement.value = '';
 
     this.alertapproval = false;
@@ -636,15 +682,8 @@ export class QuoteStep1Component implements OnInit {
     this.alertCountry = false;
     this.alertEquipementTechnologie = false;
 
-
     this.alertfileError = false;
     this.fileError = null;
-
-    this.findEquipmentType();
-    this.findCountries();
-
-    this.findFrequencyBand();
-    this.findApprovalType();
   }
 
 }
