@@ -4,6 +4,8 @@ import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpModule} from '@angular/http';
 import {DatePipe} from '@angular/common';
+import { RecaptchaModule } from 'ng-recaptcha';
+import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './Customcomponents/header/header.component';
@@ -74,7 +76,9 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RecaptchaModule.forRoot(), // Keep in mind the "forRoot"-magic nuances!
+    RecaptchaFormsModule,
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [QuoteStep1Service, SaveQuotationService, DatePipe, QuoteStep3Service,

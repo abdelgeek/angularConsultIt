@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class QuoteStep1Service {
-  constructor(public http: HttpClient) {}
+  constructor(public http: HttpClient) { }
 
   findApprovalType() {
     return this.http.get('/api/findApprovalType');
@@ -44,4 +44,14 @@ export class QuoteStep1Service {
     return this.http.get('/api/findByEquipementNature?eqpmtNatureId=' + eqpmtNatureId);
 
   }
+
+  hasCountryFrequencyRestriction(lfrequencyId, countryId) {
+    let rbody = { lfrequencyId, countryId };
+    return this.http.post('/api/hasCountryFrequencyRestriction', rbody);
+  }
+
+  findAgencyMessage(countryId) {
+    return this.http.get('/api/findAgencyMessage?id=' + countryId);
+  }
+
 }

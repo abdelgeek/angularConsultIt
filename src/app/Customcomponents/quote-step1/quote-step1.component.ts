@@ -29,14 +29,14 @@ export class QuoteStep1Component implements OnInit {
   showEquipementNature: boolean;
   showEquipementTech: boolean;
   showFrequency: boolean;
-  listFrequency: any;
+  listFrequency: any[] = [];
   listCountries: any[] = [];
   listCountriesFrequency: any[] = [];
   listEquipementType: any;
   currentFileUpload: FileList;
 
   listCategories: any;
-
+  messageResult: any;
   file: File;
   countryId: number;
   categoryName: string[] = [];
@@ -47,7 +47,7 @@ export class QuoteStep1Component implements OnInit {
 
   disabledCountry: boolean[] = [];
 
-  modalRef: any;
+  modalRef;
   modalRef2: any;
   messageError: string;
 
@@ -70,7 +70,8 @@ export class QuoteStep1Component implements OnInit {
   constructor(public quotation: QuotationService, private router: Router,
     public quoteStep1Service: QuoteStep1Service,
     public glService: Glservice, private modalService: NgbModal,
-    public country: CountryService, private datePipe: DatePipe, public http: HttpClient
+    public http: HttpClient,
+    public country: CountryService, private datePipe: DatePipe
   ) {
   }
 
@@ -167,7 +168,7 @@ export class QuoteStep1Component implements OnInit {
   findFrequencyBand() {
 
     this.quoteStep1Service.findFrequencyBand()
-      .subscribe(data => {
+      .subscribe((data: any[]) => {
         this.listFrequency = data;
         console.log(' ******* frequency success******* ');
         console.log(JSON.stringify(this.listFrequency));
@@ -211,8 +212,6 @@ export class QuoteStep1Component implements OnInit {
       });
 
   }
-
-
 
   addToFrequencyArray(frequencyId: number) {
 
@@ -311,39 +310,29 @@ export class QuoteStep1Component implements OnInit {
   }
 
   goToStep2() {
-    this.modalRef.close();
+    if (this.modalRef != null) {
+      this.modalRef.close();
+    }
+
     this.router.navigate(['/quoteStep2']);
 
   }
 
   goToHome(modal) {
-    this.modalRef.close();
+    if (this.modalRef != null) {
+      this.modalRef.close();
+    }
+
     this.router.navigate(['/home']);
   }
+
   // afficher la liste des pays et retourner les categories par pays
-  getCountry(countryId: number, isCheckCountry: boolean, categorieContent) {
-
-    // this.checkCountry[countryId] = !isCheckCountry;
-
-    if (isCheckCountry) {
-      // this.findCategories(countryId, categorieContent);
-      this.quotation.country.push(countryId);
-    } else {
-
-      const index = this.quotation.country.indexOf(countryId);
-      this.quotation.country.splice(index, 1);
-      this.quotation.category[countryId] = null;
-
+  getCountry() {
+    if (this.modalRef != null) {
+      this.modalRef.close();
     }
 
-
-    if (this.quotation.country.length == 0) {
-
-      this.alertCountry = true;
-    } else {
-      this.alertCountry = false;
-
-    }
+    this.quotation.country.push(this.countryId);
   }
 
   // affect frequency band to object project
@@ -353,6 +342,7 @@ export class QuoteStep1Component implements OnInit {
       this.quotation.frequencyBand.push(frequencyId);
     } else {
       const index = this.quotation.frequencyBand.indexOf(frequencyId);
+
       this.quotation.frequencyBand.splice(index, 1);
 
     }
@@ -393,7 +383,9 @@ export class QuoteStep1Component implements OnInit {
       .subscribe((data: any) => {
         const cat = data;
         this.categoryName[this.countryId] = cat.categoryName;
-        this.modalRef.close();
+        if (this.modalRef != null) {
+          this.modalRef.close();
+        }
       }, err => {
         console.log(err);
       });
@@ -482,10 +474,11 @@ export class QuoteStep1Component implements OnInit {
   }
 
   close() {
-    this.modalRef.close();
-    this.checkCountry[this.countryId] = false;
-  }
+    if (this.modalRef != null) {
+      this.modalRef.close();
+    }
 
+  }
 
   resetForm() {
     this.close();
@@ -495,6 +488,7 @@ export class QuoteStep1Component implements OnInit {
   // check if an agency approval a frequency
   checkFrequencyCountry(idFrequency: number[]) {
 
+    // idfrequency is list of frequency chose
 
     this.glService.findCountries()
       .subscribe((data: any[]) => {
@@ -517,16 +511,28 @@ export class QuoteStep1Component implements OnInit {
                 idFreq.push(itemfc.id);
               });
 
+
+
               idFrequency.forEach(idFrequen => {
+
+                idFreq.indexOf(idFrequen);
                 if (idFreq.indexOf(idFrequen) === - 1) {
+
+
 
                   let id = item.id;
                   this.disabledCountry[id] = true;
                   this.checkCountry[id] = false;
 
                   let index = this.quotation.country.indexOf(id);
-                  this.quotation.country.splice(index, 1);
+
+
+                  if (index > -1) {
+                    this.quotation.country.splice(index, 1);
+                  }
+
                 }
+
               });
 
             });
@@ -537,13 +543,15 @@ export class QuoteStep1Component implements OnInit {
         console.log(err);
       });
 
-
   }
 
   // save quotation
   saveQuotation(status, modalContent) {
 
-    this.modalRef.close();
+    if (this.modalRef != null) {
+      this.modalRef.close();
+    }
+
 
     this.modalRef = this.modalService.open(modalContent, { size: 'sm', backdrop: false, keyboard: false });
     const today = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
@@ -618,6 +626,7 @@ export class QuoteStep1Component implements OnInit {
       this.checkCountry[value] = true;
     });
 
+
     this.findEquipmentNature();
 
     if (this.quotation.equipementNature == null) {
@@ -636,6 +645,7 @@ export class QuoteStep1Component implements OnInit {
     }
 
 
+
     this.quotation.equipementTechnologie.forEach(value => {
       this.checkTech[value] = true;
     });
@@ -646,21 +656,12 @@ export class QuoteStep1Component implements OnInit {
 
     this.checkFrequencyCountry(this.quotation.frequencyBand);
 
+
+
     this.frequencyArray = null;
-    // this.listTechnologie = null;
-    // this.listEquipmentNature = [];
-    // this.showEquipementNature = null;
-    // this.showEquipementTech = null;
-    // this.showFrequency = null;
 
 
-    // this.listCountriesFrequency = null;
-    //  this.currentFileUpload = null;
-    // this.listCategories = null;
-    //  this.listEquipementType = null;
-    // this.listCountries = null;
-    // this.listFrequency = null;
-    // this.listApprovalType = null;
+
 
     this.file = null;
     this.countryId = null;
@@ -684,6 +685,75 @@ export class QuoteStep1Component implements OnInit {
 
     this.alertfileError = false;
     this.fileError = null;
+
+  }
+
+
+  hasCountryFrequencyRestriction(countryId, event, modal) {
+
+    this.countryId = countryId;
+    // verifie si le composant est checke
+    if (event.target.checked) {
+      // this.modalRef.close();
+
+      // recupere la liste des frequences selectionnées
+      let lfrequencyId = this.quotation.frequencyBand;
+
+      // si la liste a des elements on verifie si le pays selectionne a des restrictions
+      if (this.quotation.frequencyBand.length > 0) {
+        this.quoteStep1Service.hasCountryFrequencyRestriction(lfrequencyId, countryId).
+          subscribe(data => {
+            let hasRequirement = data;
+
+            // si le pays a des restriction on ouvre le modal
+            if (hasRequirement) {
+              this.findAgencyMessage(countryId);
+              this.modalRef = this.modalService.open(modal, { size: 'lg', backdrop: false, keyboard: false });
+            } else {
+              // si le pays n'a pas  des restriction on ajoute directement le pays au tableaux des pays
+              this.getCountry();
+            }
+          });
+
+        // si la liste de frequence est vide on ajoute directement le pays au tableaux des pays
+      } else {
+        this.getCountry();
+      }
+
+    } else {
+
+      const index = this.quotation.country.indexOf(countryId);
+      if (index > -1) {
+        this.quotation.country.splice(index, 1);
+        this.quotation.category[countryId] = null;
+      }
+
+      if (this.quotation.country.length == 0) {
+
+        this.alertCountry = true;
+      } else {
+        this.alertCountry = false;
+      }
+    }
+
+  }
+
+
+  resetCountry() {
+    this.checkCountry[this.countryId] = false;
+    if (this.modalRef != null) {
+      this.modalRef.close();
+    }
+  }
+
+  findAgencyMessage(id) {
+    this.quoteStep1Service.findAgencyMessage(id).
+      subscribe(data => {
+
+        this.messageResult = data;
+
+        alert( JSON.stringify( this.messageResult.message));
+      });
   }
 
 }

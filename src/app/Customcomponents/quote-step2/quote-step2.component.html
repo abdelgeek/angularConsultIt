@@ -63,7 +63,7 @@
 
 							<div class="box-footer clearfix">
 
-								<a routerLink="/quoteStep1" class="pull-left btn btn-default" id="validateQuote">BACK
+								<a routerLink="/quoteStep1" class="pull-left btn btn-default" id="validateQuote">Edit
 									<i class="fa fa-edit"></i>
 								</a>
 								<a (click)="openModal(saveQuote)" class="pull-left btn btn-default" id="">SAVE
@@ -101,8 +101,7 @@
 				<div class="col-md-12">
 					<!--<i style="color: #fff;" class="fa fa-exclamation-circle fa-4x mb-3" aria-hidden="true"></i>>-->
 					<p>
-						<i class="text-white fa fa-exclamation-triangle"> </i>&nbsp; 
-						Please enter username and password to confirm your order !
+						<i class="text-white fa fa-exclamation-triangle"> </i>&nbsp; Please enter username and password to confirm your order !
 					</p>
 
 
@@ -119,36 +118,44 @@
 			<div class="modal-body">
 				<div class="card-body">
 					<div class="modal-body">
-						<div class="input-group mb-3">
-							<span class="input-group-addon">
-								<i class="fa fa-user prefix grey-text "></i>
-							</span>
-							<input type="text" id="username" class="form-control" placeholder="Enter your username">
-						</div>
-
-						<div class="input-group mb-3">
-							<span class="input-group-addon">
-								<i class="fa fa-lock prefix grey-text"></i>
-							</span>
-							<input type="password" id="password" class="form-control" placeholder="Enter your password">
-
-						</div>
-
-						<div class="form-group">
-							<div class="container">
-								<img class="" src="/assets/img/capatcha.png">
+						<form #captchaProtectedForm="ngForm">
+							<div class="input-group mb-3">
+								<span class="input-group-addon">
+									<i class="fa fa-user prefix grey-text "></i>
+								</span>
+								<input type="text" id="username" class="form-control" placeholder="Enter your username">
 							</div>
-						</div>
 
+							<div class="input-group mb-3">
+								<span class="input-group-addon">
+									<i class="fa fa-lock prefix grey-text"></i>
+								</span>
+								<input type="password" id="password" class="form-control" placeholder="Enter your password">
+
+							</div>
+
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-12" style="transform:scale(0.91);-webkit-transform:scale(0.91);
+								 transform-origin:0 0;
+								 -webkit-transform-origin:0 0">
+										<re-captcha [(ngModel)]="formModel.captcha" name="captcha" required siteKey="6LfZI0sUAAAAAPm__FTtHg_Xw8VJ1Slq-aFYXhgE" size="200px"
+										 #captchaControl="ngModel"></re-captcha>
+									</div>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer d-flex justify-content-center">
 				<div class="container">
-					<a class="btn btn-block  btn-default" (click)="saveNotOrderedQuotation(-1,saveQuote)">
-						Your are not yet ready save for later</a>
-					<a class="btn btn-block  btn-default" id="confirm" (click)="openModal(saveEquipment)">Confirm </a>
-					<a class="btn btn-block  btn-danger" (click)="close()">Cancel</a>
+					<button class="btn btn-block  btn-default" (click)="saveNotOrderedQuotation(-1,saveQuote)">
+						Your are not yet ready save for later</button>
+					<button [disabled]="!captchaProtectedForm.form.valid" class="btn btn-block btn-default"
+					 id="confirm" (click)="openModal(saveEquipment)">Confirm </button>
+					<button class="btn btn-block  btn-danger" (click)="close()">Cancel</button>
+				
 				</div>
 			</div>
 		</div>
@@ -176,15 +183,16 @@
 				<div class="form-group mb-3">
 					<label for="EquipmentModel">Model</label>
 					<p *ngIf="alertEquipmentModel" class="text-red">Please enter the equipment model</p>
-					<input (blur)="onBlurEquipmentModel()"  type="text" [(ngModel)]="equipement.model" id="EquipmentModel" class="form-control" placeholder="Equipment model">
+					<input (blur)="onBlurEquipmentModel()" type="text" [(ngModel)]="equipement.model" id="EquipmentModel" class="form-control"
+					 placeholder="Equipment model">
 				</div>
 
 				<div class="form-group mb-3">
 					<label for="EquipmentBrand">Brand</label>
 					<p *ngIf="alertEquipmentBrand" class="text-red">Please enter the equipment brand</p>
-					<input (blur)="onBlurEquipmentBrand()" type="text" [(ngModel)]="equipement.brand" id="EquipmentBrand" class="form-control" placeholder="Equipment brand ">
+					<input (blur)="onBlurEquipmentBrand()" type="text" [(ngModel)]="equipement.brand" id="EquipmentBrand" class="form-control"
+					 placeholder="Equipment brand ">
 				</div>
-
 			</div>
 
 			<div class="modal-footer d-flex justify-content-center">
@@ -205,12 +213,11 @@
 			<div class="card-body">
 				<div class="text-center">
 					<i class="fa fa-exclamation-circle fa-4x mb-3" aria-hidden="true"></i>
-					
-						<p>This quote can be saved for 30 days. During this period
-						you may update it or place an order</p>
+
+					<p>This quote can be saved for 30 days. During this period you may update it or place an order</p>
 
 
-						
+
 				</div>
 			</div>
 			<div class="modal-footer white">
@@ -226,8 +233,7 @@
 		<div class="modal-info">
 			<div class="modal-header">
 				<i style="color: #fff;" class="fa fa-check-circle fa-4x mb-3" aria-hidden="true"></i>
-				<p class="text-center">Your quote has successfully been saved and will remain
-					 available until {{today | date:'fullDate'}}
+				<p class="text-center">Your quote has successfully been saved and will remain available until {{today | date:'fullDate'}}
 				</p>
 			</div>
 			<div class="modal-footer white">

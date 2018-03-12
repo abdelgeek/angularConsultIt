@@ -131,11 +131,7 @@
 									<div class="row" style="overflow: scroll; height: 200px;" id="eqmtType-item">
 										<div *ngFor="let et of listEquipementType" class="  col-md-4  col-sm-4">
 
-											<input (change)="getEquipmentType()" 
-											[(ngModel)]="quotation.equipementType" 
-											name="equipementTypeId" 
-											[value]="et.id" 
-											type="radio"
+											<input (change)="getEquipmentType()" [(ngModel)]="quotation.equipementType" name="equipementTypeId" [value]="et.id" type="radio"
 											 id="et{{et.name}}">
 											<label for="et{{et.name}}">{{et.name}}</label>
 										</div>
@@ -157,8 +153,8 @@
 								<div id="freqDiv" class="    z-depth-0">
 									<div class="row" id="freqDiv-item">
 										<div *ngFor="let f of listFrequency" class="  col-md-2  col-sm-3">
-											<input (click)="getfrequencyBand(f.id,$event)" [(ngModel)]="checkFrequency[f.id]" 
-											name="fid{{f.id}}" value="{{f.id}}" type="checkbox" id="freq{{f.id}}">
+											<input (click)="getfrequencyBand(f.id,$event)" [(ngModel)]="checkFrequency[f.id]" name="fid{{f.id}}" value="{{f.id}}" type="checkbox"
+											 id="freq{{f.id}}">
 											<label for="freq{{f.id}}">{{f.minFrequency}}-{{f.maxFrequency}} {{f.unit}}
 											</label>
 										</div>
@@ -177,12 +173,12 @@
 								<div id="eqmtTech" class="    z-depth-0">
 									<div class="row" style="overflow: scroll; height: 200px;" id="eqmtTech-item">
 										<div *ngFor="let t of listTechnologie" class="  col-md-3  col-sm-4">
-											<input name="tech{{t.id}}" (click)="getEquipemenetTechnology(t.id,$event)"
-											[(ngModel)]="checkTech[t.id]"  type="checkbox" id="tech{{t.id}}">
+											<input name="tech{{t.id}}" (click)="getEquipemenetTechnology(t.id,$event)" [(ngModel)]="checkTech[t.id]" type="checkbox"
+											 id="tech{{t.id}}">
 											<label for="tech{{t.id}}">{{t.name}}</label>
 										</div>
 									</div>
-									<!-- equipement category -->
+									<!-- equipement tech -->
 
 								</div>
 
@@ -204,21 +200,9 @@
 
 							<div class="row mt-2" style="overflow: scroll; height:200px;">
 								<div *ngFor="let c of listCountries;let i=index" class=" col-md-3 col-sm-4">
-									<input name="country{{c.id}}" [disabled]="disabledCountry[c.id]" 
-									(change)="getCountry(c.id,checkCountry[c.id],categorieContent)"
+									<input name="country{{c.id}}" [disabled]="disabledCountry[c.id]" (change)="hasCountryFrequencyRestriction(c.id,$event,restrictContent)"
 									 [(ngModel)]="checkCountry[c.id]" type="checkbox" id="country{{c.id}}">
 									<label for="country{{c.id}}">{{c.name}}</label>
-
-
-									<div class="row">
-										<div class="col-md-12">
-											<small *ngIf="quotation.category[c.id] && hasCat[c.id]>1">
-												<a (click)=" open(c.id,categorieContent);" class="text-primary">Click here to change category</a>
-												<span></span>: {{this.categoryName[c.id]}}
-											</small>
-
-										</div>
-									</div>
 
 
 								</div>
@@ -244,36 +228,6 @@
 
 							<hr>
 
-							<ng-template #categorieContent let-c="close" let-d="dismiss">
-
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Choose the categorie of the equipement</h5>
-
-								</div>
-								<div class="modal-body">
-
-									<div class="card-body">
-										<div class="container-fluid">
-											<div class="row">
-
-												<div class="col" *ngFor="let cat of listCategories ">
-													<div class="form-group">
-														<input name="catcountry{{cat.country.id}}" (click)="setCategory(cat.country.id)" [(ngModel)]="quotation.category[cat.country.id]"
-														 value="{{cat.id}}" type="radio" id="cat{{cat.id}}">
-														<label for="cat{{cat.id}}">{{cat.categoryName}}</label>
-
-													</div>
-													<ul class="categorie-items">
-														<li></li>
-
-													</ul>
-												</div>
-											</div>
-
-										</div>
-									</div>
-								</div>
-							</ng-template>
 
 							<!--  confirm model -->
 							<ng-template #confirmContent let-c="close" let-d="dismiss">
@@ -289,10 +243,9 @@
 											<div class="text-center">
 												<i class="fa fa-exclamation-circle fa-4x mb-3" aria-hidden="true"></i>
 
-												<p>The datasheet has successfully been uploaded.
-												Our staff will examine it and establish a quote accordingly.  
-											</p>
-											<!--	<p>You have uploaded datasheets. That means you're not sure about the informations that you have filled in.</p>
+												<p>The datasheet has successfully been uploaded. Our staff will examine it and establish a quote accordingly.
+												</p>
+												<!--	<p>You have uploaded datasheets. That means you're not sure about the informations that you have filled in.</p>
 												<p>By clicking continue your quote request will be sent to our agents for processing.</p>-->
 											</div>
 										</div>
@@ -322,6 +275,29 @@
 									</div>
 								</div>
 							</ng-template>
+
+
+
+							<!--modal of restriction-->
+							<!-- cote d'ivoire -->
+
+							<ng-template #restrictContent let-c="close" let-d="dismiss">
+
+								<div class="modal-info">
+									<div class="modal-header">
+										<i style="color: #fff;" class="fa fa-check-circle fa-4x mb-3" aria-hidden="true"></i>
+									<div *ngFor="let m of messageResult">
+										{{m.message}}
+									</div>
+									</div>
+									<div class="modal-footer white">
+										<button (click)="getCountry()" class="btn btn-primary pull-left">Continue</button>
+										<button (click)="resetCountry()" class="btn btn-primary pull-left">Cancel</button>
+
+									</div>
+								</div>
+							</ng-template>
+
 						</form>
 					</div>
 					<div class="box-footer clearfix">
@@ -330,6 +306,9 @@
 						</a>
 					</div>
 				</div>
+
+
+
 
 			</section>
 			<!-- /.Left col -->

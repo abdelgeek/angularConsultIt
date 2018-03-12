@@ -6,7 +6,6 @@ import { DatePipe } from '@angular/common';
 import { stringify } from 'querystring';
 import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { BotDetectCaptchaModule } from 'angular-captcha';
 import { EquipementService } from '../../service/equipement.service';
 import { QuotationService } from '../../service/quotation.service';
 
@@ -14,12 +13,21 @@ import { QuotationService } from '../../service/quotation.service';
 import { Http } from '@angular/http';
 import { Alert } from 'selenium-webdriver';
 
+export interface FormModel {
+  captcha?: string;
+}
+
 @Component({
   selector: 'app-quote-step2',
   templateUrl: './quote-step2.component.html',
   styleUrls: ['./quote-step2.component.scss']
 })
+
+
+
 export class QuoteStep2Component implements OnInit {
+
+  public formModel: FormModel = {};
   [x: string]: any;
 
   modalRef: any;
