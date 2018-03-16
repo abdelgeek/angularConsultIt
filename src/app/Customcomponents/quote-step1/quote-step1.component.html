@@ -30,7 +30,8 @@
 									<label class="title">Approval Type</label>
 									<span class="text-red">*</span>
 									<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the approval type">
-										?</span>
+										<i class="fa fa-question-circle text-primary " aria-hidden="true"></i>
+									</span>
 
 									<select (change)="getApprovalType()" [(ngModel)]="quotation.approvalType" class="form-control " name="approvalType">
 										<option [ngValue]="null">Please select one</option>
@@ -62,7 +63,7 @@
 										<label class="title">Equipment Nature </label>
 										<span class="text-red">*</span>
 										<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the equipment  nature">
-											?</span>
+											<i class="fa fa-question-circle text-primary" aria-hidden="true"></i></span>
 
 										<div id="eqmtNature" class="    z-depth-0">
 											<div class="row" id="eqmtNature-item">
@@ -90,7 +91,7 @@
 									<label class="title">Encryption capabilities</label>
 									<span class="text-red">*</span>
 									<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select encryption capabilities">
-										?</span>
+										<i class="fa fa-question-circle text-primary" aria-hidden="true"></i></span>
 									<select (change)="getEncryption()" [(ngModel)]="quotation.hasEncryptionFeature" name="hasEncryptionFeature" class="form-control ">
 										<option [ngValue]="null">Please select one</option>
 										<option [ngValue]="false">No</option>
@@ -125,7 +126,7 @@
 								<label class="title">Equipment Type</label>
 								<span class="text-red">*</span>
 								<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the equipment  type">
-									?</span>
+									<i class="fa fa-question-circle text-primary" aria-hidden="true"></i></span>
 								<p *ngIf="alertequipmentType" class="text-red">Please enter the equipment Type</p>
 								<div id="" class="    z-depth-0">
 									<div class="row" style="overflow: scroll; height: 200px;" id="eqmtType-item">
@@ -148,7 +149,7 @@
 								<label class="title">Frequency Band </label>
 								<span class="text-red">*</span>
 								<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the fraquence Band">
-									?</span>
+									<i class="fa fa-question-circle text-primary " aria-hidden="true"></i></span>
 								<p *ngIf="alertFrequency" class="text-red">Please choose at least one frequency band for equipment</p>
 								<div id="freqDiv" class="    z-depth-0">
 									<div class="row" id="freqDiv-item">
@@ -167,7 +168,7 @@
 								<label class="title">Equipment Technologie</label>
 								<span class="text-red">*</span>
 								<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the Equipment  technologie">
-									?</span>
+									<i class="fa fa-question-circle text-primary" aria-hidden="true"></i></span>
 								<p *ngIf="alertEquipementTechnologie" class="text-red">Please enter the equipment technologie</p>
 
 								<div id="eqmtTech" class="    z-depth-0">
@@ -190,7 +191,7 @@
 								<label class=" col-md-12 title">Countries
 									<span class="text-red">*</span>
 									<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the country  of approval">
-										?</span>
+										<i class="fa fa-question-circle text-primary " aria-hidden="true"></i></span>
 								</label>
 								<p *ngIf="alertCountry" class="col-md-12  text-red">Please select a country of approval</p>
 
@@ -212,7 +213,7 @@
 							<div class="row mt-2">
 								<label class=" col-md-12 title">Need help (optional)
 									<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Download datasheet">
-										?</span>
+										<i class="fa fa-question-circle text-primary " aria-hidden="true"></i></span>
 								</label>
 								<label class=" col-md-12">Upload the datasheet, if you need help from our staff</label>
 								<p *ngIf="alertfileError" class="col-md-12  text-red">{{fileError}}</p>
@@ -286,9 +287,14 @@
 								<div class="modal-info">
 									<div class="modal-header">
 										<i style="color: #fff;" class="fa fa-check-circle fa-4x mb-3" aria-hidden="true"></i>
-									<div *ngFor="let m of messageResult">
-										{{m.message}}
-									</div>
+										<div *ngFor="let m of messageResult">
+
+
+
+
+
+											{{m.message}}
+										</div>
 									</div>
 									<div class="modal-footer white">
 										<button (click)="getCountry()" class="btn btn-primary pull-left">Continue</button>

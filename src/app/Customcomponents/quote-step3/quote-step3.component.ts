@@ -22,8 +22,6 @@ export class QuoteStep3Component implements OnInit {
   aggreed: boolean;
 
   ngOnInit() {
-
-    alert(JSON.stringify( this.quotation));
   }
 
 
@@ -36,8 +34,14 @@ export class QuoteStep3Component implements OnInit {
 
     this.purchaseorder.placeOrderDate = placeOrderDate;
     this.quoteStep3Service.placedOrder(this.purchaseorder)
-      .subscribe(data => {
-        this.router.navigate(['/quoteStep4']);
+      .subscribe((data: any) => {
+
+        alert(JSON.stringify(data));
+
+        if (data.isValid == true) {
+          this.router.navigate(['/quoteStep4']);
+        }
+
       }, err => {
         console.log(err);
       });
@@ -49,7 +53,6 @@ export class QuoteStep3Component implements OnInit {
     this.quotation.country.forEach(item => {
       this.quoteStep3Service.getListOfRequirements(item).
         subscribe((data: any) => {
-          alert(JSON.stringify(data));
         }, err => {
           console.log(err);
         });

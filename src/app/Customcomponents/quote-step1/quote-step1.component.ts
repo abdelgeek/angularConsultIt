@@ -751,8 +751,6 @@ export class QuoteStep1Component implements OnInit {
       subscribe(data => {
 
         this.messageResult = data;
-
-        alert( JSON.stringify( this.messageResult.message));
       });
   }
 

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { EquipementService } from '../../service/equipement.service';
 import { QuotationService } from '../../service/quotation.service';
+import { CurrencyPipe } from '@angular/common';
 
 
 import { Http } from '@angular/http';
@@ -38,7 +39,7 @@ export class QuoteStep2Component implements OnInit {
   alertEquipmentName = false;
   alertEquipmentModel = false;
   alertEquipmentBrand = false;
-
+  totalAmount: number;
   today = new Date();
   constructor(private datePipe: DatePipe, private modal: NgbModal,
     public equipement: EquipementService, public qotation: QuotationService,
@@ -51,6 +52,7 @@ export class QuoteStep2Component implements OnInit {
     this.findCategories();
     this.approvalId = this.qotation.approvalType;
     this.today.setDate(this.today.getDate() + 30);
+    this.totalAmount = 0;
   }
 
 
@@ -58,7 +60,7 @@ export class QuoteStep2Component implements OnInit {
   findCategories() {
     this.glservice.findCategoryPriceForQuotation(this.qotation).
       subscribe((data: any[]) => {
-     this.listCategories = data;
+        this.listCategories = data;
 
         this.getTotalPrice(data);
       });
@@ -174,8 +176,11 @@ export class QuoteStep2Component implements OnInit {
   // check if input is empty
   getTotalPrice(data: any[]) {
     for (let i = 0; i < data.length; i++) {
-      this.qotation.totalAmount = this.qotation.totalAmount + data[i].price;
+      this.totalAmount = this.totalAmount + data[i].price;
+
     }
+
+    this.qotation.totalAmount = this.totalAmount;
   }
 
 }
