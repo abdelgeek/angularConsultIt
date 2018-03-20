@@ -16,8 +16,10 @@
 
 				<!-- quick email widget -->
 				<div class="box box-info">
-					<div class="progress progress-sm quote-progress">
-						<div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+					<div class="">
+						<!--progress progress-sm quote-progress-->
+						<div></div>
+						<!-- class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"-->
 					</div>
 
 					<div class="box-body">
@@ -30,7 +32,7 @@
 									<label class="title">Approval Type</label>
 									<span class="text-red">*</span>
 									<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the approval type">
-										<i class="fa fa-question-circle text-primary " aria-hidden="true"></i>
+										<i class="fa fa-question-circle text-black " aria-hidden="true"></i>
 									</span>
 
 									<select (change)="getApprovalType()" [(ngModel)]="quotation.approvalType" class="form-control " name="approvalType">
@@ -63,7 +65,8 @@
 										<label class="title">Equipment Nature </label>
 										<span class="text-red">*</span>
 										<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the equipment  nature">
-											<i class="fa fa-question-circle text-primary" aria-hidden="true"></i></span>
+											<i class="fa fa-question-circle text-black" aria-hidden="true"></i>
+										</span>
 
 										<div id="eqmtNature" class="    z-depth-0">
 											<div class="row" id="eqmtNature-item">
@@ -91,7 +94,8 @@
 									<label class="title">Encryption capabilities</label>
 									<span class="text-red">*</span>
 									<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select encryption capabilities">
-										<i class="fa fa-question-circle text-primary" aria-hidden="true"></i></span>
+										<i class="fa fa-question-circle text-black" aria-hidden="true"></i>
+									</span>
 									<select (change)="getEncryption()" [(ngModel)]="quotation.hasEncryptionFeature" name="hasEncryptionFeature" class="form-control ">
 										<option [ngValue]="null">Please select one</option>
 										<option [ngValue]="false">No</option>
@@ -126,7 +130,8 @@
 								<label class="title">Equipment Type</label>
 								<span class="text-red">*</span>
 								<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the equipment  type">
-									<i class="fa fa-question-circle text-primary" aria-hidden="true"></i></span>
+									<i class="fa fa-question-circle text-black" aria-hidden="true"></i>
+								</span>
 								<p *ngIf="alertequipmentType" class="text-red">Please enter the equipment Type</p>
 								<div id="" class="    z-depth-0">
 									<div class="row" style="overflow: scroll; height: 200px;" id="eqmtType-item">
@@ -149,7 +154,8 @@
 								<label class="title">Frequency Band </label>
 								<span class="text-red">*</span>
 								<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the fraquence Band">
-									<i class="fa fa-question-circle text-primary " aria-hidden="true"></i></span>
+									<i class="fa fa-question-circle text-black " aria-hidden="true"></i>
+								</span>
 								<p *ngIf="alertFrequency" class="text-red">Please choose at least one frequency band for equipment</p>
 								<div id="freqDiv" class="    z-depth-0">
 									<div class="row" id="freqDiv-item">
@@ -168,7 +174,8 @@
 								<label class="title">Equipment Technologie</label>
 								<span class="text-red">*</span>
 								<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the Equipment  technologie">
-									<i class="fa fa-question-circle text-primary" aria-hidden="true"></i></span>
+									<i class="fa fa-question-circle text-black" aria-hidden="true"></i>
+								</span>
 								<p *ngIf="alertEquipementTechnologie" class="text-red">Please enter the equipment technologie</p>
 
 								<div id="eqmtTech" class="    z-depth-0">
@@ -191,7 +198,8 @@
 								<label class=" col-md-12 title">Countries
 									<span class="text-red">*</span>
 									<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the country  of approval">
-										<i class="fa fa-question-circle text-primary " aria-hidden="true"></i></span>
+										<i class="fa fa-question-circle text-black " aria-hidden="true"></i>
+									</span>
 								</label>
 								<p *ngIf="alertCountry" class="col-md-12  text-red">Please select a country of approval</p>
 
@@ -213,7 +221,8 @@
 							<div class="row mt-2">
 								<label class=" col-md-12 title">Need help (optional)
 									<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Download datasheet">
-										<i class="fa fa-question-circle text-primary " aria-hidden="true"></i></span>
+										<i class="fa fa-question-circle text-black " aria-hidden="true"></i>
+									</span>
 								</label>
 								<label class=" col-md-12">Upload the datasheet, if you need help from our staff</label>
 								<p *ngIf="alertfileError" class="col-md-12  text-red">{{fileError}}</p>
@@ -233,10 +242,11 @@
 							<!--  confirm model -->
 							<ng-template #confirmContent let-c="close" let-d="dismiss">
 
-								<div class="modal-info">
+								<div class="">
 
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">INFORMATION</h5>
+									<div class="modal-header text-center">
+										<h4 class="modal-title w-100 font-weight-bold">INFORMATION</h4>
+										<h5 class="modal-title" id="exampleModalLabel"></h5>
 									</div>
 									<div class="modal-body">
 
@@ -265,8 +275,12 @@
 							<!--  confirm model -->
 							<ng-template #successContent let-c="close" let-d="dismiss">
 
-								<div class="modal-info">
-									<div class="modal-header">
+								<div class="">
+									<div class="modal-header text-center">
+										<h4 class="modal-title w-100 font-weight-bold">INFORMATION</h4>
+										<h5 class="modal-title" id="exampleModalLabel"></h5>
+									</div>
+									<div class="modal-body">
 										<i style="color: #fff;" class="fa fa-check-circle fa-4x mb-3" aria-hidden="true"></i>
 										<p class="text-center">Your quote request has been sent successfully and will be processed.</p>
 									</div>
@@ -284,16 +298,18 @@
 
 							<ng-template #restrictContent let-c="close" let-d="dismiss">
 
-								<div class="modal-info">
-									<div class="modal-header">
-										<i style="color: #fff;" class="fa fa-check-circle fa-4x mb-3" aria-hidden="true"></i>
-										<div *ngFor="let m of messageResult">
-
-
-
-
-
+								<div>
+										<div class="modal-header text-center">
+												<h4 class="modal-title w-100 font-weight-bold">INFORMATION</h4>
+											<h5 class="modal-title" id="exampleModalLabel"></h5>
+										</div>
+									<div class="modal-body row">
+										<i  class=" text-grey col-1 fa fa-check-circle fa-4x mb-3" aria-hidden="true"></i>
+										<div class=" col" *ngFor="let m of messageResult">
 											{{m.message}}
+											<br/><br/>
+											If you are sure that you equipment respect this requirements click on continue,
+											else click on cancel.
 										</div>
 									</div>
 									<div class="modal-footer white">

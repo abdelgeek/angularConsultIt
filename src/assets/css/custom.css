@@ -6,19 +6,21 @@ MY CUSTOM CSS
 body {font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight: 300;font-size: 14px;color: #333;}
 .main-header .logo{box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);height:60px}
 .logo-img{max-width:50%}
-.main-header .navbar {height: 10px; min-height: 20px;}
+.main-header .navbar {height: 1px; min-height: 0px;}
 .main-sidebar {top: -35px;}
 .progress .progress-sm {height: 0.25rem}
-.skin .main-header .navbar {background-color: #bfb218;}
+/*.skin .main-header .navbar {background-color: #bfb218;}*/
 .skin .main-header .navbar .sidebar-toggle { color: #fff;}
 .main-sidebar {padding-top: 95px;}
-.modal-info .modal-body {background-color: #fff !important;color: #000 !important;}
+.modal-info .modal-body {background-color: #ebeff0 !important;color: #000 !important;}
 img{width: 100%;}
+.modal-info .modal-header{background-color: #bdbdbd  !important; ;color: #fff !important;}
+.modal-info .modal-header, .modal-info .modal-footer{border-color: #fff !important}
 .modal-info .fa{color: #00a7d0;}
 .modal-info .modal-footer.white{background-color:#fff !important}
 .modal-body {padding: 5px;}
 .form-inline .form-group { margin-right: 0rem; }
-.form-control {display: block;width: 100%;padding: 6px 12px;padding: .375rem .75rem;font-size: 14px;font-size: .875rem;line-height: 1.5;color: #495057;background-color: #fff;background-image: none;background-clip: padding-box;border: 1px solid #827717;border-radius: .25rem;}
+.form-control {display: block;width: 100%;padding: 6px 12px;padding: .375rem .75rem;font-size: 14px;font-size: .875rem;line-height: 1.5;color: #495057;background-color: #fff;background-image: none;background-clip: padding-box;border-radius: .25rem;}
 .form-inline .form-control {width: 100%;}
 .login-box-msg {padding: 20px 20px 20px 20px;background-color: #827717;color: white;padding: 1rem; border-radius: 2px;box-shadow: 0 5px 11px 0 rgba(0,0,0,.18)}
 .login-box-body form{padding-top: 20px}
