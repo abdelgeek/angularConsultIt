@@ -35,21 +35,22 @@ input[type=text]:focus:not([readonly]),input[type=password]:focus:not([readonly]
 .skin .sidebar a {color: #444;}
 .skin .sidebar-menu>li>a { border-left: 3px solid transparent; font-weight: 400;}
 .skin .sidebar-menu>li.active>a { border-left-color: #827717;}
-.skin .sidebar-menu>li:hover>a, .skin-green-light .sidebar-menu>li.active>a {color: #000;background: #bfb218;}
+.skin .sidebar-menu>li:hover>a, .skin-green-light .sidebar-menu>li.active>a {color: #000;background: #e0e0e0;}
 .skin .sidebar-menu>li>.treeview-item {background: #f4f4f5;}
-.skin .sidebar-menu>li.active>.treeview-item {background: #ddd786;}
-.skin .sidebar-menu>li.active:hover>a {color: #000;background: #bfb218;}
+.skin .sidebar-menu>li.active>.treeview-item {background: #aeaeae;}
+.skin .sidebar-menu>li.active:hover>a {color: #000;background: #e0e0e0;}
+.linkButton{cursor: pointer;}
 .treeview-item { list-style: none; padding: 0;margin: 0; padding-left: 5px}
 .treeview-item>li>a {display: block;padding: 5px 5px 5px 15px;display: block;font-size: 14px;}
 .treeview-item>li>a>.fa {width: 20px;}
 .treeview-item>li>a {padding: 5px 5px 5px 15px;display: block;font-size: 14px;}
-.treeview-item>li:hover a{background:#dedee8}
+.treeview-item>li:hover a{background:#e0e0e0}
 .box.box-info { border-top: none;}
 .content-header {position: relative;padding: 15px 15px 15px 15px; background-color: white;}
 .breadcrumb li{display: inline}
-.btn-default {background-color: #827717;color:#fff}
-.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active {background-color: #bfb218 !important;}
-.title{font-size: 1rem;color: #83791a;font-weight: 400;}
+.btn-default {background-color: #aeaeae;color:#000}
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active {background-color: #e0e0e0 !important;}
+.title{font-size: 1rem;color: #000 ;font-weight: 400;}
 
 .text-primary {color: #83791a !important;}
 a.text-primary:focus, a.text-primary:hover {color: #ddd786 !important;}
@@ -57,8 +58,8 @@ hr {margin-top: 1px; margin-bottom: 1px; border: 1px solid #bdbdbd}
 .box-header>.fa, .box-header>.glyphicon, .box-header>.ion, .box-header .box-title {font-weight: 600;}
 .posr{position: relative}
 .posr .close{position: absolute;top: 4px;right: 6px;}
-.table>thead>tr>th {border-bottom: 2px solid #bfb218;color:#827717}
-table.table a:hover {margin: 0;color: #827717;}
+.table>thead>tr>th {border-bottom: 2px solid #aeaeae;color:#000}
+table.table a:hover {margin: 0;color: #e0e0e0;}
 .label-price{padding: 0.2rem;margin: 2px;font-weight: 500;font-size: 1em;}
 .inputfile {width: 0.1px;height: 0.1px;opacity: 0;overflow: hidden;position: absolute;z-index: -1;}
 .inputfile:focus + label,

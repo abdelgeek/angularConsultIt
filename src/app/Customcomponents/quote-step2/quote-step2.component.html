@@ -48,7 +48,7 @@
 
 										<td>{{c.agency.country.name}}</td>
 										<td>{{c.agency.agencyInitials}}</td>
-										<td>{{c.price}}</td>
+										<td>{{c.price | currency:'$'}}</td>
 
 									</tr>
 
@@ -63,18 +63,18 @@
 
 							<div class="box-footer clearfix">
 
-								<a routerLink="/quoteStep1" class="pull-left btn btn-default" id="validateQuote">Edit
+								<button (click)="goToStep1()" class="pull-left btn btn-default" id="validateQuote">Edit
 									<i class="fa fa-edit"></i>
-								</a>
-								<a (click)="openModal(saveQuote)" class="pull-left btn btn-default" id="">SAVE
+								</button>
+								<button (click)="openModal(saveQuote)" class="pull-left btn btn-default" id="">SAVE
 									<i class="fa fa-floppy-o"></i>
-								</a>
+								</button>
 
 								<!-- <a href="" class="pull-left btn btn-default" id="">PRINT <i
                                       class="fa fa-print"></i></a> -->
-								<a (click)="openModal(placeOrderModal)" class="pull-right btn btn-default">PLACE ORDER
+								<button (click)="openModal(placeOrderModal)" class="pull-right btn btn-default">PLACE ORDER
 									<i class="fa fa-arrow-circle-right"></i>
-								</a>
+								</button>
 							</div>
 
 						</div>
@@ -145,7 +145,7 @@
 			</div>
 			<div class="modal-footer d-flex justify-content-center">
 				<div class="container">
-					<button class="btn btn-block  btn-default" (click)="saveNotOrderedQuotation(-1,saveQuote)">
+					<button class="btn btn-block  btn-default" (click)="saveNotOrderedQuotation(0,saveQuote)">
 						Your are not yet ready save for later</button>
 					<button [disabled]="!captchaProtectedForm.form.valid" class="btn btn-block btn-default" id="confirm" (click)="openModal(saveEquipment)">Confirm </button>
 					<button class="btn btn-block  btn-danger" (click)="close()">Cancel</button>
@@ -200,24 +200,22 @@
 
 	<ng-template #saveQuote let-c="close" let-d="dismiss">
 
-		<div class="modal-info">
+		<div>
 			<div class="modal-header text-center">
 				<h4 class="modal-title w-100 font-weight-bold">INFORMATION</h4>
 			</div>
 
-			<div class="card-body">
-				<div class="text-center">
-					<i class="fa fa-exclamation-circle fa-4x mb-3" aria-hidden="true"></i>
+			<div class="modal-body text-center">
 
-					<p>This quote can be saved for 60 days ( 2 month).
-						 During this period you may update it or place an order</p>
+				<i class="fa fa-exclamation-circle fa-4x mb-3" aria-hidden="true"></i>
+
+				<p>This quote can be saved for 60 days ( 2 month). During this period you may update it or place an order</p>
 
 
-				</div>
 			</div>
 			<div class="modal-footer white">
 				<button (click)="close()" class="btn btn-danger">Cancel</button>
-				<button (click)="saveNotOrderedQuotation(0,successSave)" class="btn btn-primary">Next</button>
+				<button (click)="saveNotOrderedQuotation(0,successSave)" class="btn btn-default">Next</button>
 
 			</div>
 		</div>
@@ -225,14 +223,17 @@
 
 	<ng-template #successSave let-c="close" let-d="dismiss">
 
-		<div class="modal-info">
-			<div class="modal-header">
-				<i style="color: #fff;" class="fa fa-check-circle fa-4x mb-3" aria-hidden="true"></i>
+		<div>
+			<div class="modal-header text-center">
+				<h4 class="modal-title w-100 font-weight-bold">INFORMATION</h4>
+			</div>
+			<div class="modal-body text-center">
+				<i class="fa fa-exclamation-circle fa-4x mb-3" aria-hidden="true"></i>
 				<p class="text-center">Your quote has successfully been saved and will remain available until {{today | date:'fullDate'}}
 				</p>
 			</div>
 			<div class="modal-footer white">
-				<button (click)="goToHome(successSave)" class="btn btn-primary">OK</button>
+				<button (click)="goToHome(successSave)" class="btn btn-default">OK</button>
 
 			</div>
 		</div>

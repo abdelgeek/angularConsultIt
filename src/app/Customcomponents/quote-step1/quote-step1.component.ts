@@ -331,8 +331,9 @@ export class QuoteStep1Component implements OnInit {
     if (this.modalRef != null) {
       this.modalRef.close();
     }
-
     this.quotation.country.push(this.countryId);
+    this.alertCountry = false;
+   
   }
 
   // affect frequency band to object project
@@ -401,10 +402,10 @@ export class QuoteStep1Component implements OnInit {
     this.quotation.frequencyBand = [];
     this.quotation.equipementTechnologie = [];
     this.disabledCountry = [];
-    this.checkCountry = [];
+    //this.checkCountry = [];
     this.checkFrequency = [];
     this.checkTech = [];
-    this.quotation.country = [];
+    //this.quotation.country = [];
     this.natureId = this.quotation.equipementNature;
 
     if (this.quotation.equipementNature == null) {
@@ -699,43 +700,63 @@ export class QuoteStep1Component implements OnInit {
       // recupere la liste des frequences selectionnées
       let lfrequencyId = this.quotation.frequencyBand;
 
-      // si la liste a des elements on verifie si le pays selectionne a des restrictions
+      // si la liste a des frequences on verifie si le pays selectionne a des restrictions
       if (this.quotation.frequencyBand.length > 0) {
         this.quoteStep1Service.hasCountryFrequencyRestriction(lfrequencyId, countryId).
           subscribe(data => {
             let hasRequirement = data;
-
+           
             // si le pays a des restriction on ouvre le modal
             if (hasRequirement) {
               this.findAgencyMessage(countryId);
               this.modalRef = this.modalService.open(modal, { size: 'lg', backdrop: false, keyboard: false });
+             
+             
+              if (this.quotation.country.length == 0) {
+                this.alertCountry = true;
+              } else {
+                this.alertCountry = false;
+              }
+
             } else {
               // si le pays n'a pas  des restriction on ajoute directement le pays au tableaux des pays
               this.getCountry();
+              if (this.quotation.country.length == 0) {
+                this.alertCountry = true;
+              } else {
+                this.alertCountry = false;
+              }
             }
           });
 
         // si la liste de frequence est vide on ajoute directement le pays au tableaux des pays
+
       } else {
         this.getCountry();
+
+        if (this.quotation.country.length == 0) {
+          this.alertCountry = true;
+        } else {
+          this.alertCountry = false;
+        }
       }
 
-    } else {
 
+    } else {
+     
       const index = this.quotation.country.indexOf(countryId);
+      
       if (index > -1) {
         this.quotation.country.splice(index, 1);
         this.quotation.category[countryId] = null;
       }
 
       if (this.quotation.country.length == 0) {
-
         this.alertCountry = true;
       } else {
         this.alertCountry = false;
       }
     }
-
   }
 
 
@@ -747,9 +768,9 @@ export class QuoteStep1Component implements OnInit {
   }
 
   findAgencyMessage(id) {
+
     this.quoteStep1Service.findAgencyMessage(id).
       subscribe(data => {
-
         this.messageResult = data;
       });
   }

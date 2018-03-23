@@ -51,7 +51,7 @@ export class QuoteStep2Component implements OnInit {
   ngOnInit() {
     this.findCategories();
     this.approvalId = this.qotation.approvalType;
-    this.today.setDate(this.today.getDate() + 30);
+    this.today.setDate(this.today.getDate() + 60);
     this.totalAmount = 0;
   }
 
@@ -109,7 +109,9 @@ export class QuoteStep2Component implements OnInit {
     this.router.navigate(['/home']);
   }
 
-
+  goToStep1(){
+  this.router.navigate(['/quoteStep1']);
+}
 
   checkRequired() {
 

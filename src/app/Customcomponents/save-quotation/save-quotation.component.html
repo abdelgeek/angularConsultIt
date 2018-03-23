@@ -19,7 +19,7 @@
 
                 <!-- quick email widget -->
                 <div class="box box-info">
-                  
+                      
                     <div class="box-body">
                         <!--Table-->
                         <table class="table table-striped w-auto">
@@ -27,9 +27,9 @@
                             <!--Table head-->
                             <thead>
                                 <tr>
-                                   
-                                    <th>Date</th>
                                     <th>Number</th>
+                                    <th>Date</th>
+                                    <th>DeadLine</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -37,10 +37,10 @@
 
                             <!--Table body-->
                             <tbody>
-                                <tr *ngFor="let q of listQuotation">
-                                    
-                                    <td>{{q.date}}</td>
+                                <tr *ngFor="let q of listQuotation; let i= index">
                                     <td>{{q.number}}</td>
+                                    <td>{{q.date}}</td>
+                                    <td>{{tDeadline[i]|date:"yyyy-MM-dd"}}</td>
 
                                     <td><a (click)="goToEdit(q)" class="btn btn-primary"> 
                                           <i class="fa fa-pencil"></i>

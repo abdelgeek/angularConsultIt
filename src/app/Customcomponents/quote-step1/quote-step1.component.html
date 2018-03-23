@@ -14,16 +14,10 @@
 			<!-- Left col -->
 			<section class="col">
 
-				<!-- quick email widget -->
+				
 				<div class="box box-info">
-					<div class="">
-						<!--progress progress-sm quote-progress-->
-						<div></div>
-						<!-- class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"-->
-					</div>
-
+					
 					<div class="box-body">
-
 
 						<form action="#" method="post">
 
@@ -125,7 +119,7 @@
 							</div>
 						-->
 
-							<div class="">
+							<div >
 								<hr>
 								<label class="title">Equipment Type</label>
 								<span class="text-red">*</span>
@@ -200,6 +194,8 @@
 									<span class="text-red tooltipLabel" placement="bottom" ngbTooltip="Select the country  of approval">
 										<i class="fa fa-question-circle text-black " aria-hidden="true"></i>
 									</span>
+
+									{{this.quotation.country | json}}
 								</label>
 								<p *ngIf="alertCountry" class="col-md-12  text-red">Please select a country of approval</p>
 
@@ -246,7 +242,7 @@
 
 									<div class="modal-header text-center">
 										<h4 class="modal-title w-100 font-weight-bold">INFORMATION</h4>
-										<h5 class="modal-title" id="exampleModalLabel"></h5>
+
 									</div>
 									<div class="modal-body">
 
@@ -264,8 +260,8 @@
 
 									<div class="modal-footer d-flex justify-content-center">
 										<div class="container">
-											<a (click)="saveQuotation(0,successContent)" class="btn btn-block  btn-default">Continue</a>
-											<a class="btn btn-block btn-danger" (click)="resetForm()">Cancel</a>
+											<button (click)="saveQuotation(0,successContent)" class="btn btn-block  btn-default">Continue</button>
+											<button class="btn btn-block btn-danger" (click)="resetForm()">Cancel</button>
 										</div>
 									</div>
 								</div>
@@ -275,20 +271,20 @@
 							<!--  confirm model -->
 							<ng-template #successContent let-c="close" let-d="dismiss">
 
-								<div class="">
-									<div class="modal-header text-center">
-										<h4 class="modal-title w-100 font-weight-bold">INFORMATION</h4>
-										<h5 class="modal-title" id="exampleModalLabel"></h5>
-									</div>
-									<div class="modal-body">
-										<i style="color: #fff;" class="fa fa-check-circle fa-4x mb-3" aria-hidden="true"></i>
-										<p class="text-center">Your quote request has been sent successfully and will be processed.</p>
-									</div>
-									<div class="modal-footer white">
-										<button (click)="goToHome(successContent)" class="btn btn-primary pull-left">OK</button>
 
-									</div>
+								<div class="modal-header text-center">
+									<h4 class="modal-title w-100 font-weight-bold">INFORMATION</h4>
+
 								</div>
+								<div class="modal-body text-center">
+									<i class="fa fa-check-circle fa-4x mb-3" aria-hidden="true"></i>
+									<p class="text-center">Your quote request has been sent successfully and will be processed.</p>
+								</div>
+								<div class="modal-footer white">
+									<button (click)="goToHome(successContent)" class="btn btn-default pull-left">OK</button>
+
+								</div>
+
 							</ng-template>
 
 
@@ -298,34 +294,31 @@
 
 							<ng-template #restrictContent let-c="close" let-d="dismiss">
 
-								<div>
-										<div class="modal-header text-center">
-												<h4 class="modal-title w-100 font-weight-bold">INFORMATION</h4>
-											<h5 class="modal-title" id="exampleModalLabel"></h5>
-										</div>
-									<div class="modal-body row">
-										<i  class=" text-grey col-1 fa fa-check-circle fa-4x mb-3" aria-hidden="true"></i>
-										<div class=" col" *ngFor="let m of messageResult">
-											{{m.message}}
-											<br/><br/>
-											If you are sure that you equipment respect this requirements click on continue,
-											else click on cancel.
-										</div>
-									</div>
-									<div class="modal-footer white">
-										<button (click)="getCountry()" class="btn btn-primary pull-left">Continue</button>
-										<button (click)="resetCountry()" class="btn btn-primary pull-left">Cancel</button>
-
+								<div class="modal-header text-center">
+									<h4 class="modal-title w-100 font-weight-bold">INFORMATION</h4>
+								</div>
+								<div class="modal-body text-center">
+									<i class=" text-grey fa fa-check-circle fa-4x mb-3" aria-hidden="true"></i>
+									<div *ngFor="let m of messageResult">
+										<p>{{m.message}}</p>
+										<p>
+											If you are sure that you equipment respect this requirements click on continue, else click on cancel.</p>
 									</div>
 								</div>
+								<div class="modal-footer white">
+
+									<button (click)="resetCountry()" class="btn btn-danger pull-left">Cancel</button>
+									<button (click)="getCountry()" class="btn btn-default pull-left">Continue</button>
+								</div>
+
 							</ng-template>
 
 						</form>
 					</div>
 					<div class="box-footer clearfix">
-						<a (click)=" redirectNextStep(confirmContent)" type="button" class="pull-right btn btn-default">Next step
+						<button (click)=" redirectNextStep(confirmContent)" type="button" class="pull-right  btn btn-default">Next step
 							<i class="fa fa-arrow-circle-right"></i>
-						</a>
+						</button>
 					</div>
 				</div>
 

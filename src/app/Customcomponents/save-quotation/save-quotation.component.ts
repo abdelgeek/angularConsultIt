@@ -15,7 +15,7 @@ export class SaveQuotationComponent implements OnInit {
     private saveQuotationService: SaveQuotationService,
     public quotation: QuotationService, private router: Router) { }
 
-
+    tDeadline: any[]=[];
   listQuotation: any[];
   ngOnInit() {
 
@@ -32,6 +32,14 @@ export class SaveQuotationComponent implements OnInit {
         if (data.length >= 1) {
           this.listQuotation = data;
         }
+
+        this.listQuotation.forEach((item,index)=>{
+          let quoteDate: Date;
+          quoteDate =new Date(this.listQuotation[index].date);
+  
+       quoteDate.setDate(quoteDate.getDate() + 60);
+          this.tDeadline.push(quoteDate);
+        })
         console.log(JSON.stringify(data));
         /* this.listQuotation.forEach(value => {
            console.log(JSON.stringify(value.frequencyBand));
