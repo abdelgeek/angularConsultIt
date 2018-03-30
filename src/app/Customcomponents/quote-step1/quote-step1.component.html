@@ -154,7 +154,7 @@
 								<div id="freqDiv" class="    z-depth-0">
 									<div class="row" id="freqDiv-item">
 										<div *ngFor="let f of listFrequency" class="  col-md-2  col-sm-3">
-											<input (click)="getfrequencyBand(f.id,$event)" [(ngModel)]="checkFrequency[f.id]" name="fid{{f.id}}" value="{{f.id}}" type="checkbox"
+											<input (click)="getfrequencyBand(f.id,$event,frequencyRestrictContent)" [(ngModel)]="checkFrequency[f.id]" name="fid{{f.id}}" value="{{f.id}}" type="checkbox"
 											 id="freq{{f.id}}">
 											<label for="freq{{f.id}}">{{f.minFrequency}}-{{f.maxFrequency}} {{f.unit}}
 											</label>
@@ -287,12 +287,33 @@
 
 							</ng-template>
 
+							<ng-template #frequencyRestrictContent   let-c="close" let-d="dismiss">
+
+								<div class="modal-header text-center">
+									<h4 class="modal-title w-100 font-weight-bold">INFORMATION</h4>
+								</div>
+								<div class="modal-body text-center">
+									<i class=" text-grey fa fa-check-circle fa-4x mb-3" aria-hidden="true"></i>
+									<div *ngFor="let m of messageString">
+										<p>{{m}}</p>
+										
+									</div>
+									<div>
+										<p>
+											Put a disclaimer here.</p>
+									</div>
+								</div>
+								<div class="modal-footer white">
+									<button (click)="close()" class="btn btn-default pull-left">Ok</button>
+								</div>
+
+							</ng-template>
+
 
 
 							<!--modal of restriction-->
-							<!-- cote d'ivoire -->
-
-							<ng-template #restrictContent let-c="close" let-d="dismiss">
+							
+							<ng-template #restrictContent   let-c="close" let-d="dismiss">
 
 								<div class="modal-header text-center">
 									<h4 class="modal-title w-100 font-weight-bold">INFORMATION</h4>
@@ -302,7 +323,7 @@
 									<div *ngFor="let m of messageResult">
 										<p>{{m.message}}</p>
 										<p>
-											If you are sure that you equipment respect this requirements click on continue, else click on cancel.</p>
+											If you are sure that your equipment respect this requirements  continue, else cancel.</p>
 									</div>
 								</div>
 								<div class="modal-footer white">

@@ -36,7 +36,8 @@ export class QuoteStep1Component implements OnInit {
   currentFileUpload: FileList;
 
   listCategories: any;
-  messageResult: any;
+  messageResult: any[] = [];
+  messageString: any[] = [];
   file: File;
   countryId: number;
   categoryName: string[] = [];
@@ -82,7 +83,6 @@ export class QuoteStep1Component implements OnInit {
 
     this.findFrequencyBand();
     this.findApprovalType();*/
-
 
     this.init();
 
@@ -333,19 +333,19 @@ export class QuoteStep1Component implements OnInit {
     }
     this.quotation.country.push(this.countryId);
     this.alertCountry = false;
-   
+
   }
 
   // affect frequency band to object project
-  getfrequencyBand(frequencyId: number, isCheck) {
+  getfrequencyBand(frequencyId: number, isCheck, modal) {
 
     if ((isCheck) && (this.quotation.frequencyBand.indexOf(frequencyId) === -1)) {
       this.quotation.frequencyBand.push(frequencyId);
+      this.findFrequencyAgencyMessage(frequencyId, this.quotation.country , modal);
+
     } else {
       const index = this.quotation.frequencyBand.indexOf(frequencyId);
-
       this.quotation.frequencyBand.splice(index, 1);
-
     }
 
     this.checkFrequencyCountry(this.quotation.frequencyBand);
@@ -368,8 +368,6 @@ export class QuoteStep1Component implements OnInit {
       const index = this.quotation.equipementTechnologie.indexOf(technologyId);
       this.quotation.equipementTechnologie.splice(index, 1);
     }
-
-
     if (this.quotation.equipementTechnologie.length > 0) {
       this.alertEquipementTechnologie = false;
     } else {
@@ -402,10 +400,10 @@ export class QuoteStep1Component implements OnInit {
     this.quotation.frequencyBand = [];
     this.quotation.equipementTechnologie = [];
     this.disabledCountry = [];
-    //this.checkCountry = [];
+    // this.checkCountry = [];
     this.checkFrequency = [];
     this.checkTech = [];
-    //this.quotation.country = [];
+    // this.quotation.country = [];
     this.natureId = this.quotation.equipementNature;
 
     if (this.quotation.equipementNature == null) {
@@ -601,29 +599,13 @@ export class QuoteStep1Component implements OnInit {
 
   init() {
 
-
-
     this.findCountries();
     this.findEquipmentType();
     this.findFrequencyBand();
     this.findApprovalType();
 
-
-    // this.quotation.approvalType = null;
-    // this.quotation.equipementType = null;
-    // this.quotation.equipementNature = null;
-    // this.quotation.frequencyBand = [];
-    // this.quotation.equipementTechnologie = [];
-    // this.quotation.country = [];
-    // this.quotation.category = [];
-    // this.quotation.hasEncryptionFeature = null;
-    // this.quotation.dataSheetUrl = null;
-    // this.quotation.status = null;
-    // this.quotation.date = null;
-    // this.quotation.totalAmount = null;
-    // this.fileError = null;
-
     this.quotation.country.forEach(value => {
+
       this.checkCountry[value] = true;
     });
 
@@ -705,19 +687,16 @@ export class QuoteStep1Component implements OnInit {
         this.quoteStep1Service.hasCountryFrequencyRestriction(lfrequencyId, countryId).
           subscribe(data => {
             let hasRequirement = data;
-           
             // si le pays a des restriction on ouvre le modal
             if (hasRequirement) {
               this.findAgencyMessage(countryId);
               this.modalRef = this.modalService.open(modal, { size: 'lg', backdrop: false, keyboard: false });
-             
-             
+
               if (this.quotation.country.length == 0) {
                 this.alertCountry = true;
               } else {
                 this.alertCountry = false;
               }
-
             } else {
               // si le pays n'a pas  des restriction on ajoute directement le pays au tableaux des pays
               this.getCountry();
@@ -743,9 +722,9 @@ export class QuoteStep1Component implements OnInit {
 
 
     } else {
-     
+
       const index = this.quotation.country.indexOf(countryId);
-      
+
       if (index > -1) {
         this.quotation.country.splice(index, 1);
         this.quotation.category[countryId] = null;
@@ -761,19 +740,41 @@ export class QuoteStep1Component implements OnInit {
 
 
   resetCountry() {
-    this.checkCountry[this.countryId] = false;
+
     if (this.modalRef != null) {
       this.modalRef.close();
     }
+    this.checkCountry[this.countryId] = false;
+
+    if (this.quotation.country.indexOf(this.countryId) > -1) {
+      let index = (this.quotation.country.indexOf(this.countryId));
+      this.quotation.country.splice(index, 1);
+    }
+
   }
 
   findAgencyMessage(id) {
 
     this.quoteStep1Service.findAgencyMessage(id).
-      subscribe(data => {
+      subscribe((data: any[]) => {
         this.messageResult = data;
       });
   }
 
+  findFrequencyAgencyMessage(fid , cid: number[], modal) {
+
+    this.quoteStep1Service.findFrequencyCountryMessage(fid, cid).
+      subscribe((data: any[]) => {
+        this.messageString = data;
+
+        if (data.length > 0) {
+          if (this.modalRef != null) {
+            this.modalRef.close();
+          }
+          this.modalRef = this.modalService.open(modal, { size: 'lg', backdrop: false, keyboard: false });
+
+        }
+      });
+  }
 }
 

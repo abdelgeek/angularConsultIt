@@ -25,8 +25,8 @@
               </span>
         </a>
         <ul id="collapseExample" [ngbCollapse]="!isCollapsed" class="collapse treeview-item"  >
-          <li ><a (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample" routerLink="quoteStep1"><i class="fa fa-circle-o"></i>New</a></li>
-          <li><a routerLink="savedQuotation"><i class="fa fa-circle-o"></i>Saved</a></li>
+          <li ><a class="linkButton" (click)='goToQuotationstep1()'><i class="fa fa-circle-o"></i>New</a></li>
+          <li><a class="linkButton" (click)='gotoSavedQuotation()'><i class="fa fa-circle-o"></i>Saved</a></li>
           <!--<li><a href="waitingValidation.html"><i class="fa fa-circle-o"></i>Waiting your validation</a></li>-->
         </ul>
       </li>

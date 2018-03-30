@@ -42,14 +42,14 @@
                                     <td>{{q.date}}</td>
                                     <td>{{tDeadline[i]|date:"yyyy-MM-dd"}}</td>
 
-                                    <td><a (click)="goToEdit(q)" class="btn btn-primary"> 
+                                    <td><button (click)="goToEdit(q)" class="btn btn-default"> 
                                           <i class="fa fa-pencil"></i>
                                           <span>Edit</span>
-                                        </a>
-                                        <a (click)="goToOrder(q)" class="btn btn-primary"> 
+                                        </button>
+                                        <button (click)="goToOrder(q)" class="btn btn-default"> 
                                             <i class="fa fa-file-text-o"></i>
                                             <span>Order</span>
-                                          </a>
+                                          </button>
                                     </td>
                                 </tr>
                               

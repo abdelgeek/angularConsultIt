@@ -36,8 +36,7 @@ export class QuoteStep3Component implements OnInit {
     this.quoteStep3Service.placedOrder(this.purchaseorder)
       .subscribe((data: any) => {
 
-        alert(JSON.stringify(data));
-
+     
         if (data.isValid == true) {
           this.router.navigate(['/quoteStep4']);
         }

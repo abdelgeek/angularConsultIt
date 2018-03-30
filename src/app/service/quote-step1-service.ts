@@ -50,8 +50,18 @@ export class QuoteStep1Service {
     return this.http.post('/api/hasCountryFrequencyRestriction', rbody);
   }
 
+  FrequencyhasCountryRestriction(frequencyId) {
+  return this.http.get('/api/FrequencyhasCountryRestriction?frequencyId=' + frequencyId);
+  }
+
   findAgencyMessage(countryId) {
     return this.http.get('/api/findAgencyMessage?id=' + countryId);
+  }
+
+  findFrequencyCountryMessage(frequencyId, lCountryId: any[]) {
+    let rbody = { frequencyId, lCountryId };
+
+    return this.http.post('/api/findFrequencyAgencyMessage?id=', rbody);
   }
 
 }

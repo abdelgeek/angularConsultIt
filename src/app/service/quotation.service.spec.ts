@@ -2,14 +2,14 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { QuotationService } from './quotation.service';
 
-describe('ProjectService', () => {
+describe('QuotationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ProjectService]
+      providers: [QuotationService]
     });
   });
 
-  it('should be created', inject([ProjectService], (service: ProjectService) => {
+  it('should be created', inject([QuotationService], (service: QuotationService) => {
     expect(service).toBeTruthy();
   }));
 });

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { QuotationService } from '../../service/quotation.service';
+
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-aside',
   templateUrl: './aside.component.html',
@@ -7,9 +11,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AsideComponent implements OnInit {
 
-  constructor() { }
+  constructor(public quotation: QuotationService,
+    private router: Router) { }
 
   ngOnInit() {
   }
 
+  goToQuotationstep1() {
+
+    location.href='/quoteStep1';
+  }
+
+
+  gotoSavedQuotation(){
+    location.href='/savedQuotation';
+  }
 }
