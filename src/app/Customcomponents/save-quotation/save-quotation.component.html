@@ -1,5 +1,5 @@
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
@@ -19,45 +19,58 @@
 
                 <!-- quick email widget -->
                 <div class="box box-info">
-                      
+
                     <div class="box-body">
-                        <!--Table-->
-                        <table class="table table-striped w-auto">
+                        <div *ngIf="listQuotation.length>0;then savedQuotation else noSavedQuotation"></div>
+                        <ng-template #savedQuotation>
+                            <!--Table-->
+                            <table class="table table-striped w-auto">
 
-                            <!--Table head-->
-                            <thead>
-                                <tr>
-                                    <th>Number</th>
-                                    <th>Date</th>
-                                    <th>DeadLine</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <!--Table head-->
+                                <!--Table head-->
+                                <thead>
+                                    <tr>
+                                        <th>Number</th>
+                                        <th>Date</th>
+                                        <th>DeadLine</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <!--Table head-->
 
-                            <!--Table body-->
-                            <tbody>
-                                <tr *ngFor="let q of listQuotation; let i= index">
-                                    <td>{{q.number}}</td>
-                                    <td>{{q.date}}</td>
-                                    <td>{{tDeadline[i]|date:"yyyy-MM-dd"}}</td>
+                                <!--Table body-->
+                                <tbody>
+                                    <tr *ngFor="let q of listQuotation; let i= index">
+                                        <td>{{q.number}}</td>
+                                        <td>{{q.date}}</td>
+                                        <td>{{tDeadline[i]|date:"yyyy-MM-dd"}}</td>
 
-                                    <td><button (click)="goToEdit(q)" class="btn btn-default"> 
-                                          <i class="fa fa-pencil"></i>
-                                          <span>Edit</span>
-                                        </button>
-                                        <button (click)="goToOrder(q)" class="btn btn-default"> 
-                                            <i class="fa fa-file-text-o"></i>
-                                            <span>Order</span>
-                                          </button>
-                                    </td>
-                                </tr>
-                              
-                              
-                            </tbody>
-                            <!--Table body-->
-                        </table>
-                        <!--Table-->
+                                        <td>
+                                            <button (click)="goToEdit(q)" class="btn btn-default">
+                                                <i class="fa fa-pencil"></i>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button (click)="goToOrder(q)" class="btn btn-default">
+                                                <i class="fa fa-file-text-o"></i>
+                                                <span>Order</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+
+                                </tbody>
+                                <!--Table body-->
+                            </table>
+                            <!--Table-->
+                        </ng-template>
+                        <ng-template #noSavedQuotation>
+                            <div>
+                                <p>There are no saved quotattion.</p>
+                                <p>
+                                   <button routerLink="/quoteStep1" class="btn btn-default">Get quote now</button>
+                                </p>
+                            </div>
+                        </ng-template>
+
 
 
                     </div>

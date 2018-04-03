@@ -63,6 +63,26 @@ export class QuoteStep1Component implements OnInit {
   alertCountry = false;
   alertEquipementTechnologie = false;
 
+  oldCountry: number[] = [];
+  oldApprovalType: number;
+  oldEquipementType: number;
+  oldEquipementNature: number;
+  oldFrequencyBand: number[] = [];
+  oldEquipementTechnologie: number[] = [];
+  oldHasEncryptionFeature: boolean;
+
+
+
+  countryHasChanged: number[] = [];
+  approvalTypeHasChanged: number;
+  oldEquipementTypeHasChanged: number;
+  oldEquipementNatureHasChanged: number;
+  oldFrequencyBandHasChanged: number[] = [];
+  oldEquipementTechnologieHasChanged: number[] = [];
+  oldHasEncryptionFeatureHasChanged: boolean;
+
+
+
   alertfileError = false;
   fileError: string;
 
@@ -85,7 +105,6 @@ export class QuoteStep1Component implements OnInit {
     this.findApprovalType();*/
 
     this.init();
-
   }
 
 
@@ -238,6 +257,7 @@ export class QuoteStep1Component implements OnInit {
   redirectNextStep(confirmContent) {
 
     if (this.currentFileUpload == null) {
+      this.checkQuotationState();
       this.checkRequired();
       if (this.alertapproval == false && this.alertCountry == false &&
         this.alertencryption == false && this.alertEquipementTechnologie == false
@@ -341,8 +361,7 @@ export class QuoteStep1Component implements OnInit {
 
     if ((isCheck) && (this.quotation.frequencyBand.indexOf(frequencyId) === -1)) {
       this.quotation.frequencyBand.push(frequencyId);
-      this.findFrequencyAgencyMessage(frequencyId, this.quotation.country , modal);
-
+      this.findFrequencyAgencyMessage(frequencyId, this.quotation.country, modal);
     } else {
       const index = this.quotation.frequencyBand.indexOf(frequencyId);
       this.quotation.frequencyBand.splice(index, 1);
@@ -639,12 +658,7 @@ export class QuoteStep1Component implements OnInit {
 
     this.checkFrequencyCountry(this.quotation.frequencyBand);
 
-
-
     this.frequencyArray = null;
-
-
-
 
     this.file = null;
     this.countryId = null;
@@ -761,7 +775,7 @@ export class QuoteStep1Component implements OnInit {
       });
   }
 
-  findFrequencyAgencyMessage(fid , cid: number[], modal) {
+  findFrequencyAgencyMessage(fid, cid: number[], modal) {
 
     this.quoteStep1Service.findFrequencyCountryMessage(fid, cid).
       subscribe((data: any[]) => {
@@ -775,6 +789,49 @@ export class QuoteStep1Component implements OnInit {
 
         }
       });
+  }
+
+  checkQuotationState() {
+
+    this.quotation.state = true;
+
+    this.quotation.country.forEach(item => {
+      if (this.oldCountry.indexOf(item) > -1) {
+        this.quotation.state = true;
+      }
+      return;
+    });
+    alert('eux');
+  }
+
+  getOldQuotation() {
+
+    // get old country list
+    this.quotation.country.forEach(item => {
+      this.oldCountry.push(item);
+    });
+
+    // get old approval type
+    this.oldApprovalType = this.quotation.approvalType;
+
+    // get old EquipementType
+    this.oldEquipementType = this.quotation.equipementType;
+
+    // get old Equipement Nature
+    this.oldEquipementNature = this.quotation.equipementNature;
+
+    // get Frequency band
+    this.quotation.frequencyBand.forEach(item => {
+      this.oldFrequencyBand.push(item);
+    });
+
+    // get old Equipement Technologie
+    this.quotation.equipementTechnologie.forEach(item => {
+      this.oldEquipementTechnologie.push(item);
+    });
+
+    // get old Encryption Feature
+    this.oldHasEncryptionFeature = this.quotation.hasEncryptionFeature;
   }
 }
 

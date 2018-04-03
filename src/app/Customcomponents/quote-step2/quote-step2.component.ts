@@ -109,7 +109,7 @@ export class QuoteStep2Component implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  goToStep1(){
+  goToStep1() {
   this.router.navigate(['/quoteStep1']);
 }
 

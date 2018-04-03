@@ -20,6 +20,7 @@ export class QuotationService {
   totalAmount: number;
   number: number;
   id: number;
+state: boolean;
 
   constructor() {
     this.totalAmount = 0;
