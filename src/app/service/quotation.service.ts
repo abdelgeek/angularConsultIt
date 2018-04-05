@@ -20,7 +20,7 @@ export class QuotationService {
   totalAmount: number;
   number: number;
   id: number;
-state: boolean;
+state: Boolean;
 
   constructor() {
     this.totalAmount = 0;
@@ -28,6 +28,7 @@ state: boolean;
     this.category = [];
     this.equipementTechnologie = [];
     this.frequencyBand = [];
+    this.state = false;
   }
 
 }

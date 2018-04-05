@@ -73,13 +73,13 @@ export class QuoteStep1Component implements OnInit {
 
 
 
-  countryHasChanged: number[] = [];
-  approvalTypeHasChanged: number;
-  oldEquipementTypeHasChanged: number;
-  oldEquipementNatureHasChanged: number;
-  oldFrequencyBandHasChanged: number[] = [];
-  oldEquipementTechnologieHasChanged: number[] = [];
-  oldHasEncryptionFeatureHasChanged: boolean;
+  countryHasChanged: Boolean = false;
+  approvalTypeHasChanged: Boolean = false;
+  equipementTypeHasChanged: Boolean = false;
+  equipementNatureHasChanged: Boolean = false;
+  frequencyBandHasChanged: Boolean = false;
+  equipementTechnologieHasChanged: Boolean = false;
+  encryptionFeatureHasChanged: Boolean = false;
 
 
 
@@ -105,6 +105,7 @@ export class QuoteStep1Component implements OnInit {
     this.findApprovalType();*/
 
     this.init();
+    this.getOldQuotation();
   }
 
 
@@ -793,15 +794,40 @@ export class QuoteStep1Component implements OnInit {
 
   checkQuotationState() {
 
-    this.quotation.state = true;
+    if (this.quotation.hasEncryptionFeature != this.oldHasEncryptionFeature) {
+      this.quotation.state = true;
+    }
 
-    this.quotation.country.forEach(item => {
-      if (this.oldCountry.indexOf(item) > -1) {
+    this.quotation.equipementTechnologie.forEach(item => {
+      if (this.oldEquipementTechnologie.indexOf(item) == -1) {
         this.quotation.state = true;
       }
-      return;
     });
-    alert('eux');
+
+    this.quotation.frequencyBand.forEach(item => {
+      if (this.oldFrequencyBand.indexOf(item) == -1) {
+        this.quotation.state = true;
+      }
+    });
+
+    this.quotation.country.forEach(item => {
+      if (this.oldCountry.indexOf(item) == -1) {
+        this.quotation.state = true;
+      }
+    });
+
+    if (this.quotation.approvalType != this.oldApprovalType) {
+      this.quotation.state = true;
+    }
+
+    if (this.quotation.equipementType != this.oldEquipementType) {
+      this.quotation.state = true;
+    }
+
+    if (this.quotation.equipementNature != this.oldEquipementNature) {
+      this.quotation.state = true;
+    }
+
   }
 
   getOldQuotation() {

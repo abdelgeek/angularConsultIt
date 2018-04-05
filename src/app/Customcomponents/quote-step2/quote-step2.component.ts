@@ -42,7 +42,7 @@ export class QuoteStep2Component implements OnInit {
   totalAmount: number;
   today = new Date();
   constructor(private datePipe: DatePipe, private modal: NgbModal,
-    public equipement: EquipementService, public qotation: QuotationService,
+    public equipement: EquipementService, public quotation: QuotationService,
     private glservice: Glservice, private agencyService: AgencyPriceService,
     private quoteStep2Service: QuoteStep2Service, private router: Router,
     private http: Http,
@@ -50,7 +50,7 @@ export class QuoteStep2Component implements OnInit {
 
   ngOnInit() {
     this.findCategories();
-    this.approvalId = this.qotation.approvalType;
+    this.approvalId = this.quotation.approvalType;
     this.today.setDate(this.today.getDate() + 60);
     this.totalAmount = 0;
   }
@@ -58,7 +58,7 @@ export class QuoteStep2Component implements OnInit {
 
   // retrieve category with price
   findCategories() {
-    this.glservice.findCategoryPriceForQuotation(this.qotation).
+    this.glservice.findCategoryPriceForQuotation(this.quotation).
       subscribe((data: any[]) => {
         this.listCategories = data;
 
@@ -76,12 +76,12 @@ export class QuoteStep2Component implements OnInit {
     this.openModal(modal);
 
     const today = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
-    this.qotation.date = today;
-    this.qotation.status = status;
+    this.quotation.date = today;
+    this.quotation.status = status;
 
-    this.glservice.saveQuotation(this.qotation).
+    this.glservice.saveQuotation(this.quotation).
       subscribe(data => {
-        this.qotation = null;
+        this.quotation = null;
       }, err => {
         console.log(err);
       });
@@ -110,8 +110,8 @@ export class QuoteStep2Component implements OnInit {
   }
 
   goToStep1() {
-  this.router.navigate(['/quoteStep1']);
-}
+    this.router.navigate(['/quoteStep1']);
+  }
 
   checkRequired() {
 
@@ -182,7 +182,7 @@ export class QuoteStep2Component implements OnInit {
 
     }
 
-    this.qotation.totalAmount = this.totalAmount;
+    this.quotation.totalAmount = this.totalAmount;
   }
 
 }

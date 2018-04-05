@@ -27,6 +27,7 @@ img{width: 100%;}
 .btn-primary { background-color: #827717;border-color: #717326;}
 .btn-primary:hover, .btn-primary:active, .btn-primary.hover,.btn-primary:focus { background-color: #9e9d24!important;border-color: #bfb218!important; box-shadow: none!important;}
 a {color: #827717;}
+.btn.disabled, .btn:disabled { cursor: not-allowed;}
 b, strong {font-weight: bold;}
 .btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover, .open>.dropdown-toggle.btn-primary.focus, .open>.dropdown-toggle.btn-primary:focus, .open>.dropdown-toggle.btn-primary:hover {color: #fff;background-color: #9e9d24;border-color: #827717;}
 .md-form .prefix.grey-text { font-size: 1.5rem;margin-top: 1rem;}

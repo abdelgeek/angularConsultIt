@@ -57,7 +57,7 @@
 							</table>
 							<!--Table-->
 							<div class="box box-footer">
-								<span class="label-price pull-right">Total : {{qotation.totalAmount | currency:'$' }} </span>
+								<span class="label-price pull-right">Total : {{quotation.totalAmount | currency:'$' }} </span>
 							</div>
 
 
@@ -66,7 +66,7 @@
 								<button (click)="goToStep1()" class="pull-left btn btn-default" id="validateQuote">Edit
 									<i class="fa fa-edit"></i>
 								</button>
-								<button (click)="openModal(saveQuote)" class="pull-left btn btn-default" id="">SAVE
+								<button (click)="openModal(saveQuote)" [disabled]="!this.quotation.state"  class="pull-left btn btn-default" id="">SAVE
 									<i class="fa fa-floppy-o"></i>
 								</button>
 
@@ -215,7 +215,7 @@
 			</div>
 			<div class="modal-footer white">
 				<button (click)="close()" class="btn btn-danger">Cancel</button>
-				<button (click)="saveNotOrderedQuotation(0,successSave)" class="btn btn-default">Next</button>
+				<button  (click)="saveNotOrderedQuotation(0,successSave)" class="btn btn-default">Next</button>
 
 			</div>
 		</div>
